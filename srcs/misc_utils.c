@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-int	is_full_digit(char *str)
+int	is_all_digit(char *str)
 {
 	while (*str)
 	{
