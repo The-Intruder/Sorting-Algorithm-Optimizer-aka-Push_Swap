@@ -14,52 +14,81 @@
 
 /* -------------------------------------------------------------------------- */
 
-
-
-/* -------------------------------------------------------------------------- */
-
-
-
-/* -------------------------------------------------------------------------- */
-
-void	link_stack_nodes(t_node *current, t_node *prv, t_node *nxt)
+static int	is_all_digit(char *str)
 {
-
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (1);
+		++str;
+	}
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
 
-t_stack	*init_stack_node(char *asci_nbr)
-{
-	t_node	*ptr;
 
-	ptr = (t_node *)malloc(sizeof(t_node));
-	if (!ptr)
+
+/* -------------------------------------------------------------------------- */
+
+static t_node	*init_stack_node(char *asci_nbr)
+{
+	t_node	*node;
+
+	node = (t_node *)calloc(1, sizeof(t_node));
+	if (!node)
 		return (NULL);
-	ptr -> perv = NULL;
-	ptr -> indx = 0;
-	ptr -> nmbr = ft_atoi(asci_nbr);
-	ptr -> next = NULL;
-	return (ptr);
+	node -> prev = NULL;
+	node -> indx = 0;
+	node -> nmbr = atoi(asci_nbr);
+	node -> next = NULL;
+	return (node);
+}
+
+/* -------------------------------------------------------------------------- */
+
+static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
+{
+	t_node	**tracer;
+	t_node	*node;
+	int		i;
+
+	i = 1;
+	node = NULL;
+	while (i < argc)
+	{
+		if (is_all_digit(argv[i]))
+			return (1);
+		node = init_stack_node(argv[i]);
+		tracer = &node;
+		if (i == 0)
+			stack->head = node;
+		else if (i == argc - 1)
+			stack->tail = node;
+		(*tracer)->next = node;
+		node->prev = *tracer;
+		++i;
+	}
+	stack->size = i;
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
 
 t_stack	*init_stack(int argc, char **argv)
 {
-	int		i;
-	t_node	*stack_node;
+	int		err;
+	t_stack	*stack;
 
-	i = 0;
-	while (argc--)
-	{
-		if (!is_all_digit(argv[i]))
-			return (NULL);
-		stack_node = init_stack_node(argv[i]);
-		if (i == argc - 1)
-			link_stack_nodes(stack_node, prv, nxt)
-	}
+	stack = (t_stack *)calloc(1, sizeof(t_stack));
+	if (!stack)
+		return (NULL);
+	err = link_stack_nodes(stack, argc, argv);
+	if (err)
+		return (NULL);
+	stack->head->prev = stack->tail;
+	stack->tail->next = stack->head;
+	return (stack);
 }
 
 /* -------------------------------------------------------------------------- */
-"errt %k sryrw"

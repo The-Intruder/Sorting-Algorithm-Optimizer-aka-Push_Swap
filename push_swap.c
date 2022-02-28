@@ -32,7 +32,23 @@
 
 int	main(int argc, char **argv)
 {
-	check_errors(argc, argv);
+	t_stack	*stack;
+	t_uint		i;
+	t_node	**node;
+
+	stack = init_stack(argc, argv);
+	if (!stack)
+		return (1);
+	i = 0;
+	node = &stack->head;
+	while (i < stack->size)
+	{
+		printf("%p\t%d\t%d\t%p\n", (*node)->prev, (*node)->indx, \
+			(*node)->nmbr, (*node)->next);
+		*node = (*node)->next;
+		++i;
+	}
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */

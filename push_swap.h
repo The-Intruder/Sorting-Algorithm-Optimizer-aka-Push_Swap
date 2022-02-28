@@ -23,22 +23,23 @@
 typedef unsigned int 	t_uint;
 
 typedef struct s_node {
-	t_node	*perv;
-	t_uint	indx;
-	int		nmbr;
-	t_node	*next;
+	struct s_node	*prev;
+	t_uint			indx;
+	int				nmbr;
+	struct s_node	*next;
 }	t_node;
 
 typedef struct s_stack {
-	t_stack		*head;
-	t_stack		*tail;
-	unsigned int	size;
+	t_node	*head;
+	t_node	*tail;
+	t_uint	size;
 }	t_stack;
 
 /* -------------------------------- Prototypes ------------------------------ */
 int		is_all_digit(char *str);
 
-void	check_errors(argc, argv);
+t_stack	*init_stack(int argc, char **argv);
+//void	check_errors(argc, argv);
 
 int		swap_a(t_stack *stack_a, t_stack *stack_b);
 int		swap_b(t_stack *stack_a, t_stack *stack_b);
