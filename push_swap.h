@@ -18,9 +18,21 @@
 # include <stdlib.h>
 # include <stdio.h>
 //# include "libs/libft/libft.h"
+//# include "libs/ft_printf/ft_printf.h"
+
+/* ---------------------------------- Macros -------------------------------- */
+# define BLD "\033[31;0m\033[1m"
+# define NC "\033[31;0m"
+# define RED "\033[31;0m\033[0;31;1m"
+# define YEL "\033[31;0m\033[0;33;1m"
+# define GRA "\033[31;0m\033[0;37;1m"
+# define CYN "\033[31;0m\033[0;36;1m"
+# define GRN "\033[31;0m\033[0;32;1m"
+# define MGN "\033[31;0m\033[0;35;1m"
+# define BLU "\033[31;0m\033[0;34;1m"
 
 /* -------------------------------- Typedef's ------------------------------- */
-typedef unsigned int 	t_uint;
+typedef unsigned int	t_uint;
 
 typedef struct s_node {
 	struct s_node	*prev;
@@ -36,24 +48,11 @@ typedef struct s_stack {
 }	t_stack;
 
 /* -------------------------------- Prototypes ------------------------------ */
-int		is_all_digit(char *str);
-
 t_stack	*init_stack(int argc, char **argv);
-//void	check_errors(argc, argv);
 
-int		swap_a(t_stack *stack_a, t_stack *stack_b);
-int		swap_b(t_stack *stack_a, t_stack *stack_b);
-int		swap_s(t_stack *stack_a, t_stack *stack_b);
-
-int		push_a(t_stack *stack_a, t_stack *stack_b);
-int		push_b(t_stack *stack_a, t_stack *stack_b);
-
-int		rotate_a(t_stack *stack_a, t_stack *stack_b);
-int		rotate_b(t_stack *stack_a, t_stack *stack_b);
-int		rotate_r(t_stack *stack_a, t_stack *stack_b);
-
-int		rev_rotate_a(t_stack *stack_a, t_stack *stack_b);
-int		rev_rotate_b(t_stack *stack_a, t_stack *stack_b);
-int		rev_rotate_r(t_stack *stack_a, t_stack *stack_b);
+int		swap_stack(t_stack *stack);
+int		push_stack(t_stack *stack_src, t_stack *stack_dst);
+int		rotate_stack(t_stack *stack);
+int		rev_rotate_stack(t_stack *stack);
 
 #endif

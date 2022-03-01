@@ -18,7 +18,7 @@ static int	is_all_digit(char *str)
 {
 	while (*str)
 	{
-		if (*str < '0' || *str > '9')
+		if (*str != '-' && (*str < '0' || *str > '9'))
 			return (1);
 		++str;
 	}
@@ -27,7 +27,14 @@ static int	is_all_digit(char *str)
 
 /* -------------------------------------------------------------------------- */
 
+// static void	check_duplicate(argc, argv)
+// {
+// 	int	i;
 
+// 	i = 1;
+// 	while (i < argv)
+
+// }
 
 /* -------------------------------------------------------------------------- */
 
@@ -49,27 +56,30 @@ static t_node	*init_stack_node(char *asci_nbr)
 
 static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
 {
-	t_node	**tracer;
 	t_node	*node;
 	int		i;
 
 	i = 1;
 	node = NULL;
+	stack->head = NULL;
 	while (i < argc)
 	{
 		if (is_all_digit(argv[i]))
 			return (1);
 		node = init_stack_node(argv[i]);
-		tracer = &node;
-		if (i == 0)
-			stack->head = node;
-		else if (i == argc - 1)
+		if (stack->head)
+		{
+			stack->head->prev = node;
+			node->next = stack->head;
+		}
+		if (i == 1)
 			stack->tail = node;
-		(*tracer)->next = node;
-		node->prev = *tracer;
+		else
+			stack->head = node;
+		stack->head = node;
 		++i;
 	}
-	stack->size = i;
+	stack->size = --i;
 	return (0);
 }
 

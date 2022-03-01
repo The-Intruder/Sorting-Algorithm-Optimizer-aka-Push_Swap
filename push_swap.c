@@ -10,44 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./push_swap.h"
+#include "./push_swap.h"
 
 /* -------------------------------------------------------------------------- */
 
+static void	print_stack(t_stack *stack)
+{
+	t_uint	i;
+	t_node	**node;
 
+	i = 0;
+	node = &stack->head;
+	putchar('\n');
+	while (i < stack->size)
+	{
+		printf("%so-----------------------o\n" \
+			"| (%s%u%s): %s%p\t%s|\n" \
+			"o-----------------------o\n" \
+			"| %sprev: %p\t%s|\n" \
+			"| %sindx: %14u\t%s|\n" \
+			"| %snmbr: %14d\t%s|\n" \
+			"| %snext: %p\t%s|\n" \
+			"o-----------------------o\n", \
+			BLU, CYN, i + 1, BLU, MGN, *node, BLU, YEL, (*node)->prev, BLU, \
+			RED, (*node)->indx, BLU, BLD, (*node)->nmbr, BLU, GRN, \
+			(*node)->next, BLU);
+		if (i < stack->size - 1)
+			printf("\t||\t/\\\n\t\\/\t||\n");
+		node = &(*node)->next;
+		++i;
+	}
+	putchar('\n');
+}
 
 /* -------------------------------------------------------------------------- */
 
-
-
 /* -------------------------------------------------------------------------- */
 
-
-
 /* -------------------------------------------------------------------------- */
-
-
 
 /* -------------------------------------------------------------------------- */
 
 int	main(int argc, char **argv)
 {
 	t_stack	*stack;
-	t_uint		i;
-	t_node	**node;
 
 	stack = init_stack(argc, argv);
 	if (!stack)
 		return (1);
-	i = 0;
-	node = &stack->head;
-	while (i < stack->size)
-	{
-		printf("%p\t%d\t%d\t%p\n", (*node)->prev, (*node)->indx, \
-			(*node)->nmbr, (*node)->next);
-		*node = (*node)->next;
-		++i;
-	}
+	print_stack(stack);
 	return (0);
 }
 
