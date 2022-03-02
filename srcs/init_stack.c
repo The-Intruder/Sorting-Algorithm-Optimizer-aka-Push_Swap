@@ -14,27 +14,11 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	is_all_digit(char *str)
-{
-	while (*str)
-	{
-		if (*str != '-' && (*str < '0' || *str > '9'))
-			return (1);
-		++str;
-	}
-	return (0);
-}
+
 
 /* -------------------------------------------------------------------------- */
 
-// static void	check_duplicate(argc, argv)
-// {
-// 	int	i;
 
-// 	i = 1;
-// 	while (i < argv)
-
-// }
 
 /* -------------------------------------------------------------------------- */
 
@@ -42,12 +26,12 @@ static t_node	*init_stack_node(char *asci_nbr)
 {
 	t_node	*node;
 
-	node = (t_node *)calloc(1, sizeof(t_node));
+	node = (t_node *)ft_calloc(1, sizeof(t_node));
 	if (!node)
 		return (NULL);
 	node -> prev = NULL;
 	node -> indx = 0;
-	node -> nmbr = atoi(asci_nbr);
+	node -> nmbr = ft_atoi(asci_nbr);
 	node -> next = NULL;
 	return (node);
 }
@@ -64,9 +48,8 @@ static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
 	stack->head = NULL;
 	while (i < argc)
 	{
-		if (is_all_digit(argv[i]))
-			return (1);
 		node = init_stack_node(argv[i]);
+		/* Add protection for all allocated nodes */
 		if (stack->head)
 		{
 			stack->head->prev = node;
@@ -87,14 +70,12 @@ static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
 
 t_stack	*init_stack(int argc, char **argv)
 {
-	int		err;
 	t_stack	*stack;
 
-	stack = (t_stack *)calloc(1, sizeof(t_stack));
+	stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
 	if (!stack)
-		return (NULL);
-	err = link_stack_nodes(stack, argc, argv);
-	if (err)
+		return (p_err("Allocation Failed, please try again"), NULL);
+	if (link_stack_nodes(stack, argc, argv))
 		return (NULL);
 	stack->head->prev = stack->tail;
 	stack->tail->next = stack->head;

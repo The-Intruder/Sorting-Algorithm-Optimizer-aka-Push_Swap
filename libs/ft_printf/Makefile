@@ -39,16 +39,16 @@ NAME := libftprintf.a
 all: title ${NAME}
 
 title:
-	@echo "\n\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
+	@echo "\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
 	@echo "----------------------------${NC}"
 
 $(NAME): $(OBJS) ${HEADER}
 	@ar rcs $(NAME) $(OBJS)
-	@echo "\n$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)"
+	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)"
 
 %.o: %.c
 	@$(CC) $(CC_FLAGS) -o $@ -c $<
-	@echo "\n${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
+	@echo "${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
 
 clean:
 	@rm -if ${OBJS}

@@ -13,7 +13,6 @@
 
 # --------------------------- Terminal Color Codes --------------------------- #
 NC := \033[31;0m
-BLD := \033[31;0m\033[1m
 RED := \033[0;31;1m
 YEL := \033[0;33;1m
 GRA := \033[0;37;1m
@@ -25,7 +24,7 @@ BLU := \033[0;34;1m
 # ---------------------------------------------------------------------------- #
 
 define TITLE
-${BLU}
+${RED}
 =======================================================================================================
 ||                                  ,,                                                               ||
 ||                                `7MM                                                               ||
@@ -38,30 +37,17 @@ ${BLU}
 ||   MM                                                                                    MM        ||
 ||  .JMML.                                     mmmmmmm                                    .JMML.     ||
 =======================================================================================================
-\n\t\t\t\t\t\t\t\t${BLD} - Created By ${RED}The-Intruder${NC}
-
+\n\t\t\t\t\t\t\t\t${GRA} - Created By ${BLU}The-Intruder${NC}
 endef
 export TITLE
 
-
 # ---------------------------------------------------------------------------- #
-
-SRCS_DIR := ./srcs/
-SRCS_LST := init_stack.c
-SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
-
-OBJS_DIR := ./objs/
-OBJS_LST := ${patsubst %.c, %.o, ${SRCS_LST}}
-OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
-
-# ---------------------------------------------------------------------------- #
-
 CC := gcc
 CC_FLAGS := -Wall -Wextra -Werror
 CC_OPTS := -Llibs/ft_printf/ -lftprintf \
 		-Llibs/libft/ -lft \
 		-L. -lps
-		
+
 PROJECT := push_swap
 MAIN := push_swap.c
 HEADER := push_swap.h
@@ -69,58 +55,61 @@ NAME := libps.a
 EXEC := push_swap
 
 # ---------------------------------------------------------------------------- #
+SRCS_DIR := srcs/
+SRCS_LST := init_stack.c error_handling.c
+SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
-.PHONY: all clean fclean re title libs
+OBJS_DIR := objs/
+OBJS_LST := ${patsubst %.c, %.o, ${SRCS_LST}}
+OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
+
+# ---------------------------------------------------------------------------- #
+.PHONY: all clean fclean re title libs exclean intro compile
 
 all: title ${NAME}
 
-intro:
-	@echo "\n\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
-	@echo "----------------------------${NC}"
-
-title:
-	@clear
-	@echo "$$TITLE"
-
 libs:
-	@make -C ./libs/libft/
-	@make -C ./libs/ft_printf/
+	@make -C libs/libft/
+	@make -C libs/ft_printf/
 
 ${NAME}: libs intro ${OBJS_DIR} ${OBJS} ${HEADER}
 	@ar -rcs ${NAME} ${OBJS}
-	@echo "\n$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)\n"
+	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)\n"
 
 ${OBJS_DIR}%.o: ${SRCS_DIR}%.c ${HEADER}
 	@${CC} ${CC_FLAGS} -c $< -o $@
-	@echo "\n${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
+	@echo "${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
 
 $(OBJS_DIR):
 	@mkdir $(OBJS_DIR)
 
 clean:
-	@make -C ./libs/ft_printf/ clean
-	@make -C ./libs/libft/ clean
+	@make -C libs/ft_printf/ clean
+	@make -C libs/libft/ clean
 	@rm -rf ${OBJS}
 	@echo "${GRA}${PROJECT}${RED}\tobject files deleted${NC}"
 	@echo "\n"
 
+compile: re ${HEADER} ${MAIN}
+	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 fclean: clean
-	@make -C ./libs/ft_printf/ fclean
-	@make -C ./libs/libft/ fclean
+	@make -C libs/ft_printf/ fclean
+	@make -C libs/libft/ fclean
 	@rm -rf ${NAME}
 	@echo "${GRA}${PROJECT}${RED}\tarchive file ${GRA}${NAME}${RED}\t\tdeleted${NC}"
 	@echo "\n"
-
-re: exclean all
-
-bonus: re
-
-# ---------------------------------------------------------------------------- #
 
 exclean: fclean
 	@rm -f ${EXEC}
 	@echo "Executable file ${GRA}${EXEC}${RED}\n${NC}"
 
-compile: ${HEADER} ${MAIN} ${EXEC}
-	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
+re: fclean all
+
+intro:
+	@echo "\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
+	@echo "----------------------------${NC}"
+
+title:
+	@clear
+	@echo "$$TITLE"

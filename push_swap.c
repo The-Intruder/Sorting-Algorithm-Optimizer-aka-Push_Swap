@@ -21,26 +21,21 @@ static void	print_stack(t_stack *stack)
 
 	i = 0;
 	node = &stack->head;
-	putchar('\n');
+	ft_putchar_fd('\n', 1);
 	while (i < stack->size)
 	{
-		printf("%so-----------------------o\n" \
-			"| (%s%u%s): %s%p\t%s|\n" \
-			"o-----------------------o\n" \
-			"| %sprev: %p\t%s|\n" \
-			"| %sindx: %14u\t%s|\n" \
-			"| %snmbr: %14d\t%s|\n" \
-			"| %snext: %p\t%s|\n" \
-			"o-----------------------o\n", \
-			BLU, CYN, i + 1, BLU, MGN, *node, BLU, YEL, (*node)->prev, BLU, \
-			RED, (*node)->indx, BLU, BLD, (*node)->nmbr, BLU, GRN, \
-			(*node)->next, BLU);
+		printf("%so-----------------------o\n| (%s%u%s): %s%p\t%s|\n" \
+			"o-----------------------o\n| %sprev: %p\t%s|\n" \
+			"| %sindx: %14u\t%s|\n| %snmbr: %14d\t%s|\n| %snext: %p\t%s|\n" \
+			"o-----------------------o\n", BLU, CYN, i + 1, BLU, MGN, *node, \
+			BLU, YEL, (*node)->prev, BLU, RED, (*node)->indx, BLU, BLD, \
+			(*node)->nmbr, BLU, GRN, (*node)->next, BLU);
 		if (i < stack->size - 1)
 			printf("\t||\t/\\\n\t\\/\t||\n");
 		node = &(*node)->next;
 		++i;
 	}
-	putchar('\n');
+	ft_putchar_fd('\n', 1);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -55,9 +50,11 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack;
 
+	if (handle_err(argc, argv))
+		return (-1);
 	stack = init_stack(argc, argv);
 	if (!stack)
-		return (1);
+		return (-1);
 	print_stack(stack);
 	return (0);
 }

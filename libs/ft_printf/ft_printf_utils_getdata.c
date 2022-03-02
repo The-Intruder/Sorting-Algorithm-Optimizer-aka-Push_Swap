@@ -42,9 +42,9 @@ size_t	get_width(char **field_ptr)
 	size_t	the_width;
 
 	the_width = 0;
-	if (**field_ptr && ft_isdigit(**field_ptr))
+	if (**field_ptr && ft_isdigit_pf(**field_ptr))
 		the_width = ft_atoi(*field_ptr);
-	while (ft_isdigit(**field_ptr))
+	while (ft_isdigit_pf(**field_ptr))
 		*field_ptr += 1;
 	return (the_width);
 }
@@ -56,9 +56,9 @@ size_t	get_precision(char **field_ptr)
 	size_t	the_precision;
 
 	the_precision = 0;
-	if (**field_ptr && ft_isdigit(**field_ptr))
+	if (**field_ptr && ft_isdigit_pf(**field_ptr))
 		the_precision = ft_atoi(*field_ptr);
-	while (ft_isdigit(**field_ptr))
+	while (ft_isdigit_pf(**field_ptr))
 		*field_ptr += 1;
 	return (the_precision);
 }
