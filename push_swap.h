@@ -21,15 +21,26 @@
 # include "libs/ft_printf/ft_printf.h"
 
 /* ---------------------------------- Macros -------------------------------- */
-# define NC "\033[31;0m"				// Len: 7
-# define BLD "\033[31;0m\033[1m"		// Len: 11
-# define RED "\033[31;0m\033[0;31;1m"	// Len: 16
-# define YEL "\033[31;0m\033[0;33;1m"	// Len: 16
-# define GRA "\033[31;0m\033[0;37;1m"	// Len: 16
-# define CYN "\033[31;0m\033[0;36;1m"	// Len: 16
-# define GRN "\033[31;0m\033[0;32;1m"	// Len: 16
-# define MGN "\033[31;0m\033[0;35;1m"	// Len: 16
-# define BLU "\033[31;0m\033[0;34;1m"	// Len: 16
+// ~~~~ Terminal Color Codes ~~~~~~ //
+# define NC		"\033[31;0m"				// Len: 7
+# define BLD	"\033[31;0m\033[1m"			// Len: 11
+# define RED	"\033[31;0m\033[0;31;1m"	// Len: 16
+# define YEL	"\033[31;0m\033[0;33;1m"	// Len: 16
+# define GRA	"\033[31;0m\033[0;37;1m"	// Len: 16
+# define CYN	"\033[31;0m\033[0;36;1m"	// Len: 16
+# define GRN	"\033[31;0m\033[0;32;1m"	// Len: 16
+# define MGN	"\033[31;0m\033[0;35;1m"	// Len: 16
+# define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
+
+// ~~~~ Sorting Operations' Masks ~~~~~~ //
+# define SA		0b00000001
+# define SB		0b00000010
+# define PA		0b00000100
+# define PB		0b00001000
+# define RA		0b00010000
+# define RB		0b00100000
+# define RR		0b01000000
+# define RRB	0b10000000
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
@@ -49,16 +60,17 @@ typedef struct s_stack {
 
 /* -------------------------------- Prototypes ------------------------------ */
 // ~~~~ init_stack.c ~~~~~~ //
-t_stack	*init_stack(int argc, char **argv);
+int		init_stack(t_stack	*stack, int argc, char **argv);
 
 // ~~~~ error_handling.c ~~ //
 int		handle_err(int argc, char **argv);
 void	p_err(char *err_msg);
 
 // ~~~~ stack_ops.c ~~~~~~~~ //
-int		swap_stack(t_stack *stack);
-int		push_stack(t_stack *stack_src, t_stack *stack_dst);
-int		rotate_stack(t_stack *stack);
-int		rev_rotate_stack(t_stack *stack);
+int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
+// int		swap_stack(t_stack *stack);
+// int		push_stack(t_stack *stack_src, t_stack *stack_dst);
+// int		rotate_stack(t_stack *stack);
+// int		rev_rotate_stack(t_stack *stack);
 
 #endif

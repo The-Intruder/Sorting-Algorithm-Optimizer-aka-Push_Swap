@@ -68,18 +68,13 @@ static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
 
 /* -------------------------------------------------------------------------- */
 
-t_stack	*init_stack(int argc, char **argv)
+int	init_stack(t_stack	*stack, int argc, char **argv)
 {
-	t_stack	*stack;
-
-	stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
-	if (!stack)
-		return (p_err("Allocation Failed, please try again"), NULL);
 	if (link_stack_nodes(stack, argc, argv))
-		return (NULL);
+		return (-1);
 	stack->head->prev = stack->tail;
 	stack->tail->next = stack->head;
-	return (stack);
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */

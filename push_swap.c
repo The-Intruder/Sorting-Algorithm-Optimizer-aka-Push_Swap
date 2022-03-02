@@ -21,15 +21,16 @@ static void	print_stack(t_stack *stack)
 
 	i = 0;
 	node = &stack->head;
+	ft_printf("%s|||||||||||||||||||||||||%s\n", BLD, NC);
 	ft_putchar_fd('\n', 1);
 	while (i < stack->size)
 	{
 		printf("%so-----------------------o\n| (%s%u%s): %s%p\t%s|\n" \
-			"o-----------------------o\n| %sprev: %p\t%s|\n" \
-			"| %sindx: %14u\t%s|\n| %snmbr: %14d\t%s|\n| %snext: %p\t%s|\n" \
-			"o-----------------------o\n", BLU, CYN, i + 1, BLU, MGN, *node, \
+			"o-----------------------o\n| %sprev: %14p\t%s|\n" \
+			"| %sindx: %14u\t%s|\n| %snmbr: %14d\t%s|\n| %snext: %14p\t%s|\n" \
+			"o-----------------------o%s\n", BLU, CYN, i + 1, BLU, MGN, *node, \
 			BLU, YEL, (*node)->prev, BLU, RED, (*node)->indx, BLU, BLD, \
-			(*node)->nmbr, BLU, GRN, (*node)->next, BLU);
+			(*node)->nmbr, BLU, GRN, (*node)->next, BLU, NC);
 		if (i < stack->size - 1)
 			printf("\t||\t/\\\n\t\\/\t||\n");
 		node = &(*node)->next;
@@ -48,14 +49,20 @@ static void	print_stack(t_stack *stack)
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack;
+	t_stack	stack_a;
+	t_stack	stack_b;
+	int		err;
 
 	if (handle_err(argc, argv))
 		return (-1);
-	stack = init_stack(argc, argv);
-	if (!stack)
+	err = init_stack(&stack_a, argc, argv);
+	if (err)
 		return (-1);
-	print_stack(stack);
+	ft_bzero(&stack_b, sizeof(stack_b));
+	print_stack(&stack_a);
+	check_exec_op(PB, &stack_a, &stack_b);
+	print_stack(&stack_a);
+	print_stack(&stack_b);
 	return (0);
 }
 

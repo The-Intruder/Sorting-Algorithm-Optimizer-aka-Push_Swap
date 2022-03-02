@@ -58,10 +58,10 @@ $(NAME): $(OBJS) ${HEADER}
 
 clean:
 	@rm -f ${OBJS}
-	@echo "${GRA}${PROJECT}${RED}\t\tobject files deleted${NC}"
+	@echo "${GRA}${PROJECT}${RED}\t\tobject files has been deleted${NC}"
 
 fclean:
 	@rm -f ${NAME}
-	@echo "${GRA}${PROJECT}${RED}\t\tarchive file ${GRA}${NAME}${RED}\t\tdeleted${NC}"
+	@echo "${GRA}${PROJECT}${RED}\t\tarchive file ${GRA}${NAME}${RED}\t\thas been deleted${NC}"
 
 re: fclean all

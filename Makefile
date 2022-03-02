@@ -35,7 +35,8 @@ ${RED}
 ||   MM   ,AP   MM    MM  L.   I8   MM    MM          L.   I8     VVV    VVV    8M   MM    MM   ,AP  ||
 ||   MMbmmd'    `Mbod"YML.M9mmmP' .JMML  JMML.        M9mmmP'      W      W     `Moo9^Yo.  MMbmmd'   ||
 ||   MM                                                                                    MM        ||
-||  .JMML.                                     mmmmmmm                                    .JMML.     ||
+|| .JMML.                                     mmmmmmm                                    .JMML.      ||
+||                                                                                                   ||
 =======================================================================================================
 \n\t\t\t\t\t\t\t\t${GRA} - Created By ${BLU}The-Intruder${NC}
 endef
@@ -56,7 +57,7 @@ EXEC := push_swap
 
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
-SRCS_LST := init_stack.c error_handling.c
+SRCS_LST := init_stack.c error_handling.c stack_ops.c
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -87,22 +88,25 @@ clean:
 	@make -C libs/ft_printf/ clean
 	@make -C libs/libft/ clean
 	@rm -rf ${OBJS}
-	@echo "${GRA}${PROJECT}${RED}\tobject files deleted${NC}"
+	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
 compile: re ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
+execute: compile ${EXEC}
+	@./${EXEC} 4 3 2 1
+
 fclean: clean
 	@make -C libs/ft_printf/ fclean
 	@make -C libs/libft/ fclean
 	@rm -rf ${NAME}
-	@echo "${GRA}${PROJECT}${RED}\tarchive file ${GRA}${NAME}${RED}\t\tdeleted${NC}"
+	@echo "${GRA}${PROJECT}${RED}\tarchive file ${GRA}${NAME}${RED}\t\thas been deleted${NC}"
 	@echo "\n"
 
 exclean: fclean
 	@rm -f ${EXEC}
-	@echo "Executable file ${GRA}${EXEC}${RED}\n${NC}"
+	@echo "${GRA}${EXEC}${RED}\texecutable file has been deleted\n${NC}"
 
 re: fclean all
 
