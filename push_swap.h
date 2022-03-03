@@ -16,7 +16,6 @@
 /* -------------------------------- Libraries ------------------------------- */
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include "libs/libft/libft.h"
 # include "libs/ft_printf/ft_printf.h"
 
@@ -33,14 +32,17 @@
 # define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
 
 // ~~~~ Sorting Operations' Masks ~~~~~~ //
-# define SA		0b00000001
-# define SB		0b00000010
-# define PA		0b00000100
-# define PB		0b00001000
-# define RA		0b00010000
-# define RB		0b00100000
-# define RR		0b01000000
-# define RRB	0b10000000
+# define SA		0b00000000001
+# define SB		0b00000000010
+# define SS		0b00000000100
+# define PA		0b00000001000
+# define PB		0b00000010000
+# define RA		0b00000100000
+# define RB		0b00001000000
+# define RR		0b00010000000
+# define RRA	0b00100000000
+# define RRB	0b01000000000
+# define RRR	0b10000000000
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
@@ -58,19 +60,34 @@ typedef struct s_stack {
 	t_uint	size;
 }	t_stack;
 
-/* -------------------------------- Prototypes ------------------------------ */
-// ~~~~ init_stack.c ~~~~~~ //
+// -------------//----------------- Prototypes ------------------------------ */
+// init_stack.c //
+//--------------//
 int		init_stack(t_stack	*stack, int argc, char **argv);
 
-// ~~~~ error_handling.c ~~ //
+//------------------//
+// error_handling.c //
+//------------------//
 int		handle_err(int argc, char **argv);
 void	p_err(char *err_msg);
 
-// ~~~~ stack_ops.c ~~~~~~~~ //
+//---------------//
+// stack_ops_i.c //
+//---------------//
+int		push_stack(t_stack *stack_src, t_stack *stack_dst);
+int		swap_stack(t_stack *stack);
+int		rotate_stack(t_stack *stack);
+int		rev_rotate_stack(t_stack *stack);
+
+//----------------//
+// stack_ops_ii.c //
+//----------------//
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
-// int		swap_stack(t_stack *stack);
-// int		push_stack(t_stack *stack_src, t_stack *stack_dst);
-// int		rotate_stack(t_stack *stack);
-// int		rev_rotate_stack(t_stack *stack);
+
+//--------------//
+// misc_utils.c //
+//--------------//
+void	reset_stack(t_stack *stack_a, t_stack *stack_b);
+void	patch_stack(t_stack *stack_a, t_stack *stack_b);
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   stack_ops_ii.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,75 +14,61 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	is_all_digit(int argc, char **argv)
-{
-	int	i;
-	int	j;
+/* -------------------------------------------------------------------------- */
 
-	i = 1;
-	while (i < argc)
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+
+static int	check_exec_op_i(int op_mask, t_stack *stack_a, t_stack *stack_b)
+{
+	int	err;
+
+	err = 0;
+	if (op_mask & RB)
+		err = rotate_stack(stack_b);
+	else if (op_mask & RR)
 	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] != '-' && argv[i][j] != '+' && \
-				(argv[i][j] < '0' || argv[i][j] > '9'))
-				return (-1);
-			++j;
-		}
-		++i;
+		err = rotate_stack(stack_a);
+		err = rotate_stack(stack_b);
 	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static int	check_duplicate(int argc, char **argv)
-{
-	int	i;
-	int	j;
-	int	nb[2];
-
-	i = 1;
-	while (i < argc)
+	else if (op_mask & RRA)
+		err = rev_rotate_stack(stack_a);
+	else if (op_mask & RRB)
+		err = rev_rotate_stack(stack_b);
+	else if (op_mask & RRR)
 	{
-		nb[0] = ft_atoi(argv[i]);
-		j = i + 1;
-		while (j < argc)
-		{
-			nb[1] = ft_atoi(argv[j]);
-			if (nb[0] == nb[1])
-				return (-1);
-			++j;
-		}
-		++i;
+		err = rev_rotate_stack(stack_a);
+		err = rev_rotate_stack(stack_b);
 	}
-	return (0);
+	return (err);
 }
 
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
-void	p_err(char *err_msg)
+int	check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 {
-	write(2, RED, 16);
-	write(2, "\nERROR:\t", 8);
-	write(2, BLD, 11);
-	write(2, "(", 1);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, ")\n\n", 3);
-}
+	int	err;
 
-/* -------------------------------------------------------------------------- */
-
-int	handle_err(int argc, char **argv)
-{
-	if (is_all_digit(argc, argv))
-		return (p_err("Input Error, Non-Digit character found"), -1);
-	else if (check_duplicate(argc, argv))
-		return (p_err("Input Error, Duplicates found"), -1);
-	return (0);
+	err = 0;
+	if (op_mask & SA)
+		err = swap_stack(stack_a);
+	else if (op_mask & SB)
+		err = swap_stack(stack_b);
+	else if (op_mask & SS)
+	{
+		err = swap_stack(stack_a);
+		err = swap_stack(stack_b);
+	}
+	else if (op_mask & PA)
+		err = push_stack(stack_b, stack_a);
+	else if (op_mask & PB)
+		err = push_stack(stack_a, stack_b);
+	else if (op_mask & RA)
+		err = rotate_stack(stack_a);
+	else
+		err = check_exec_op_i(op_mask, stack_a, stack_b);
+	return (err);
 }
 
 /* -------------------------------------------------------------------------- */

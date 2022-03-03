@@ -57,7 +57,8 @@ EXEC := push_swap
 
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
-SRCS_LST := init_stack.c error_handling.c stack_ops.c
+SRCS_LST := init_stack.c error_handling.c \
+	stack_ops_i.c stack_ops_ii.c misc_utils.c
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -95,7 +96,7 @@ compile: re ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 execute: compile ${EXEC}
-	@./${EXEC} 4 3 2 1
+	@./${EXEC} 9 8 7 6 5 4 3 2 1
 
 fclean: clean
 	@make -C libs/ft_printf/ fclean

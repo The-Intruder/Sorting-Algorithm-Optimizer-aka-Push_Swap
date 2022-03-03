@@ -14,11 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-
-
 /* -------------------------------------------------------------------------- */
-
-
 
 /* -------------------------------------------------------------------------- */
 
@@ -45,21 +41,18 @@ static int	link_stack_nodes(t_stack *stack, int argc, char **argv)
 
 	i = 1;
 	node = NULL;
-	stack->head = NULL;
 	while (i < argc)
 	{
 		node = init_stack_node(argv[i]);
 		/* Add protection for all allocated nodes */
-		if (stack->head)
+		if (stack->tail)
 		{
-			stack->head->prev = node;
-			node->next = stack->head;
+			stack->tail->next = node;
+			node->prev = stack->tail;
 		}
-		if (i == 1)
-			stack->tail = node;
-		else
+		else if (i == 1)
 			stack->head = node;
-		stack->head = node;
+		stack->tail = node;
 		++i;
 	}
 	stack->size = --i;
@@ -72,8 +65,8 @@ int	init_stack(t_stack	*stack, int argc, char **argv)
 {
 	if (link_stack_nodes(stack, argc, argv))
 		return (-1);
-	stack->head->prev = stack->tail;
-	stack->tail->next = stack->head;
+	stack->head->prev = NULL;
+	stack->tail->next = NULL;
 	return (0);
 }
 
