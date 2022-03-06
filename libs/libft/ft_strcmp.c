@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 15:13:46 by mnaimi            #+#    #+#             */
-/*   Updated: 2021/11/02 16:17:00 by mnaimi           ###   ########.fr       */
+/*   Created: 2021/11/02 18:30:11 by mnaimi            #+#    #+#             */
+/*   Updated: 2021/11/02 18:43:35 by mnaimi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-static int	ft_isspace(char c)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	return (c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r' || c == ' ');
-}
-
-long	ft_atoi(const char *str)
-{
-	int		i;
-	long	sum;
-	int		sign;
+	size_t	i;
 
 	i = 0;
-	sum = 0;
-	sign = 1;
-	while (ft_isspace(str[i]))
-		++i;
-	if (str[i] == '-')
+	while (TRUE)
 	{
-		sign = -1;
-		++i;
+		if (!s1[i] || !s2[i] || s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	else if (str[i] == '+')
-		++i;
-	while (ft_isdigit(str[i]))
-		sum = (sum * 10) + (str[i++] - '0');
-	return (sum * sign);
+	return (0);
 }

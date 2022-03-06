@@ -49,7 +49,7 @@ int	ft_isspace(char c)
 
 /* -------------------------------------------------------------------------- */
 
-int	ft_atoi(const char *str)
+int	ft_atoi_pf(const char *str)
 {
 	size_t	i;
 	size_t	sum;

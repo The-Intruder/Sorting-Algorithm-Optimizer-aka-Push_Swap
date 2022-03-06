@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   long_incr_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,89 +14,75 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	is_all_digit(int argc, char **argv)
+static t_node	*get_node_addr(t_stack *stack, t_uint index)
 {
-	int	i;
-	int	j;
+	t_uint	i;
+	t_node	*node;
+
+	if (!stack || !stack->size || !stack->head || index >= stack->size)
+		return (NULL);
+	i = 0;
+	node = stack->head;
+	while (i++ < index && node)
+		node = node->next;
+	return (node);
+}
+
+/* -------------------------------------------------------------------------- */
+
+static int	get_node_nmbr(t_stack *stack, t_uint index)
+{
+	t_uint	i;
+	t_node	*node;
+
+	i = 0;
+	node = stack->head;
+	while (i++ < index && node->next)
+		node = node->next;
+	return (node->nmbr);
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+
+int	apply_lis_algo(t_stack *stack)
+{
+	t_node	*node_i;
+	t_node	*node_j;
+	t_uint	i;
+	t_uint	j;
 
 	i = 1;
-	while (i < argc)
+	while (i < stack->size)
 	{
+		node_i = get_node_addr(stack, i);
 		j = 0;
-		while (argv[i][j])
+		while (j < i)
 		{
-			if (argv[i][j] != '-' && argv[i][j] != '+' && \
-				(argv[i][j] < '0' || argv[i][j] > '9'))
-				return (-1);
-			++j;
+			node_j = get_node_addr(stack, j);
+			if (node_j->nmbr < node_i->nmbr)
+			{
+				if (node_i->sbln < node_j->sbln + 1)
+				{
+					node_i->sbln = node_j->sbln + 1;
+					node_i->indx = j;
+				}
+				else if (node_i->sbln == node_j->sbln + 1)
+				{
+					if (node_j->nmbr < get_node_nmbr(stack, node_i->indx))
+					{
+						node_i->sbln = node_j->sbln + 1;
+						node_i->indx = j;
+					}
+				}
+			}
+			j++;
 		}
-		++i;
+		i++;
 	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static int	check_duplicate(int argc, char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = i + 1;
-		while (j < argc)
-		{
-			if (ft_strcmp(argv[i], argv[j]) == 0)
-				return (-1);
-			++j;
-		}
-		++i;
-	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static int	check_min_max_int(int argc, char **argv)
-{
-	int		i;
-	long	nb;
-
-	i = 1;
-	while (i < argc)
-	{
-		nb = ft_atoi(argv[i]);
-		if (nb > INTMAX || nb < INTMIN)
-			return (-1);
-		++i;
-	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	p_err(char *err_msg)
-{
-	write(2, RED, 16);
-	write(2, "\nERROR:\t", 8);
-	write(2, BLD, 11);
-	write(2, "(", 1);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, ")\n\n", 3);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	handle_err(int argc, char **argv)
-{
-	if (is_all_digit(argc, argv))
-		return (p_err("Input Error, found a Non-Digit character"), -1);
-	else if (check_duplicate(argc, argv))
-		return (p_err("Input Error, found Duplicates"), -1);
-	else if (check_min_max_int(argc, argv))
-		return (p_err("Input Error, found a Number > or < than INT"), -1);
 	return (0);
 }
 

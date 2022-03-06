@@ -27,6 +27,7 @@ static t_node	*init_stack_node(char *asci_nbr)
 		return (NULL);
 	node -> prev = NULL;
 	node -> indx = 0;
+	node -> sbln = 1;
 	node -> nmbr = ft_atoi(asci_nbr);
 	node -> next = NULL;
 	return (node);

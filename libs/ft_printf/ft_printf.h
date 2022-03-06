@@ -56,7 +56,7 @@ int		ft_will_be_valid(char *s);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 int		ft_isspace(char c);
-int		ft_atoi(const char *str);
+int		ft_atoi_pf(const char *str);
 void	ft_putchar(char c, int *outpt_len);
 
 /* FT_PRINTF_UTILS_MISC_2ND ------------------------------------------------- */

@@ -44,12 +44,16 @@
 # define RRB	0b01000000000
 # define RRR	0b10000000000
 
+# define INTMAX	2147483647
+# define INTMIN	-2147483648
+
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
 
 typedef struct s_node {
 	struct s_node	*prev;
 	t_uint			indx;
+	t_uint			sbln;
 	int				nmbr;
 	struct s_node	*next;
 }	t_node;
@@ -89,5 +93,7 @@ int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 //--------------//
 void	reset_stack(t_stack *stack_a, t_stack *stack_b);
 void	patch_stack(t_stack *stack_a, t_stack *stack_b);
+
+int		apply_lis_algo(t_stack *stack);
 
 #endif

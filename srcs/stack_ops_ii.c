@@ -20,7 +20,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	check_exec_op_i(int op_mask, t_stack *stack_a, t_stack *stack_b)
+static int	check_exec_op_ii(int op_mask, t_stack *stack_a, t_stack *stack_b)
 {
 	int	err;
 
@@ -67,7 +67,7 @@ int	check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 	else if (op_mask & RA)
 		err = rotate_stack(stack_a);
 	else
-		err = check_exec_op_i(op_mask, stack_a, stack_b);
+		err = check_exec_op_ii(op_mask, stack_a, stack_b);
 	return (err);
 }
 

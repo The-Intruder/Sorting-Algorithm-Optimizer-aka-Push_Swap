@@ -12,7 +12,6 @@
 
 #include "./push_swap.h"
 
-/* ========================================================================== */
 /* ========================== TESTING-PHASE FUNCTIONS ======================= */
 
 static void	print_stack(t_stack *stack_a, t_stack *stack_b)
@@ -79,6 +78,14 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (*node_b)
 			ft_printf("| %sindx: %14u\t%s|\n", RED, (*node_b)->indx, BLU);
+		else
+			ft_putchar_fd('\n', 1);
+		if (*node_a)
+			ft_printf("| %ssbln: %14u\t%s|\t\t||\t\t", CYN, (*node_a)->sbln, BLU);
+		else
+			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
+		if (*node_b)
+			ft_printf("| %ssbln: %14u\t%s|\n", CYN, (*node_b)->sbln, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		if (*node_a)
@@ -160,10 +167,9 @@ static void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 	if (op_mask)
 		check_exec_op(op_mask, stack_a, stack_b);
 	print_stack(stack_a, stack_b);
-	sleep(3);
+	usleep(500000);
 }
 
-/* ========================================================================== */
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -171,6 +177,8 @@ static void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
+
+// Garbage collector
 
 /* -------------------------------------------------------------------------- */
 
@@ -188,20 +196,7 @@ int	main(int argc, char **argv)
 	if (err)
 		return (-1);
 	exec_print_op(0, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(RRA, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(SB, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(RR, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(SA, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(RB, &stack_a, &stack_b);
-	exec_print_op(PA, &stack_a, &stack_b);
-	exec_print_op(SS, &stack_a, &stack_b);
-	exec_print_op(PA, &stack_a, &stack_b);
-	exec_print_op(RRR, &stack_a, &stack_b);
+	apply_lis_algo(&stack_a);
 	exec_print_op(0, &stack_a, &stack_b);
 	return (0);
 }
