@@ -52,9 +52,9 @@ typedef unsigned int	t_uint;
 
 typedef struct s_node {
 	struct s_node	*prev;
-	t_uint			indx;
-	t_uint			sbln;
-	int				nmbr;
+	int				prev_indx;
+	t_uint			subseq_len;
+	int				value;
 	struct s_node	*next;
 }	t_node;
 
@@ -64,36 +64,28 @@ typedef struct s_stack {
 	t_uint	size;
 }	t_stack;
 
-// -------------//----------------- Prototypes ------------------------------ */
-// init_stack.c //
-//--------------//
+// -------------------------------- Prototypes ------------------------------ */
+//		init_stack.c		//
 int		init_stack(t_stack	*stack, int argc, char **argv);
 
-//------------------//
-// error_handling.c //
-//------------------//
+//		error_handling.c	//
 int		handle_err(int argc, char **argv);
 void	p_err(char *err_msg);
 
-//---------------//
-// stack_ops_i.c //
-//---------------//
+//		stack_ops_i.c		//
 int		push_stack(t_stack *stack_src, t_stack *stack_dst);
 int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
-//----------------//
-// stack_ops_ii.c //
-//----------------//
+//		stack_ops_ii.c		//
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
-//--------------//
-// misc_utils.c //
-//--------------//
+//		misc_utils.c		//
 void	reset_stack(t_stack *stack_a, t_stack *stack_b);
-void	patch_stack(t_stack *stack_a, t_stack *stack_b);
+void	patch_stack(t_stack *stack);
 
+//		long_incr_sub.c		//
 int		apply_lis_algo(t_stack *stack);
 
 #endif

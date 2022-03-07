@@ -26,9 +26,9 @@ static t_node	*init_stack_node(char *asci_nbr)
 	if (!node)
 		return (NULL);
 	node -> prev = NULL;
-	node -> indx = 0;
-	node -> sbln = 1;
-	node -> nmbr = ft_atoi(asci_nbr);
+	node -> value = ft_atoi(asci_nbr);
+	node -> subseq_len = 1;
+	node -> prev_indx = -1;
 	node -> next = NULL;
 	return (node);
 }
@@ -66,8 +66,8 @@ int	init_stack(t_stack	*stack, int argc, char **argv)
 {
 	if (link_stack_nodes(stack, argc, argv))
 		return (-1);
-	stack->head->prev = NULL;
-	stack->tail->next = NULL;
+	stack->head->prev = stack->tail;
+	stack->tail->next = stack->head;
 	return (0);
 }
 

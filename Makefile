@@ -97,7 +97,7 @@ compile: re ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 execute: compile ${EXEC}
-	@./${EXEC} 0 4 12 2 10 6 9 13 3 11 7 15
+	@./${EXEC} 1 2 3 4 5
 	@make exclean >> /dev/null 
 
 fclean: clean

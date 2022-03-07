@@ -26,7 +26,7 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 	node_b = &stack_b->head;
 	len = 0;
 	ft_putchar_fd('\n', 1);
-	while (*node_a || *node_b)
+	while (i < stack_a->size || i < stack_b->size)
 	{
 		if (i == 0)
 		{
@@ -38,77 +38,77 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_printf("|\t\t|=> %sSTACK_B Size: %3u%s <=|%s\n", \
 				BLD, stack_b->size, BLU, NC);
 		}
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("%so-----------------------o\t\t||\t\t", BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("o-----------------------o\n");
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("| (%s%u%s): %s%14p\t%s|\t\t||\t\t", \
 				CYN, i + 1, BLU, MGN, *node_a, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("| (%s%u%s): %s%14p\t%s|\n", \
 				CYN, i + 1, BLU, MGN, *node_b, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("o-----------------------o\t\t||\t\t");
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("o-----------------------o\n");
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("| %sprev: %14p\t%s|\t\t||\t\t", YEL, (*node_a)->prev, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("| %sprev: %14p\t%s|\n", YEL, (*node_b)->prev, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
-			ft_printf("| %sindx: %14u\t%s|\t\t||\t\t", RED, (*node_a)->indx, BLU);
+		if (i < stack_a->size)
+			ft_printf("| %snmbr: %14d\t%s|\t\t||\t\t", BLD, (*node_a)->value, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
-			ft_printf("| %sindx: %14u\t%s|\n", RED, (*node_b)->indx, BLU);
+		if (i < stack_b->size)
+			ft_printf("| %snmbr: %14d\t%s|\n", BLD, (*node_b)->value, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
-			ft_printf("| %ssbln: %14u\t%s|\t\t||\t\t", CYN, (*node_a)->sbln, BLU);
+		if (i < stack_a->size)
+			ft_printf("| %ssbln: %14u\t%s|\t\t||\t\t", CYN, (*node_a)->subseq_len, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
-			ft_printf("| %ssbln: %14u\t%s|\n", CYN, (*node_b)->sbln, BLU);
+		if (i < stack_b->size)
+			ft_printf("| %ssbln: %14u\t%s|\n", CYN, (*node_b)->subseq_len, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
-			ft_printf("| %snmbr: %14d\t%s|\t\t||\t\t", BLD, (*node_a)->nmbr, BLU);
+		if (i < stack_a->size)
+			ft_printf("| %sindx: %14d\t%s|\t\t||\t\t", RED, (*node_a)->prev_indx, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
-			ft_printf("| %snmbr: %14d\t%s|\n", BLD, (*node_b)->nmbr, BLU);
+		if (i < stack_b->size)
+			ft_printf("| %sindx: %14d\t%s|\n", RED, (*node_b)->prev_indx, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("| %snext: %14p\t%s|\t\t||\t\t", GRN, (*node_a)->next, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("| %snext: %14p\t%s|\n", GRN, (*node_b)->next, BLU);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			ft_printf("o-----------------------o\t\t||\t\t");
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
-		if (*node_b)
+		if (i < stack_b->size)
 			ft_printf("o-----------------------o%s\n", NC);
 		else
 			ft_putchar_fd('\n', 1);
@@ -128,9 +128,9 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_printf("%s\t\t\t\\/\t||%s\n", BLU, NC);
 		else
 			ft_putchar_fd('\n', 1);
-		if (*node_a)
+		if (i < stack_a->size)
 			node_a = &(*node_a)->next;
-		if (*node_b)
+		if (i < stack_b->size)
 			node_b = &(*node_b)->next;
 		++i;
 	}
@@ -167,7 +167,7 @@ static void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 	if (op_mask)
 		check_exec_op(op_mask, stack_a, stack_b);
 	print_stack(stack_a, stack_b);
-	usleep(500000);
+	sleep(5);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -197,6 +197,20 @@ int	main(int argc, char **argv)
 		return (-1);
 	exec_print_op(0, &stack_a, &stack_b);
 	apply_lis_algo(&stack_a);
+	exec_print_op(SA, &stack_a, &stack_b);
+	exec_print_op(RA, &stack_a, &stack_b);
+	exec_print_op(RRA, &stack_a, &stack_b);
+	exec_print_op(PB, &stack_a, &stack_b);
+	exec_print_op(PB, &stack_a, &stack_b);
+	exec_print_op(PB, &stack_a, &stack_b);
+	exec_print_op(PB, &stack_a, &stack_b);
+	exec_print_op(SB, &stack_a, &stack_b);
+	exec_print_op(RB, &stack_a, &stack_b);
+	exec_print_op(RRB, &stack_a, &stack_b);
+	exec_print_op(PA, &stack_a, &stack_b);
+	exec_print_op(PA, &stack_a, &stack_b);
+	exec_print_op(PA, &stack_a, &stack_b);
+	exec_print_op(PA, &stack_a, &stack_b);
 	exec_print_op(0, &stack_a, &stack_b);
 	return (0);
 }

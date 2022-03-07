@@ -32,27 +32,41 @@ void	reset_stack(t_stack *stack_a, t_stack *stack_b)
 
 /* -------------------------------------------------------------------------- */
 
-void	patch_stack(t_stack *stack_a, t_stack *stack_b)
+void	patch_stack(t_stack *stack)
 {
-	if (stack_a && stack_a->size > 0)
+	if (stack && stack->size > 0)
 	{
-		if (stack_a->head)
-			stack_a->head->prev = NULL;
-		if (stack_a->tail)
-			stack_a->tail->next = NULL;
-	}
-	if (stack_b && stack_b->size > 0)
-	{
-		if (stack_b->head)
-			stack_b->head->prev = NULL;
-		if (stack_b->tail)
-			stack_b->tail->next = NULL;
+		if (stack->head && stack->tail)
+		{
+			stack->head->prev = stack->tail;
+			stack->tail->next = stack->head;
+		}
 	}
 }
 
 /* -------------------------------------------------------------------------- */
 
+t_node	*get_smallest_number(t_stack *stack)
+{
+	t_node	*tracer;
+	t_node	*node;
+
+	if (!stack || stack->size == 0)
+		return (NULL);
+	node = stack->head;
+	tracer = stack->head->next;
+	while (tracer)
+	{
+		if (tracer->value < node->value)
+			node = tracer;
+		tracer = tracer->next;
+	}
+	return (node);
+}
+
 /* -------------------------------------------------------------------------- */
+
+
 
 /* -------------------------------------------------------------------------- */
 
