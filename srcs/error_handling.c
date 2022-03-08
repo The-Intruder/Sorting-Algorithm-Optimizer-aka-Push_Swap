@@ -26,7 +26,8 @@ static int	is_all_digit(int argc, char **argv)
 		while (argv[i][j])
 		{
 			if (argv[i][j] != '-' && argv[i][j] != '+' && \
-				(argv[i][j] < '0' || argv[i][j] > '9'))
+				(argv[i][j] < '0' || argv[i][j] > '9') && \
+				!ft_isspace(argv[i][j]))
 				return (-1);
 			++j;
 		}

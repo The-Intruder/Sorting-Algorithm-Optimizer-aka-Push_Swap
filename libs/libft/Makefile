@@ -22,7 +22,8 @@ BLU := \033[0;34;1m
 CC := gcc
 FLAGS := -Wall -Wextra -Werror 
 
-SRCS := ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
+SRCS_DIR := srcs/
+SRCS_LST := ft_atoi.c ft_atol.c ft_bzero.c ft_calloc.c ft_isalnum.c \
 	ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 	ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
 	ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c \
@@ -32,9 +33,12 @@ SRCS := ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
 	ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
 	ft_tolower.c ft_toupper.c ft_lstadd_back.c ft_lstadd_front.c \
 	ft_lstclear.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c ft_lstmap.c \
-	ft_lstnew.c ft_lstsize.c ft_strcmp.c
+	ft_lstnew.c ft_lstsize.c ft_strcmp.c ft_isspace.c
+SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
-OBJS := $(SRCS:%.c=%.o)
+OBJS_DIR := objs/
+OBJS_LST := ${patsubst %.c, %.o, ${SRCS_LST}}
+OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
 
 PROJECT := libft
 HEADER := libft.h
@@ -42,25 +46,29 @@ NAME := libft.a
 
 .PHONY: all clean fclean re title
 
-all: title ${NAME}
+all: ${NAME}
 
 title:
 	@echo "\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
 	@echo "----------------------------${NC}"
 
-$(NAME): $(OBJS) ${HEADER}
-	@ar rcs $(NAME) $(OBJS)
-	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)"
+${NAME}: title ${OBJS_DIR} ${OBJS} ${HEADER}
+	@ar -rcs ${NAME} ${OBJS}
+	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)\n"
 
-%.o: %.c
-	@$(CC) $(FLAGS) -o $@ -c $<
-	@echo "${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"	
+${OBJS_DIR}%.o: ${SRCS_DIR}%.c ${HEADER}
+	@${CC} ${CC_FLAGS} -c $< -o $@
+	@echo "${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
+
+$(OBJS_DIR):
+	@mkdir $(OBJS_DIR)
 
 clean:
-	@rm -f ${OBJS}
+	@rm -rf ${OBJS_DIR}
 	@echo "${GRA}${PROJECT}${RED}\t\tobject files has been deleted${NC}"
 
 fclean:
+	@make clean >> /dev/null
 	@rm -f ${NAME}
 	@echo "${GRA}${PROJECT}${RED}\t\tarchive file ${GRA}${NAME}${RED}\t\thas been deleted${NC}"
 

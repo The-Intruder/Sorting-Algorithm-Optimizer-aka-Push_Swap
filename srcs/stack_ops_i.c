@@ -48,7 +48,7 @@ int	push_stack(t_stack *stack_src, t_stack *stack_dst)
 	if (stack_src->size > 1)
 		stack_src->head = tmp_node->next;
 	else
-		reset_stack(stack_src, NULL);
+		reset_stack(stack_src);
 	if (stack_src->size)
 		stack_src->size--;
 	patch_stack(stack_src);

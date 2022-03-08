@@ -45,9 +45,7 @@ export TITLE
 # ---------------------------------------------------------------------------- #
 CC := gcc
 CC_FLAGS := -Wall -Wextra -Werror
-CC_OPTS := -Llibs/ft_printf/ -lftprintf \
-		-Llibs/libft/ -lft \
-		-L. -lps
+CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
 PROJECT := push_swap
 MAIN := push_swap.c
@@ -57,9 +55,8 @@ EXEC := push_swap
 
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
-SRCS_LST := init_stack.c error_handling.c \
-	stack_ops_i.c stack_ops_ii.c misc_utils.c \
-	long_incr_sub.c
+SRCS_LST := init_stack.c error_handling.c stack_ops_i.c stack_ops_ii.c \
+			misc_utils.c long_incr_sub.c
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -97,7 +94,7 @@ compile: re ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 execute: compile ${EXEC}
-	@./${EXEC} 1 2 3 4 5
+	@./${EXEC} 1 2 3 "4 5 6" 0 7 8 9
 	@make exclean >> /dev/null 
 
 fclean: clean
@@ -120,3 +117,5 @@ intro:
 title:
 	@clear
 	@echo "$$TITLE"
+
+# ---------------------------------------------------------------------------- #

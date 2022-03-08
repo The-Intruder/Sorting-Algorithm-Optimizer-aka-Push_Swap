@@ -22,13 +22,14 @@ BLU := \033[0;34;1m
 CC := gcc
 CC_FLAGS := -Wall -Wextra -Werror
 
-SRCS := ft_printf_utils_getdata.c ft_printf_utils_isdata.c \
-	ft_printf_utils_misc_1st.c ft_printf_utils_misc_2nd.c \
-	ft_printf_utils_misc_3rd.c ft_printf_utils_misc_4th.c \
-	ft_printf_utils_processdata_1st.c ft_printf_utils_processdata_2nd.c \
-	ft_printf.c
+SRCS_DIR := srcs/
+SRCS_LST := ft_printf.c get_data.c is_data.c misc_i.c misc_ii.c misc_iii.c \
+			process_data_i.c process_data_ii.c
+SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
-OBJS := $(SRCS:%.c=%.o)
+OBJS_DIR := objs/
+OBJS_LST := ${patsubst %.c, %.o, ${SRCS_LST}}
+OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
 
 PROJECT := ft_printf
 HEADER := ft_printf.h
@@ -36,26 +37,30 @@ NAME := libftprintf.a
 
 .PHONY: all clean fclean re title
 
-all: title ${NAME}
+all: ${NAME}
 
 title:
 	@echo "\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
 	@echo "----------------------------${NC}"
 
-$(NAME): $(OBJS) ${HEADER}
-	@ar rcs $(NAME) $(OBJS)
-	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)"
+${NAME}: title ${OBJS_DIR} ${OBJS} ${HEADER}
+	@ar -rcs ${NAME} ${OBJS}
+	@echo "$(BLU)Archive file $(GRA)$(NAME)$(BLU) created successfully$(NC)\n"
 
-%.o: %.c
-	@$(CC) $(CC_FLAGS) -o $@ -c $<
+${OBJS_DIR}%.o: ${SRCS_DIR}%.c ${HEADER}
+	@${CC} ${CC_FLAGS} -c $< -o $@
 	@echo "${MGN}Object file ${GRA}$@${MGN} created from ${GRA}$<${MGN}${NC}"
 
+$(OBJS_DIR):
+	@mkdir $(OBJS_DIR)
+
 clean:
-	@rm -if ${OBJS}
+	@rm -rf ${OBJS_DIR}
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 
 fclean:
-	@rm -if ${NAME}
+	@make clean >> /dev/null
+	@rm -f ${NAME}
 	@echo "${GRA}${PROJECT}${RED}\tarchive file ${GRA}${NAME}${RED}\thas been deleted${NC}"
 
 re: fclean all

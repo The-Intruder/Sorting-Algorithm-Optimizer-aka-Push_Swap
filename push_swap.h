@@ -82,7 +82,7 @@ int		rev_rotate_stack(t_stack *stack);
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
 //		misc_utils.c		//
-void	reset_stack(t_stack *stack_a, t_stack *stack_b);
+void	reset_stack(t_stack *stack);
 void	patch_stack(t_stack *stack);
 
 //		long_incr_sub.c		//
