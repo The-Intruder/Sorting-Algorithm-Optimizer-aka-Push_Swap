@@ -16,6 +16,9 @@
 /* -------------------------------- Libraries ------------------------------- */
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <limits.h>
+# include <stdio.h>
 # include "libs/libft/libft.h"
 # include "libs/ft_printf/ft_printf.h"
 
@@ -44,17 +47,15 @@
 # define RRB	0b01000000000
 # define RRR	0b10000000000
 
-# define INTMAX	2147483647
-# define INTMIN	-2147483648
-
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
 
 typedef struct s_node {
 	struct s_node	*prev;
-	int				prev_indx;
-	t_uint			subseq_len;
 	int				value;
+	t_uint			lis_len;
+	int				lis_indx;
+	bool			lis_bool;
 	struct s_node	*next;
 }	t_node;
 
@@ -65,27 +66,31 @@ typedef struct s_stack {
 }	t_stack;
 
 // -------------------------------- Prototypes ------------------------------ */
-//		init_stack.c		//
+// init_stack.c			//
 int		init_stack(t_stack	*stack, int argc, char **argv);
 
-//		error_handling.c	//
+// error_handling.c		//
 int		handle_err(int argc, char **argv);
 void	p_err(char *err_msg);
 
-//		stack_ops_i.c		//
+//  stack_ops_utils.c	//
 int		push_stack(t_stack *stack_src, t_stack *stack_dst);
 int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
-//		stack_ops_ii.c		//
+//  stack_ops_main.c	//
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
-//		misc_utils.c		//
+//  misc_utils.c		//
 void	reset_stack(t_stack *stack);
 void	patch_stack(t_stack *stack);
 
-//		long_incr_sub.c		//
+//  long_incr_sub.c		//
+t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack);
+
+//  testing_functions.c	//
+void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
 #endif

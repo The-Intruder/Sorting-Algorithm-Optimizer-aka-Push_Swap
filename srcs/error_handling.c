@@ -69,7 +69,7 @@ static int	check_min_max_int(int argc, char **argv)
 	while (i < argc)
 	{
 		nb = ft_atoi(argv[i]);
-		if (nb > INTMAX || nb < INTMIN)
+		if (nb > INT_MAX || nb < INT_MIN)
 			return (-1);
 		++i;
 	}

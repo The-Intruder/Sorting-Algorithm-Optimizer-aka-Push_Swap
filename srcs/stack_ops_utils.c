@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_ops_i.c                                      :+:      :+:    :+:   */
+/*   stack_ops_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,25 +14,23 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	push_node(t_node *node, t_stack *stack)
+static void	push_node(t_node *node, t_stack *stack)
 {
-	if (stack->size == 0)
+	if (stack->size > 0)
 	{
-		stack->head = node;
-		stack->tail = node;
-		stack->head->next = NULL;
-		stack->head->prev = NULL;
-		stack->size = 1;
+		node->next = stack->head;
+		node->prev = stack->tail;
+		stack->head->prev = node;
 	}
 	else
 	{
-		node->next = stack->head;
+		stack->tail = node;
+		node->next = NULL;
 		node->prev = NULL;
-		stack->head->prev = node;
-		stack->head = node;
-		stack->size++;
 	}
-	return (0);
+	stack->head = node;
+	stack->size++;
+	patch_stack(stack);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -40,7 +38,6 @@ static int	push_node(t_node *node, t_stack *stack)
 int	push_stack(t_stack *stack_src, t_stack *stack_dst)
 {
 	t_node	*tmp_node;
-	int		err;
 
 	if (!stack_src || stack_src->size == 0 || !stack_src->head)
 		return (-1);
@@ -52,8 +49,7 @@ int	push_stack(t_stack *stack_src, t_stack *stack_dst)
 	if (stack_src->size)
 		stack_src->size--;
 	patch_stack(stack_src);
-	err = push_node(tmp_node, stack_dst);
-	patch_stack(stack_dst);
+	push_node(tmp_node, stack_dst);
 	return (0);
 }
 
@@ -63,7 +59,7 @@ int	swap_stack(t_stack *stack)
 {
 	int	value;
 
-	if (!stack || (!stack->head && !stack->tail) || stack->size < 2)
+	if (!stack || !stack->head || !stack->tail || stack->size < 2)
 		return (-1);
 	value = stack->head->value;
 	stack->head->value = stack->head->next->value;
@@ -78,7 +74,7 @@ int	rotate_stack(t_stack *stack)
 {
 	t_node	*tmp_node;
 
-	if (!stack || !stack->head || stack->size < 2)
+	if (!stack || !stack->head || !stack->tail || stack->size < 2)
 		return (-1);
 	else if (stack->size == 2)
 		swap_stack(stack);
@@ -86,11 +82,9 @@ int	rotate_stack(t_stack *stack)
 	{
 		tmp_node = stack->head;
 		stack->head = stack->head->next;
-		stack->head->prev = NULL;
 		stack->tail->next = tmp_node;
 		tmp_node->prev = stack->tail;
 		stack->tail = tmp_node;
-		stack->tail->next = NULL;
 	}
 	patch_stack(stack);
 	return (0);
@@ -110,9 +104,8 @@ int	rev_rotate_stack(t_stack *stack)
 	{
 		tmp_node = stack->tail;
 		stack->tail = stack->tail->prev;
-		stack->tail->next = NULL;
 		tmp_node->next = stack->head;
-		tmp_node->prev = NULL;
+		stack->head->prev = tmp_node;
 		stack->head = tmp_node;
 	}
 	patch_stack(stack);

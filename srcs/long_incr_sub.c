@@ -14,10 +14,11 @@
 
 /* -------------------------------------------------------------------------- */
 
-t_node	*get_smallest_value_node(t_stack *stack)
+t_node	*get_lowst_val_addr(t_stack *stack)
 {
 	t_node	*tracer;
 	t_node	*node;
+	t_uint	i;
 
 	if (!stack || stack->size == 0)
 		return (NULL);
@@ -25,9 +26,35 @@ t_node	*get_smallest_value_node(t_stack *stack)
 	tracer = NULL;
 	if (stack->head->next)
 		tracer = stack->head->next;
-	while (tracer)
+	i = 0;
+	while (i++ < stack->size)
 	{
 		if (tracer->value < node->value)
+			node = tracer;
+		tracer = tracer->next;
+	}
+	node->lis_bool = true;
+	return (node);
+}
+
+/* -------------------------------------------------------------------------- */
+
+static t_node	*get_highst_lis_len_addr(t_stack *stack)
+{
+	t_node	*tracer;
+	t_node	*node;
+	t_uint	i;
+
+	if (!stack || stack->size == 0)
+		return (NULL);
+	node = stack->head;
+	tracer = NULL;
+	if (stack->head->next)
+		tracer = stack->head->next;
+	i = 0;
+	while (i++ < stack->size)
+	{
+		if (tracer->lis_len > node->lis_len)
 			node = tracer;
 		tracer = tracer->next;
 	}
@@ -36,71 +63,78 @@ t_node	*get_smallest_value_node(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-static t_node	*get_node_addr(t_stack *ostack, t_stack *fstack, t_uint index)
+static t_node	*get_node_addr(t_node *start_node, t_uint stack_size, \
+	t_uint index)
 {
 	t_uint	i;
 	t_node	*node;
 
-	if (!fstack || !fstack->size || !fstack->head || index >= fstack->size)
+	if (!start_node || !stack_size || index >= stack_size)
 		return (NULL);
 	i = 0;
-	node = fstack->head;
-	while (i < index && i++ < ostack->size)
-	{
+	node = start_node;
+	while (i < index && i++ < stack_size)
 		node = node->next;
-		if (!node)
-			node = ostack->head;
-	}
 	return (node);
 }
 
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
-static int	apply_lis_algo_ii(t_stack *stack, t_node *node_i, int i, int j)
+static void	lis_algo(t_stack *stack, t_uint i, t_node *lis_head, t_uint offset)
 {
-	t_node	*node_j;
-	t_node	*prev_sorted_node;
+	t_node	*i_node;
+	t_uint	j;
+	t_node	*j_node;
+	t_node	*lis_prev_node;
 
+	i_node = get_node_addr(lis_head, stack->size, i);
+	j = 0;
 	while (j < i)
 	{
-		node_j = get_node_addr(stack, j);
-		if (node_j->value < node_i->value)
+		j_node = get_node_addr(lis_head, stack->size, j);
+		if (j_node->value < i_node->value)
 		{
-			prev_sorted_node = get_node_addr(stack, node_i->prev_indx);
-			if (node_i->subseq_len < node_j->subseq_len + 1 || \
-				(node_i->subseq_len == node_j->subseq_len + 1 && \
-				node_j->value < prev_sorted_node->value))
+			if (i_node->lis_indx >= 0)
+				lis_prev_node = get_node_addr(stack->head, stack->size, i_node->lis_indx);
+			if (i_node->lis_len < j_node->lis_len + 1 || \
+				(i_node->lis_len == j_node->lis_len + 1 && \
+				j_node->value < lis_prev_node->value))
 			{
-				node_i->subseq_len = node_j->subseq_len + 1;
-				node_i->prev_indx = j;
+				i_node->lis_len = j_node->lis_len + 1;
+				i_node->lis_indx = j + offset;
+				if ((t_uint)i_node->lis_indx >= stack->size)
+					i_node->lis_indx -= stack->size;
 			}
 		}
 		j++;
 	}
-	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
 
 int	apply_lis_algo(t_stack *stack)
 {
-	t_node	*node_i;
-	t_stack	fake_stack;
+	t_node	*node;
 	t_uint	i;
-	t_uint	j;
+	t_node	*lis_head;
+	t_uint	offset;
 
 	i = 1;
-	fake_stack.head = get_smallest_value_node(stack);
-	fake_stack.tail = fake_stack.head->prev;
-	fake_stack.size = stack->size;
-	while (i < stack->size)
+	lis_head = get_lowst_val_addr(stack);
+	offset = 0;
+	node = stack->head;
+	while (node != lis_head)
 	{
-		node_i = get_node_addr(stack, &fake_stack, i);
-		j = 0;
-		apply_lis_algo_ii(stack, node_i, i, j);
-		i++;
+		node = node->next;
+		offset++;
+	}
+	while (i < stack->size)
+		lis_algo(stack, i++, lis_head, offset);
+	node = get_highst_lis_len_addr(stack);
+	while (node->lis_indx >= 0)
+	{
+		node->lis_bool = true;
+		node = get_node_addr(stack->head, stack->size, node->lis_indx);
 	}
 	return (0);
 }

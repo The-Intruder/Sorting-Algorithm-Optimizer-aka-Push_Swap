@@ -55,8 +55,8 @@ EXEC := push_swap
 
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
-SRCS_LST := init_stack.c error_handling.c stack_ops_i.c stack_ops_ii.c \
-			misc_utils.c long_incr_sub.c
+SRCS_LST := init_stack.c error_handling.c stack_ops_utils.c stack_ops_main.c \
+			misc_utils.c long_incr_sub.c testing_functions.c
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -90,12 +90,11 @@ clean:
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
-compile: re ${HEADER} ${MAIN}
+compile: all ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 execute: compile ${EXEC}
-	@./${EXEC} 1 2 3 "4 5 6" 0 7 8 9
-	@make exclean >> /dev/null 
+	@./${EXEC} 7 3 8 9 0 4 6 1 2 10
 
 fclean: clean
 	@make -C libs/ft_printf/ fclean

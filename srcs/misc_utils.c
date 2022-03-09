@@ -27,12 +27,12 @@ void	reset_stack(t_stack *stack)
 
 void	patch_stack(t_stack *stack)
 {
-	if (!stack || stack->size > 0)
+	if (!stack || stack->size == 0)
 		return ;
 	if (stack->head && stack->tail)
 	{
-		stack->head->prev = NULL;
-		stack->tail->next = NULL;
+		stack->head->prev = stack->tail;
+		stack->tail->next = stack->head;
 	}
 }
 

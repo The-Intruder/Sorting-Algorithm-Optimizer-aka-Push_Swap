@@ -61,8 +61,9 @@ static t_node	*init_stack_node(char *asci_nbr)
 		return (NULL);
 	node->prev = NULL;
 	node->value = ft_atoi(asci_nbr);
-	node->subseq_len = 1;
-	node->prev_indx = -1;
+	node->lis_len = 1;
+	node->lis_indx = -1;
+	node->lis_bool = false;
 	node->next = NULL;
 	return (node);
 }
@@ -84,6 +85,7 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 		{
 			stack->tail->next = node;
 			node->prev = stack->tail;
+			node->next = stack->head;
 		}
 		else if (i == 0)
 			stack->head = node;
@@ -99,9 +101,12 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 int	init_stack(t_stack	*stack, int argc, char **argv)
 {
 	char **new_argv;
+	int	err;
 
+	err = 0;
 	new_argv = get_patched_argv(argc, argv);
-	if (link_stack_nodes(stack, new_argv))
+	err = link_stack_nodes(stack, new_argv);
+	if (err)
 		return (-1);
 	patch_stack(stack);
 	free_newly_created_argv(new_argv);
