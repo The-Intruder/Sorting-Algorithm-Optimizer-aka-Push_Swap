@@ -1,5 +1,6 @@
 
 # To-Do list
+## Errors
 
 - [x] Check for errors in Arguments:
 </br>
@@ -11,6 +12,15 @@
 </br>
   - [x] Multiple arguments inside double/single quotes, e.g. `./push_swap 1 2 3 "4 5 6 " 7 8 9 `, should be treated too
 </br>
+  - [ ] Arguments inside a double quote splited by different types of spaces ('\t' '\n' '\v' '\f' '\r' ' ')
+  - [ ] Arguments longer than int long
+</br>
+  - [ ] Arguments inside double quotes with multiple "-" or multiple "+"
+</br>
+  - [ ] 
+</br>
+
+## Algorithms
 - [x] Initialize `stack_a` using a doubly linked list _(shouldn't be circular)_
 </br>
 - [ ] Initialize a `fake_stack` _(shouldn't allocate a new one, just use the `node_a`)_ that holds the address of the node with the smallest value whithin the `stack_a` as its head, and the node before that should be its tail, it could also be circular.

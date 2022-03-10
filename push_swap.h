@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
-# include <stdio.h>
+// # include <stdio.h>
 # include "libs/libft/libft.h"
 # include "libs/ft_printf/ft_printf.h"
 
@@ -71,7 +71,6 @@ int		init_stack(t_stack	*stack, int argc, char **argv);
 
 // error_handling.c		//
 int		handle_err(int argc, char **argv);
-void	p_err(char *err_msg);
 
 //  stack_ops_utils.c	//
 int		push_stack(t_stack *stack_src, t_stack *stack_dst);

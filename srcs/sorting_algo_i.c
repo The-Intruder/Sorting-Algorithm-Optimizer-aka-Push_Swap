@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   sorting_algo_i.c.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./push_swap.h"
+#include "../push_swap.h"
 
 /* -------------------------------------------------------------------------- */
 
@@ -21,25 +21,5 @@
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-
-int	main(int argc, char **argv)
-{
-	t_stack	stack_a;
-	t_stack	stack_b;
-	int		err;
-
-	reset_stack(&stack_a);
-	reset_stack(&stack_b);
-	system("clear");
-	err = init_stack(&stack_a, argc, argv);
-	if (err)
-		return (-1);
-	apply_lis_algo(&stack_a);
-	exec_print_op(0, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	exec_print_op(PB, &stack_a, &stack_b);
-	return (0);
-}
 
 /* -------------------------------------------------------------------------- */

@@ -14,6 +14,25 @@
 
 /* -------------------------------------------------------------------------- */
 
+int	trim_unwanted_chars(char **new_argv)
+{
+	int		i;
+	char	*dummy_ptr;
+
+	i = 0;
+	while (new_argv[i])
+	{
+		dummy_ptr = new_argv[i];
+		new_argv[i] = ft_strtrim(new_argv[i], "\t\n\v\f\r");
+		if (!new_argv[i++])
+			return (-1);
+		free(dummy_ptr);
+	}
+	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
 static void	free_newly_created_argv(char **new_argv)
 {
 	int	i;
@@ -47,6 +66,8 @@ static char	**get_patched_argv(int argc, char **argv)
 		free(dummy_ptr);
 	}
 	new_argv = ft_split(argv_concat, ' ');
+	if (trim_unwanted_chars(new_argv))
+		return (free_newly_created_argv(new_argv), free(argv_concat), NULL);
 	return (free(argv_concat), new_argv);
 }
 
@@ -100,11 +121,13 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 
 int	init_stack(t_stack	*stack, int argc, char **argv)
 {
-	char **new_argv;
-	int	err;
+	char	**new_argv;
+	int		err;
 
 	err = 0;
 	new_argv = get_patched_argv(argc, argv);
+	if (!new_argv || handle_err(argc, new_argv))
+		return (-1);
 	err = link_stack_nodes(stack, new_argv);
 	if (err)
 		return (-1);

@@ -78,32 +78,31 @@ static t_node	*get_node_addr(t_node *start_node, t_uint stack_size, \
 	return (node);
 }
 
-/* -------------------------------------------------------------------------- */
+/* -- node[0] == node_i /|\ node[2] == node_j /|\ node[2] == lis_prev_node -- */
 
 static void	lis_algo(t_stack *stack, t_uint i, t_node *lis_head, t_uint offset)
 {
-	t_node	*i_node;
 	t_uint	j;
-	t_node	*j_node;
-	t_node	*lis_prev_node;
+	t_node	*node[3];
 
-	i_node = get_node_addr(lis_head, stack->size, i);
+	node[0] = get_node_addr(lis_head, stack->size, i);
 	j = 0;
 	while (j < i)
 	{
-		j_node = get_node_addr(lis_head, stack->size, j);
-		if (j_node->value < i_node->value)
+		node[1] = get_node_addr(lis_head, stack->size, j);
+		if (node[1]->value < node[0]->value)
 		{
-			if (i_node->lis_indx >= 0)
-				lis_prev_node = get_node_addr(stack->head, stack->size, i_node->lis_indx);
-			if (i_node->lis_len < j_node->lis_len + 1 || \
-				(i_node->lis_len == j_node->lis_len + 1 && \
-				j_node->value < lis_prev_node->value))
+			if (node[0]->lis_indx >= 0)
+				node[2] = get_node_addr(stack->head, stack->size, \
+					node[0]->lis_indx);
+			if (node[0]->lis_len < node[1]->lis_len + 1 || \
+				(node[0]->lis_len == node[1]->lis_len + 1 && \
+				node[1]->value < node[2]->value))
 			{
-				i_node->lis_len = j_node->lis_len + 1;
-				i_node->lis_indx = j + offset;
-				if ((t_uint)i_node->lis_indx >= stack->size)
-					i_node->lis_indx -= stack->size;
+				node[0]->lis_len = node[1]->lis_len + 1;
+				node[0]->lis_indx = j + offset;
+				if ((t_uint)node[0]->lis_indx >= stack->size)
+					node[0]->lis_indx -= stack->size;
 			}
 		}
 		j++;
