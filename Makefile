@@ -56,7 +56,8 @@ EXEC := push_swap
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
 SRCS_LST := init_stack.c error_handling.c stack_ops_utils.c stack_ops_main.c \
-			misc_utils.c long_incr_sub.c testing_functions.c
+			misc_utils.c long_incr_sub.c testing_functions.c \
+			sorting_algo_i.c 
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/

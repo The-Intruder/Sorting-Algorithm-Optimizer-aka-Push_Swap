@@ -82,9 +82,9 @@ static t_node	*init_stack_node(char *asci_nbr)
 		return (NULL);
 	node->prev = NULL;
 	node->value = ft_atoi(asci_nbr);
-	node->lis_len = 1;
-	node->lis_indx = -1;
-	node->lis_bool = false;
+	node->var_a = 1;
+	node->var_b = -1;
+	node->var_c = 0;
 	node->next = NULL;
 	return (node);
 }

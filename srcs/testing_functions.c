@@ -49,12 +49,12 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| (%s%u%s): %s%14p\t%s|\t\t||\t\t", \
+			ft_printf("| (%s%u%s):  %s%13p\t%s|\t\t||\t\t", \
 				CYN, i + 1, BLU, MGN, node_a, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| (%s%u%s): %s%14p\t%s|\n", \
+			ft_printf("| (%s%u%s):  %s%13p\t%s|\n", \
 				CYN, i + 1, BLU, MGN, node_b, BLU);
 		else
 			ft_putchar_fd('\n', 1);
@@ -87,29 +87,29 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| %sLIS_len : %10u\t%s|\t\t||\t\t", BLD, node_a->lis_len, BLU);
+			ft_printf("| %svar_a: %13u\t%s|\t\t||\t\t", BLD, node_a->var_a, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %sLIS_len : %10u\t%s|\n", BLD, node_b->lis_len, BLU);
+			ft_printf("| %svar_a: %13u\t%s|\n", BLD, node_b->var_a, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| %sLIS_idx : %10d\t%s|\t\t||\t\t", BLD, node_a->lis_indx, BLU);
+			ft_printf("| %svar_b: %13d\t%s|\t\t||\t\t", BLD, node_a->var_b, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %sLIS_idx : %10d\t%s|\n", BLD, node_b->lis_indx, BLU);
+			ft_printf("| %svar_b: %13d\t%s|\n", BLD, node_b->var_b, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| %sLIS_bool: %10s\t%s|\t\t||\t\t", BLD, node_a->lis_bool?"true":"false", BLU);
+			ft_printf("| %svar_c: %13s\t%s|\t\t||\t\t", BLD, node_a->var_c?"true":"false", BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %sLIS_bool: %10s\t%s|\n", BLD, node_b->lis_bool?"true":"false", BLU);
+			ft_printf("| %svar_c: %13s\t%s|\n", BLD, node_b->var_c?"true":"false", BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
@@ -153,29 +153,31 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 
 void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 {
+	static int	i;
+
 	system("clear");
 	if (op_mask & SA)
-		ft_printf("%s\t\t\t\t\t\bSWAP_A%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_A%s", BLD, ++i, NC);
 	else if (op_mask & SB)
-		ft_printf("%s\t\t\t\t\t\bSWAP_B%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_B%s", BLD, ++i, NC);
 	else if (op_mask & SS)
-		ft_printf("%s\t\t\t\t\t\bSWAP_S%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_S%s", BLD, ++i, NC);
 	else if (op_mask & PA)
-		ft_printf("%s\t\t\t\t\t\bPUSH_A%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\bPUSH_A%s", BLD, ++i, NC);
 	else if (op_mask & PB)
-		ft_printf("%s\t\t\t\t\t\bPUSH_B%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\bPUSH_B%s", BLD, ++i, NC);
 	else if (op_mask & RA)
-		ft_printf("%s\t\t\t\t\tROTATE_A%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_A%s", BLD, ++i, NC);
 	else if (op_mask & RB)
-		ft_printf("%s\t\t\t\t\t\b\bROTATE_B%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_B%s", BLD, ++i, NC);
 	else if (op_mask & RR)
-		ft_printf("%s\t\t\t\t\t\b\bROTATE_R%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_R%s", BLD, ++i, NC);
 	else if (op_mask & RRA)
-		ft_printf("%s\t\t\t\t\t\b\b\bRevROTATE_A%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_A%s", BLD, ++i, NC);
 	else if (op_mask & RRB)
-		ft_printf("%s\t\t\t\t\t\b\b\bRevROTATE_B%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_B%s", BLD, ++i, NC);
 	else if (op_mask & RRR)
-		ft_printf("%s\t\t\t\t\t\b\b\bRevROTATE_R%s", BLD, NC);
+		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_R%s", BLD, ++i, NC);
 	if (op_mask)
 		check_exec_op(op_mask, stack_a, stack_b);
 	print_stack(stack_a, stack_b);

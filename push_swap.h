@@ -10,6 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/* 
+Notes:
+LIS Algo
+var_a: lis_length
+var_b: lis_index
+var_c: lis_boolean
+
+Sorting Algo
+var_a: moves_to_head_count
+var_b: 
+var_c: 
+
+*/
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -47,15 +61,18 @@
 # define RRB	0b01000000000
 # define RRR	0b10000000000
 
+# define UH		0b0100000000000
+# define LH		0b1000000000000
+
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
 
 typedef struct s_node {
 	struct s_node	*prev;
 	int				value;
-	t_uint			lis_len;
-	int				lis_indx;
-	bool			lis_bool;
+	int				var_a;
+	int				var_b;
+	int				var_c;
 	struct s_node	*next;
 }	t_node;
 
@@ -84,12 +101,17 @@ int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 //  misc_utils.c		//
 void	reset_stack(t_stack *stack);
 void	patch_stack(t_stack *stack);
+void	p_err(char *err_msg);
 
 //  long_incr_sub.c		//
+t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index);
 t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack);
 
 //  testing_functions.c	//
 void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
+
+//  sorting_algo_i.c	//
+int		update_best_moves_to_head(t_stack *stack);
 
 #endif

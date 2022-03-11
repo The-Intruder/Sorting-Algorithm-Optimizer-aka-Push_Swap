@@ -57,13 +57,16 @@ int	push_stack(t_stack *stack_src, t_stack *stack_dst)
 
 int	swap_stack(t_stack *stack)
 {
-	int	value;
+	t_node	*node;
 
 	if (!stack || !stack->head || !stack->tail || stack->size < 2)
 		return (-1);
-	value = stack->head->value;
-	stack->head->value = stack->head->next->value;
-	stack->head->next->value = value;
+	node = stack->head;
+	stack->head = stack->head->next;
+	node->next = stack->head->next;
+	stack->head->next = node;
+	node->prev = stack->head;
+	stack->head->prev = stack->tail;
 	patch_stack(stack);
 	return (0);
 }

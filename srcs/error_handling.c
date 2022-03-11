@@ -83,13 +83,6 @@ static int	check_min_max_int(char **argv)
 
 /* -------------------------------------------------------------------------- */
 
-static void	p_err(char *err_msg)
-{
-	write(2, RED"ERROR:\t"BLD, 35);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, NC"\n\n", 9);
-}
-
 /* -------------------------------------------------------------------------- */
 
 int	handle_err(int argc, char **argv)
