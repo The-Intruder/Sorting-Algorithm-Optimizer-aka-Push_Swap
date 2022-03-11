@@ -33,7 +33,7 @@ t_node	*get_lowst_val_addr(t_stack *stack)
 			node = tracer;
 		tracer = tracer->next;
 	}
-	node->var_c = 1;
+	node->var_c = 0;
 	return (node);
 }
 
@@ -131,7 +131,7 @@ int	apply_lis_algo(t_stack *stack)
 	node = get_highst_lislen_addr(stack);
 	while (node->var_b >= 0)
 	{
-		node->var_c = 1;
+		node->var_c = 0;
 		node = get_node_addr(stack->head, stack->size, node->var_b);
 	}
 	return (0);

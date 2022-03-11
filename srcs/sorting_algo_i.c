@@ -40,7 +40,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	count_moves_to_head(t_uint index, t_node *node, t_stack *stack)
+static int	count_moves_lis(t_uint index, t_node *node, t_stack *stack)
 {
 	t_uint	i;
 	t_node	*tracer;
@@ -65,17 +65,7 @@ static int	count_moves_to_head(t_uint index, t_node *node, t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-int	push_non_lis_to_stackb(t_stack *stack_a, t_stack *stack_b)
-{
-	t_node	*node;
-	
-}
-
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-
-int	update_best_moves_to_head(t_stack *stack)
+static int	update_best_moves_lis(t_stack *stack)
 {
 	t_uint	i;
 	t_node	*node;
@@ -84,11 +74,79 @@ int	update_best_moves_to_head(t_stack *stack)
 	i = 0;
 	while (i < stack->size)
 	{
-		if (!node->var_c)
-			node->var_a = count_moves_to_head(i, node, stack);
+		if (node->var_c)
+			node->var_a = count_moves_lis(i, node, stack);
 		node->var_b = 0;
 		node = node->next;
 		++i;
+	}
+	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	get_lowst_moves_addr_index(t_node **node, t_stack *stack)
+{
+	t_node	*tracer;
+	int	i;
+
+	if (!stack || stack->size == 0)
+		return (-1);
+	*node = stack->head;
+	tracer = stack->head->next;
+	i = 0;
+	while ((t_uint)i < stack->size)
+	{
+		if (tracer->var_c && tracer->var_a < (*node)->var_a)
+			*node = tracer;
+		tracer = tracer->next;
+		i++;
+	}
+	return (i);
+}
+
+/* -------------------------------------------------------------------------- */
+
+static int get_non_lis_nodes_count(t_stack *stack)
+{
+	t_node	*node;
+	t_uint	i;
+	int		count;
+
+	count = 0;
+	i = 0;
+	node = stack->head;
+	while (i < stack->size)
+	{
+		if (node->var_c)
+			++count;
+		node = node->next;
+		i++;
+	}
+	return (count);
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*node;
+	int		index;
+	int		op;
+	
+	node = NULL;
+	update_best_moves_lis(stack_a);
+	while (get_non_lis_nodes_count(stack_a))
+	{
+		index = get_lowst_moves_addr_index(&node, stack_a);
+		if ((t_uint)index <= (stack_a->size / 2))
+			op = RA;
+		else if ((t_uint)index > (stack_a->size / 2))
+			op = RRA;
+		while (stack_a->head != node)
+			exec_print_op(op, stack_a, stack_b);
+		exec_print_op(PB, stack_a, stack_b);
+		update_best_moves_lis(stack_a);
 	}
 	return (0);
 }

@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	apply_lis_algo(&stack_a);
 	exec_print_op(0, &stack_a, &stack_b);
-	update_best_moves_to_head(&stack_a);
+	push_non_lis_node_to_stackb(&stack_a, &stack_b);
 	exec_print_op(0, &stack_a, &stack_b);
 	return (0);
 }

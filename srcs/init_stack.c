@@ -84,7 +84,7 @@ static t_node	*init_stack_node(char *asci_nbr)
 	node->value = ft_atoi(asci_nbr);
 	node->var_a = 1;
 	node->var_b = -1;
-	node->var_c = 0;
+	node->var_c = 1;
 	node->next = NULL;
 	return (node);
 }

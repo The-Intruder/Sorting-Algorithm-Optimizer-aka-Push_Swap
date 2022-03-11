@@ -87,11 +87,11 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| %svar_a: %13u\t%s|\t\t||\t\t", BLD, node_a->var_a, BLU);
+			ft_printf("| %svar_a: %13d\t%s|\t\t||\t\t", BLD, node_a->var_a, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %svar_a: %13u\t%s|\n", BLD, node_b->var_a, BLU);
+			ft_printf("| %svar_a: %13d\t%s|\n", BLD, node_b->var_a, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
@@ -105,11 +105,11 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
 		if (i < stack_a->size)
-			ft_printf("| %svar_c: %13s\t%s|\t\t||\t\t", BLD, node_a->var_c?"true":"false", BLU);
+			ft_printf("| %svar_c: %13d\t%s|\t\t||\t\t", BLD, node_a->var_c, BLU);
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %svar_c: %13s\t%s|\n", BLD, node_b->var_c?"true":"false", BLU);
+			ft_printf("| %svar_c: %13d\t%s|\n", BLD, node_b->var_c, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
@@ -136,7 +136,7 @@ static void	print_stack(t_stack *stack_a, t_stack *stack_b)
 		else
 			ft_printf("%s\t\t\t\t\t||%s", BLU, NC);
 		if (i + 1 < stack_b->size)
-			ft_printf("%s\t\t\t||\t\\/\t/\\%s\n", BLU, NC);
+			ft_printf("%s\t\t\t\\/\t/\\%s\n", BLU, NC);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
@@ -157,7 +157,7 @@ void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 
 	system("clear");
 	if (op_mask & SA)
-		ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_A%s", BLD, ++i, NC);
+		ft_printf("SWAP_A%s", BLD, ++i, NC);
 	else if (op_mask & SB)
 		ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_B%s", BLD, ++i, NC);
 	else if (op_mask & SS)
@@ -178,6 +178,8 @@ void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_B%s", BLD, ++i, NC);
 	else if (op_mask & RRR)
 		ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_R%s", BLD, ++i, NC);
+	else
+		ft_printf("%s  Instructions Count: %-6d%s", BLD, i, NC);
 	if (op_mask)
 		check_exec_op(op_mask, stack_a, stack_b);
 	print_stack(stack_a, stack_b);

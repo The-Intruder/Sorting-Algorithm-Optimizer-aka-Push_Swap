@@ -112,6 +112,7 @@ int		apply_lis_algo(t_stack *stack);
 void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
 //  sorting_algo_i.c	//
-int		update_best_moves_to_head(t_stack *stack);
+//int		update_best_moves_to_head(t_stack *stack);
+int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 
 #endif
