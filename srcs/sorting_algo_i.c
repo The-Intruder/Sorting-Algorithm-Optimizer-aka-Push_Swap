@@ -14,141 +14,86 @@
 
 /* -------------------------------------------------------------------------- */
 
-// t_stack	*copy_stack(t_stack *stack)
-// {
-// 	char	**val_arr;
-// 	t_node	*node;
-// 	t_stack	*cp_stack;
-// 	int		i;
-
-// 	val_arr = (int *)ft_calloc(stack->size, sizeof(int));
-// 	if (!val_arr)
-// 		return (NULL);		// Print an error here
-// 	i = 0;
-// 	while (i < stack->size)
-// 	{
-// 		node = get_node_addr(stack->head, stack->size, i);
-// 		val_arr[i++] = ft_itoa(node->value);
-// 	}
-// 	cp_stack = (t_stack *)ft_calloc(1, sizeof(t_stack));
-// 	if (!cp_stack)
-// 		return (NULL);		// Print an error here
-// 	if (init_stack(cp_stack, stack->size, val_arr))
-// 		return (NULL);
-// 	return (cp_stack);
-// }
-
-/* -------------------------------------------------------------------------- */
-
-static int	count_moves_lis(t_uint index, t_node *node, t_stack *stack)
+static t_node	*get_best_node(t_stack *stack)
 {
 	t_uint	i;
-	t_node	*tracer;
-	int		node_pos;
+	t_node	*node;
+	t_node	*ref_node;
 
 	i = 0;
-	tracer = node;
-	if (index > (stack->size / 2))
-		node_pos = LH;
-	else if (index <= (stack->size / 2))
-		node_pos = UH;
-	while (i < stack->size && stack->head != tracer)
+	node = stack->head;
+	ref_node = stack->head->next;
+	while (i++ < stack->size)
 	{
-		if (node_pos & LH)
-			tracer = tracer->next;
-		else if (node_pos & UH)
-			tracer = tracer->prev;
-		i++;
+		if (ref_node->var_c < node->var_c)
+			node = ref_node;
+		ref_node = ref_node->next;
 	}
-	return ((int)i);
+	return (node);
 }
 
 /* -------------------------------------------------------------------------- */
 
-static int	update_best_moves_lis(t_stack *stack)
+static void	calcul_best_prev_node(t_stack *stack, int value)
+{
+	t_uint	i;
+	t_node	*node;
+	int		moves;
+
+	i = 0;
+	node = stack->head;
+	moves = 0;
+	while (i++ < stack->size)
+	{
+		node->var_c = node->value - value;
+		node = node->next;
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+
+static int	get_moves_to_head(t_uint index, t_stack *stack)
+{
+	t_uint	index
+	if (index <= (stack->size / 2))
+		return (index);
+	return ((stack->size - index) * -1);
+}
+
+/* -------------------------------------------------------------------------- */
+
+static void calculate_total_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 {
 	t_uint	i;
 	t_node	*node;
 
-	node = stack->head;
 	i = 0;
-	while (i < stack->size)
+	node = stack_b->head;
+	while (i < stack_b->size)
 	{
-		if (node->var_c)
-			node->var_a = count_moves_lis(i, node, stack);
-		node->var_b = 0;
+		node->var_a = get_moves_to_head(i, stack_b);
+		node->var_b = count_sorting_moves(stack_a, node->value);
+		node->var_c = -1;
+		if (node->var_a >= 0 && node->var_b >= 0)
+			node->var_c = get_node_position(i, stack_a);
 		node = node->next;
 		++i;
 	}
-	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
 
-int	get_lowst_moves_addr_index(t_node **node, t_stack *stack)
-{
-	t_node	*tracer;
-	int	i;
-
-	if (!stack || stack->size == 0)
-		return (-1);
-	*node = stack->head;
-	tracer = stack->head->next;
-	i = 0;
-	while ((t_uint)i < stack->size)
-	{
-		if (tracer->var_c && tracer->var_a < (*node)->var_a)
-			*node = tracer;
-		tracer = tracer->next;
-		i++;
-	}
-	return (i);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static int get_non_lis_nodes_count(t_stack *stack)
-{
-	t_node	*node;
-	t_uint	i;
-	int		count;
-
-	count = 0;
-	i = 0;
-	node = stack->head;
-	while (i < stack->size)
-	{
-		if (node->var_c)
-			++count;
-		node = node->next;
-		i++;
-	}
-	return (count);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
+int	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
 	int		index;
 	int		op;
-	
-	node = NULL;
-	update_best_moves_lis(stack_a);
-	while (get_non_lis_nodes_count(stack_a))
+
+	while (stack_b->size)
 	{
-		index = get_lowst_moves_addr_index(&node, stack_a);
-		if ((t_uint)index <= (stack_a->size / 2))
-			op = RA;
-		else if ((t_uint)index > (stack_a->size / 2))
-			op = RRA;
-		while (stack_a->head != node)
-			exec_print_op(op, stack_a, stack_b);
-		exec_print_op(PB, stack_a, stack_b);
-		update_best_moves_lis(stack_a);
+		calculate_total_sorting_moves(stack_a, stack_b);
+
 	}
-	return (0);
 }
 
 /* -------------------------------------------------------------------------- */

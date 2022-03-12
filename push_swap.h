@@ -49,18 +49,17 @@ var_c:
 # define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
 
 // ~~~~ Sorting Operations' Masks ~~~~~~ //
-# define SA		0b00000000001
-# define SB		0b00000000010
-# define SS		0b00000000100
-# define PA		0b00000001000
-# define PB		0b00000010000
-# define RA		0b00000100000
-# define RB		0b00001000000
-# define RR		0b00010000000
-# define RRA	0b00100000000
-# define RRB	0b01000000000
-# define RRR	0b10000000000
-
+# define SA		0b0000000000001
+# define SB		0b0000000000010
+# define SS		0b0000000000100
+# define PA		0b0000000001000
+# define PB		0b0000000010000
+# define RA		0b0000000100000
+# define RB		0b0000001000000
+# define RR		0b0000010000000
+# define RRA	0b0000100000000
+# define RRB	0b0001000000000
+# define RRR	0b0010000000000
 # define UH		0b0100000000000
 # define LH		0b1000000000000
 
@@ -109,10 +108,14 @@ t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack);
 
 //  testing_functions.c	//
-void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
+void	print_stack(t_stack *stack_a, t_stack *stack_b);
+void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b, int op);
 
 //  sorting_algo_i.c	//
-//int		update_best_moves_to_head(t_stack *stack);
+//int	update_best_moves_to_head(t_stack *stack);
+// int		calculate_total_sorting_moves(t_stack *stack_a, t_stack *stack_b);
+// int		count_moves_to_head(t_uint index, t_stack *stack);
 int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
+// int	sort_numbers(t_stack *stack_a, t_stack *stack_b);
 
 #endif

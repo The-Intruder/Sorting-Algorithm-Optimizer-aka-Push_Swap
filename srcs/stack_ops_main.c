@@ -14,6 +14,8 @@
 
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+
 static int	check_exec_op_ii(int op_mask, t_stack *stack_a, t_stack *stack_b)
 {
 	int	err;
@@ -45,6 +47,7 @@ int	check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 	int	err;
 
 	err = 0;
+	//print_instruction(op_mask);
 	if (op_mask & SA)
 		err = swap_stack(stack_a);
 	else if (op_mask & SB)
