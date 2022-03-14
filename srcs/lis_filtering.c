@@ -109,7 +109,6 @@ int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
 	node = NULL;
 	count = non_lis_count(stack_a);
 	calcul_moves_to_stackb(stack_a);
-	//ft_printf("%d\n", count);
 	while (count)
 	{
 		index = get_lowst_moves_node(&node, stack_a);
@@ -118,9 +117,9 @@ int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
 		else if ((t_uint)index > (stack_a->size / 2))
 			op = RRA;
 		while (stack_a->head != node)
-			exec_print_op(op, stack_a, stack_b, 1);
+			check_exec_op(op, stack_a, stack_b);
 		if (stack_a->head == node)
-			exec_print_op(PB, stack_a, stack_b, 1);
+			check_exec_op(PB, stack_a, stack_b);
 		count--;
 		calcul_moves_to_stackb(stack_a);
 	}

@@ -32,7 +32,7 @@ var_c:
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
-// # include <stdio.h>
+# include <math.h>
 # include "libs/libft/libft.h"
 # include "libs/ft_printf/ft_printf.h"
 
@@ -97,25 +97,33 @@ int		rev_rotate_stack(t_stack *stack);
 //  stack_ops_main.c	//
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
 
-//  misc_utils.c		//
-void	reset_stack(t_stack *stack);
-void	patch_stack(t_stack *stack);
-void	p_err(char *err_msg);
-
 //  long_incr_sub.c		//
-t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index);
 t_node	*get_lowst_val_addr(t_stack *stack);
-int		apply_lis_algo(t_stack *stack);
+int		apply_lis_algo(t_stack *stack_a, t_stack *stack_b);
 
-//  testing_functions.c	//
-void	print_stack(t_stack *stack_a, t_stack *stack_b);
-void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b, int op);
+//  lis_filtering		//
+int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 
 //  sorting_algo_i.c	//
-//int	update_best_moves_to_head(t_stack *stack);
-// int		calculate_total_sorting_moves(t_stack *stack_a, t_stack *stack_b);
-// int		count_moves_to_head(t_uint index, t_stack *stack);
-int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
-// int	sort_numbers(t_stack *stack_a, t_stack *stack_b);
+void	sort_numbers(t_stack *stack_a, t_stack *stack_b);
+
+//  sorting_algo_ii.c	//
+void	exec_condit_push(t_node *node, t_stack *stack_a, t_stack *stack_b);
+
+//  sorting_algo_i.c	//
+void	sort_numbers(t_stack *stack_a, t_stack *stack_b);
+
+//  misc_utils.c		//
+void	reset_stack(t_stack *stack);
+void	reset_stack_nodes_vars(t_stack *stack);
+void	patch_stack(t_stack *stack);
+void	p_err(char *err_msg);
+int		is_positive(int nbr);
+int		are_same_sign(int nbr1, int nbr2);
+
+/* ========================================================================== */
+//  testing_functions.c	//
+void	print_stack(t_stack *stack_a, t_stack *stack_b);
+/* ========================================================================== */
 
 #endif

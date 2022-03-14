@@ -14,34 +14,6 @@
 
 /* -------------------------------------------------------------------------- */
 
-static void	print_instruction(int op_mask)
-{
-	if (op_mask & SA)
-		ft_printf("sa\n");
-	else if (op_mask & SB)
-		ft_printf("sb\n");
-	else if (op_mask & SS)
-		ft_printf("ss\n");
-	else if (op_mask & PA)
-		ft_printf("pa\n");
-	else if (op_mask & PB)
-		ft_printf("pb\n");
-	else if (op_mask & RA)
-		ft_printf("ra\n");
-	else if (op_mask & RB)
-		ft_printf("rb\n");
-	else if (op_mask & RR)
-		ft_printf("rr\n");
-	else if (op_mask & RRA)
-		ft_printf("rra\n");
-	else if (op_mask & RRB)
-		ft_printf("rrb\n");
-	else if (op_mask & RRR)
-		ft_printf("rrr\n");
-}
-
-/* ========================== TESTING-PHASE FUNCTIONS ======================= */
-
 void	print_stack(t_stack *stack_a, t_stack *stack_b)
 {
 	t_uint	i;
@@ -137,7 +109,7 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %svar_c: %13s\t%s|\n", BLD, node_b->var_c==UH?"UH":"LH", BLU);
+			ft_printf("| %svar_c: %13d\t%s|\n", BLD, node_b->var_c, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/
@@ -175,49 +147,6 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 		++i;
 	}
 	ft_putchar_fd('\n', 1);
-}
-
-/* ========================================================================== */
-
-void	exec_print_op(int op_mask, t_stack *stack_a, t_stack *stack_b, int op)
-{
-	static int	i;
-
-	if (!op)
-	{
-		if (op_mask & SA)
-			ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_A%s", BLD, ++i, NC);
-		else if (op_mask & SB)
-			ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_B%s", BLD, ++i, NC);
-		else if (op_mask & SS)
-			ft_printf("%s  Instructions Count: %-6d\t\t\bSWAP_S%s", BLD, ++i, NC);
-		else if (op_mask & PA)
-			ft_printf("%s  Instructions Count: %-6d\t\t\bPUSH_A%s", BLD, ++i, NC);
-		else if (op_mask & PB)
-			ft_printf("%s  Instructions Count: %-6d\t\t\bPUSH_B%s", BLD, ++i, NC);
-		else if (op_mask & RA)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_A%s", BLD, ++i, NC);
-		else if (op_mask & RB)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_B%s", BLD, ++i, NC);
-		else if (op_mask & RR)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\bROTATE_R%s", BLD, ++i, NC);
-		else if (op_mask & RRA)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_A%s", BLD, ++i, NC);
-		else if (op_mask & RRB)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_B%s", BLD, ++i, NC);
-		else if (op_mask & RRR)
-			ft_printf("%s  Instructions Count: %-6d\t\t\b\b\b\bRevROTATE_R%s", BLD, ++i, NC);
-		else
-			ft_printf("%s  Instructions Count: %-6d%s", BLD, i, NC);
-	}
-	if (op_mask)
-	{
-		check_exec_op(op_mask, stack_a, stack_b);
-		if (!op)
-			print_stack(stack_a, stack_b);
-	}
-	if (op)
-		print_instruction(op_mask);
 }
 
 /* -------------------------------------------------------------------------- */

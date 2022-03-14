@@ -20,6 +20,20 @@
 
 /* -------------------------------------------------------------------------- */
 
+// static void	print_stack_min(t_stack *stack_a)
+// {
+// 	t_uint	i;
+// 	t_node	*node;
+
+// 	i = 0;
+// 	node = stack_a->head;
+// 	while (i++ < stack_a->size)
+// 	{
+// 		ft_printf("%5d\n", node->value);
+// 		node = node->next;
+// 	}
+// }
+
 /* -------------------------------------------------------------------------- */
 
 int	main(int argc, char **argv)
@@ -34,10 +48,10 @@ int	main(int argc, char **argv)
 	err = init_stack(&stack_a, argc, argv);
 	if (err)
 		return (-1);
-	apply_lis_algo(&stack_a);
-	push_non_lis_node_to_stackb(&stack_a, &stack_b);
-	//calculate_total_sorting_moves(&stack_a, &stack_b);
-	exec_print_op(0, &stack_a, &stack_b, 1);
+	apply_lis_algo(&stack_a, &stack_b);
+	sort_numbers(&stack_a, &stack_b);
+	print_stack(&stack_a, &stack_b);
+	//print_stack_min(&stack_a);
 	return (0);
 }
 

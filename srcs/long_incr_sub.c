@@ -63,7 +63,7 @@ static t_node	*get_highst_lislen_addr(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index)
+static t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index)
 {
 	t_uint	i;
 	t_node	*node;
@@ -77,7 +77,9 @@ t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index)
 	return (node);
 }
 
-/* -- node[0] == node_i /|\ node[2] == node_j /|\ node[2] == lis_prev_node -- */
+/* -------------------------------------------------------------------------- */
+/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
+/*   node[0] == node_i     node[2] == node_j     node[2] == lis_prev_node     */
 
 static void	lis_algo(t_stack *stack, t_uint i, t_node *lis_head, t_uint offset)
 {
@@ -110,7 +112,7 @@ static void	lis_algo(t_stack *stack, t_uint i, t_node *lis_head, t_uint offset)
 
 /* -------------------------------------------------------------------------- */
 
-int	apply_lis_algo(t_stack *stack)
+int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
 	t_uint	i;
@@ -118,22 +120,23 @@ int	apply_lis_algo(t_stack *stack)
 	t_uint	offset;
 
 	i = 1;
-	lis_head = get_lowst_val_addr(stack);
+	lis_head = get_lowst_val_addr(stack_a);
 	offset = 0;
-	node = stack->head;
+	node = stack_a->head;
 	while (node != lis_head)
 	{
 		node = node->next;
 		offset++;
 	}
-	while (i < stack->size)
-		lis_algo(stack, i++, lis_head, offset);
-	node = get_highst_lislen_addr(stack);
+	while (i < stack_a->size)
+		lis_algo(stack_a, i++, lis_head, offset);
+	node = get_highst_lislen_addr(stack_a);
 	while (node->var_b >= 0)
 	{
 		node->var_c = 0;
-		node = get_node_addr(stack->head, stack->size, node->var_b);
+		node = get_node_addr(stack_a->head, stack_a->size, node->var_b);
 	}
+	push_non_lis_node_to_stackb(stack_a, stack_b);
 	return (0);
 }
 
