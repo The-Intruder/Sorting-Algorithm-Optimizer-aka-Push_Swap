@@ -24,7 +24,6 @@
 // {
 // 	t_uint	i;
 // 	t_node	*node;
-
 // 	i = 0;
 // 	node = stack_a->head;
 // 	while (i++ < stack_a->size)
@@ -44,14 +43,11 @@ int	main(int argc, char **argv)
 
 	reset_stack(&stack_a);
 	reset_stack(&stack_b);
-	system("clear");
 	err = init_stack(&stack_a, argc, argv);
 	if (err)
 		return (-1);
 	apply_lis_algo(&stack_a, &stack_b);
 	sort_numbers(&stack_a, &stack_b);
-	print_stack(&stack_a, &stack_b);
-	//print_stack_min(&stack_a);
 	return (0);
 }
 

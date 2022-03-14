@@ -84,5 +84,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char *s1, const char *s2);
 long	ft_atol(const char *str);
 int		ft_isspace(int c);
+int		ft_prot_atoi(const char *str);
 
 #endif

@@ -13,6 +13,7 @@
 #include "../push_swap.h"
 
 /* -------------------------------------------------------------------------- */
+/* ==============================        OK       =========================== */
 
 static int	get_node_index(t_node *node, t_stack *stack)
 {
@@ -32,6 +33,7 @@ static int	get_node_index(t_node *node, t_stack *stack)
 }
 
 /* -------------------------------------------------------------------------- */
+/* ==============================        OK       =========================== */
 
 static int	calcul_total_moves(int var_a, int var_b)
 {
@@ -47,6 +49,7 @@ static int	calcul_total_moves(int var_a, int var_b)
 }
 
 /* -------------------------------------------------------------------------- */
+/* ==============================        OK       =========================== */
 
 static int	count_head_distance(int index, t_stack *stack)
 {
@@ -63,9 +66,9 @@ static int	calcul_number_diff(int nb1, int nb2)
 	if (are_same_sign(nb1, nb2))
 	{
 		if (abs(nb1) > abs(nb2))
-			return (abs(nb1));
+			return (abs(nb1) - abs(nb2));
 		else
-			return (abs(var_b));
+			return (abs(nb2) - abs(nb1));
 	}
 	return (abs(nb1) + abs(nb2));
 }
@@ -81,9 +84,7 @@ static void	update_stacka_number_diff(t_stack *stack_a, int ref_value)
 	node = stack_a->head;
 	while (i++ < stack_a->size)
 	{
-		node->var_c = -1;
-		if (node->value > ref_value)
-			node->var_c = calcul_number_diff(node->value, ref_value);
+		node->var_c = calcul_number_diff(node->value, ref_value);
 		node = node->next;
 	}
 }
@@ -98,12 +99,14 @@ static t_node	*get_lowest_var_c_node(t_stack *stack_a)
 
 	if (!stack_a || stack_a->size == 0)
 		return (NULL);
-	node = stack_a->head;
-	tracer = stack_a->head->next;
+	node = NULL;
+	tracer = stack_a->head;
 	i = 0;
 	while (i < stack_a->size)
 	{
-		if (tracer->var_c >= 0 && tracer->var_c < node->var_c)
+		if (!node && tracer->var_c >= 0 )
+			node = tracer;
+		else if (tracer->var_c >= 0 && tracer->var_c < node->var_c)
 			node = tracer;
 		tracer = tracer->next;
 		i++;
@@ -123,7 +126,8 @@ static int	get_best_moves_head_a(t_stack *stack_a, int value)
 	lowst_varc_node = get_lowest_var_c_node(stack_a);
 	index = get_node_index(lowst_varc_node, stack_a);
 	moves = count_head_distance(index, stack_a);
-	
+	if (lowst_varc_node->value < value)
+		++moves;
 	return (moves);
 }
 
@@ -146,26 +150,26 @@ static void update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 		node = node->next;
 		++i;
 	}
-	//reset_stack_nodes_vars(stack_a);
+	reset_stack_nodes_vars(stack_a);
 }
 
 /* -------------------------------------------------------------------------- */
 
-// static void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	t_node	*node;
-// 	int		index;
-// 	int		op;
+static void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*node;
+	int		index;
+	int		op;
 
-// 	node = get_lowst_val_addr(stack_a);
-// 	index = get_node_index(node, stack_a);
-// 	if ((t_uint)index > (stack_a->size / 2))
-// 		op = RRA;
-// 	else
-// 		op = RA;
-// 	while (stack_a->head != node)
-// 		check_exec_op(op, stack_a, stack_b);
-// }
+	node = get_lowst_val_addr(stack_a);
+	index = get_node_index(node, stack_a);
+	if ((t_uint)index > (stack_a->size / 2))
+		op = RRA;
+	else
+		op = RA;
+	while (stack_a->head != node)
+		check_exec_op(op, stack_a, stack_b);
+}
 
 /* -------------------------------------------------------------------------- */
 
@@ -175,13 +179,13 @@ void	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 	int i;
 
 	i = 0;
-	while (i++ < 1)
+	while (stack_b->size)
 	{
 		update_sorting_moves(stack_a, stack_b);
 		node = get_lowest_var_c_node(stack_b);
-		//exec_condit_push(node, stack_a, stack_b);
+		exec_condit_push(node, stack_a, stack_b);
 	}
-	//push_lowest_to_head(stack_a, stack_b);
+	push_lowest_to_head(stack_a, stack_b);
 }
 
 /* -------------------------------------------------------------------------- */

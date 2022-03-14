@@ -12,7 +12,7 @@
 
 #include "../libft.h"
 
-long	ft_atol(const char *str) 2147483648
+long	ft_atol(const char *str)
 {
 	int		i;
 	long	sum;
@@ -34,4 +34,3 @@ long	ft_atol(const char *str) 2147483648
 		sum = (sum * 10) + (str[i++] - '0');
 	return (sum * sign);
 }
-

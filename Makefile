@@ -44,14 +44,10 @@ export TITLE
 
 # ---------------------------------------------------------------------------- #
 CC := gcc
-CC_FLAGS := -Wall -Wextra -Werror
+CC_FLAGS := -Wall -Wextra -Werror -Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
-NB_LIST := -28 6 80 58 29 -54 -100 2 -38 -84 14 77 -53 9 -44 7 -68 0 -62 27 \
-	-52 3 55 -14 -42 -27 83 -47 -41 -22 -85 -10 12 -24 -88 -98 -51 81 91 -78 -21 \
-	-89 -77 -57 42 -9 -30 47 67 84 -71 -75 73 85 -95 -13 -23 -33 11 -48 -93 -40 \
-	-45 -37 74 32 82 -66 -6 41 61 -34 93 -59 46 -73 63 -69 -3 60 96 -35 16 -58 \
-	-4 75 -74 54 44 48 -64 89 30 4 56 -86 -91 -80 100 -29
+NB_LIST := -66 -352 -310 295 -456 218 380 215 188 49 -422 -213 -493 497 407 -425 -302 104 -355 453 -148 -429 -238 -498 -154 208 -428 -371 -95 186 -332 29 273 -386 173 140 33 472 152 341 409 -141 379 79 -402 373 489 -434 -490 178 415 -133 -325 -489 -384 221 -411 261 -181 133 -458 40 -216 138 -175 -132 351 -218 154 430 230 -73 20 23 322 214 -63 32 285 -27 -273 225 17 -108 -240 115 -419 46 -160 187 70 -254 431 243 308 353 127 194 374 -442
 
 PROJECT := push_swap
 MAIN := push_swap.c
@@ -97,13 +93,12 @@ clean:
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
-compile: all ${HEADER} ${MAIN}
+compile: re ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
 execute: compile ${EXEC}
 	@./${EXEC} ${NB_LIST}
-#@./${EXEC} ${NB_LIST} | wc -l
-#@make exclean >> /dev/null
+	@make exclean >> /dev/null
 
 fclean: clean
 	@make -C libs/ft_printf/ fclean
