@@ -14,6 +14,47 @@
 
 /* -------------------------------------------------------------------------- */
 
+void	calcul_optimized_moves(t_node *node, t_stack *stack_a, t_stack *stack_b)
+{
+	int	var_a_index;
+	int	var_b_index;
+
+	var_a_index = get_index_from_head_moves(node->var_a, stack_a->size);
+	var_b_index = get_index_from_head_moves(node->var_b, stack_b->size);
+	if (var_a_index > (int)stack_a->size / 2 && var_a_index > var_b_index)
+	{
+		//if (var_a_index - var_b_index <= (int)stack_a->size / 2)
+		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
+			node->var_a = var_a_index;
+	}
+	else if (var_b_index > (int)stack_b->size / 2 && var_b_index > var_a_index)
+	{
+		//if (var_b_index - var_a_index <= (int)stack_b->size / 2)
+		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
+			node->var_b = var_b_index;
+	}
+}
+
+/* -------------------------------------------------------------------------- */
+
+void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
+{
+	t_node	*node;
+	int		index;
+	int		op;
+
+	node = get_lowst_val_addr(stack_a);
+	index = get_node_index(node, stack_a);
+	if ((t_uint)index > (stack_a->size / 2))
+		op = RRA;
+	else
+		op = RA;
+	while (stack_a->head != node)
+		check_exec_op(op, stack_a, stack_b);
+}
+
+/* -------------------------------------------------------------------------- */
+
 static void	exec_rotation(t_node *node, t_stack *stack_a, t_stack *stack_b)
 {
 	if (node->var_a > 0 && node->var_b <= 0)

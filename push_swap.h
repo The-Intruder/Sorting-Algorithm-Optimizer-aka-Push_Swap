@@ -82,47 +82,51 @@ typedef struct s_stack {
 }	t_stack;
 
 // -------------------------------- Prototypes ------------------------------ */
-// init_stack.c			//
+// init_stack.c
 int		init_stack(t_stack	*stack, int argc, char **argv);
 
-// error_handling.c		//
+// error_handling.c
 int		handle_err(int argc, char **argv);
 
-//  stack_ops_utils.c	//
+//  stack_ops_main.c
+int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
+//  stack_ops_utils.c
 int		push_stack(t_stack *stack_src, t_stack *stack_dst);
 int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
-//  stack_ops_main.c	//
-int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
-
-//  long_incr_sub.c		//
+//  long_incr_sub.c
 t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack_a, t_stack *stack_b);
-
-//  lis_filtering		//
+//  lis_filtering
 int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 
-//  sorting_algo_i.c	//
+//  sorting_algo_i.c
 void	sort_numbers(t_stack *stack_a, t_stack *stack_b);
-
-//  sorting_algo_ii.c	//
+//  sorting_algo_ii.c
+void	calcul_optimized_moves(t_node *node, t_stack *stack_a, t_stack *stack_b);
+void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b);
 void	exec_condit_push(t_node *node, t_stack *stack_a, t_stack *stack_b);
+//  sorting_algo_iii.c
+int		calcul_number_diff(int nb1, int nb2);
+int		calcul_total_moves(int var_a, int var_b);
+int		get_index_from_head_moves(int moves, int stack_size);
+int		get_node_index(t_node *node, t_stack *stack);
+int		count_head_distance(int index, t_stack *stack);
 
-//  sorting_algo_i.c	//
-void	sort_numbers(t_stack *stack_a, t_stack *stack_b);
-
-//  misc_utils.c		//
+//  misc_utils_i.c
 void	reset_stack(t_stack *stack);
 void	reset_stack_nodes_vars(t_stack *stack);
 void	patch_stack(t_stack *stack);
 void	p_err(char *err_msg);
 int		is_positive(int nbr);
 int		are_same_sign(int nbr1, int nbr2);
+//  misc_utils_ii.c
+
 
 /* ========================================================================== */
-//  testing_functions.c	//
+//  testing_functions.c
 void	print_stack(t_stack *stack_a, t_stack *stack_b);
 /* ========================================================================== */
 
