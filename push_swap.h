@@ -60,8 +60,6 @@ var_c:
 # define RRA	0b0000100000000
 # define RRB	0b0001000000000
 # define RRR	0b0010000000000
-# define UH		0b0100000000000
-# define LH		0b1000000000000
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;

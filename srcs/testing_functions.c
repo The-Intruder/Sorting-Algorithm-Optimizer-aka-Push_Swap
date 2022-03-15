@@ -25,6 +25,7 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 	node_a = stack_a->head;
 	node_b = stack_b->head;
 	len = 0;
+	system("clear");
 	ft_putchar_fd('\n', 1);
 	while (i < stack_a->size || i < stack_b->size)
 	{
@@ -147,6 +148,7 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 		++i;
 	}
 	ft_putchar_fd('\n', 1);
+	sleep(2);
 }
 
 /* -------------------------------------------------------------------------- */

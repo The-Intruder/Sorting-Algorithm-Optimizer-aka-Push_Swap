@@ -64,16 +64,9 @@ static int	get_best_moves_head_a(t_stack *stack_a, int value)
 	update_stacka_number_diff(stack_a, value);
 	lowst_varc_node = get_lowest_var_c_node(stack_a);
 	index = get_node_index(lowst_varc_node, stack_a);
-	if (lowst_varc_node->value < value)
-	{
-		if (index + 1 == stack_a->size)
-			index = 0;
-		else
-			index += 1;
-	}
 	moves = count_head_distance(index, stack_a);
-	// if (lowst_varc_node->value < value)
-	// 	++moves;
+	if (lowst_varc_node && lowst_varc_node->value < value)
+		moves += 1;
 	return (moves);
 }
 
@@ -117,6 +110,7 @@ void	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 		update_sorting_moves(stack_a, stack_b);
 		node = get_lowest_var_c_node(stack_b);
 		exec_condit_push(node, stack_a, stack_b);
+		print_stack(stack_a, stack_b);
 	}
 	push_lowest_to_head(stack_a, stack_b);
 }

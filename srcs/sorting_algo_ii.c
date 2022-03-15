@@ -23,15 +23,19 @@ void	calcul_optimized_moves(t_node *node, t_stack *stack_a, t_stack *stack_b)
 	var_b_index = get_index_from_head_moves(node->var_b, stack_b->size);
 	if (var_a_index > (int)stack_a->size / 2 && var_a_index > var_b_index)
 	{
-		//if (var_a_index - var_b_index <= (int)stack_a->size / 2)
 		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
+		{
 			node->var_a = var_a_index;
+			ft_printf("Here 1!!!");
+		}
 	}
 	else if (var_b_index > (int)stack_b->size / 2 && var_b_index > var_a_index)
 	{
-		//if (var_b_index - var_a_index <= (int)stack_b->size / 2)
 		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
+		{
 			node->var_b = var_b_index;
+			ft_printf("Here 2!!!");
+		}
 	}
 }
 

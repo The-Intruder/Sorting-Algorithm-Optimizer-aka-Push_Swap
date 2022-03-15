@@ -24,8 +24,10 @@ t_node	*get_lowst_val_addr(t_stack *stack)
 		return (NULL);
 	node = stack->head;
 	tracer = NULL;
-	if (stack->head->next)
+	if (stack->head->next != stack->head)
 		tracer = stack->head->next;
+	else
+		return (node);
 	i = 0;
 	while (i++ < stack->size)
 	{

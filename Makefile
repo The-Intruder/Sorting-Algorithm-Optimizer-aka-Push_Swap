@@ -44,11 +44,11 @@ export TITLE
 
 # ---------------------------------------------------------------------------- #
 CC := gcc
-CC_FLAGS := -Wall -Wextra -Werror -Ofast -march=native -fno-signed-zeros \
-	-fno-trapping-math
+CC_FLAGS := -Wall -Wextra -Werror 
+#-Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
-NB_LIST := 1629180989 -1282987236 -1113946943 -1912506795 1726101184
+NB_LIST := 1861976769 -343798644 -1634469158 -1407278190 -1763699739
 
 PROJECT := push_swap
 MAIN := push_swap.c
@@ -59,8 +59,8 @@ EXEC := push_swap
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
 SRCS_LST := init_stack.c error_handling.c stack_ops_utils.c stack_ops_main.c \
-			misc_utils.c long_incr_sub.c testing_functions.c \
-			lis_filtering.c sorting_algo_i.c sorting_algo_ii.c 
+			misc_utils.c long_incr_sub.c lis_filtering.c testing_functions.c \
+			sorting_algo_i.c sorting_algo_ii.c sorting_algo_iii.c 
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -94,12 +94,12 @@ clean:
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
-compile: re ${HEADER} ${MAIN}
+compile: all ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
 
-execute: ${EXEC}
+execute: compile ${EXEC}
 	@./${EXEC} ${NB_LIST}
-	@./${EXEC} ${NB_LIST} | wc -l
+#@./${EXEC} ${NB_LIST} | wc -l
 
 fclean: clean
 	@make -C libs/ft_printf/ fclean
