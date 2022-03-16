@@ -92,3 +92,23 @@ int	are_same_sign(int nbr1, int nbr2)
 }
 
 /* -------------------------------------------------------------------------- */
+
+int	stack_is_sorted(t_stack *stack)
+{
+	t_uint	i;
+	t_node	*node;
+
+	if (stack->size < 2)
+		return (1);
+	i = 0;
+	node = stack->head;
+	while ((i++) + 1 < stack->size)
+	{
+		if (node->next->value < node->value)
+			return (0);
+		node = node->next;
+	}
+	return (1);
+}
+
+/* -------------------------------------------------------------------------- */

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   long_incr_sub.c                                    :+:      :+:    :+:   */
+/*   lis_misc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-t_node	*get_lowst_val_addr(t_stack *stack)
+t_node	*get_lowest_value_node(t_stack *stack)
 {
 	t_node	*tracer;
 	t_node	*node;
@@ -35,13 +35,12 @@ t_node	*get_lowst_val_addr(t_stack *stack)
 			node = tracer;
 		tracer = tracer->next;
 	}
-	node->var_c = 0;
 	return (node);
 }
 
 /* -------------------------------------------------------------------------- */
 
-static t_node	*get_highst_lislen_addr(t_stack *stack)
+t_node	*get_highst_lis_len_node(t_stack *stack)
 {
 	t_node	*tracer;
 	t_node	*node;
@@ -65,7 +64,33 @@ static t_node	*get_highst_lislen_addr(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-static t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index)
+t_node	*get_highst_total_lis_len_node(t_stack *stack)
+{
+	t_node	*tracer;
+	t_node	*node;
+	t_uint	i;
+
+	if (!stack || stack->size == 0)
+		return (NULL);
+	node = stack->head;
+	tracer = NULL;
+	if (stack->head->next)
+		tracer = stack->head->next;
+	i = 0;
+	while (i++ < stack->size)
+	{
+		if (tracer->var_c > node->var_c)
+			node = tracer;
+		else if (tracer->var_c == node->var_c && tracer->value < node->value)
+			node = tracer;
+		tracer = tracer->next;
+	}
+	return (node);
+}
+
+/* -------------------------------------------------------------------------- */
+
+t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index)
 {
 	t_uint	i;
 	t_node	*node;
@@ -80,66 +105,20 @@ static t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index
 }
 
 /* -------------------------------------------------------------------------- */
-/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
-/*   node[0] == node_i     node[2] == node_j     node[2] == lis_prev_node     */
 
-static void	lis_algo(t_stack *stack, t_uint i, t_node *lis_head, t_uint offset)
-{
-	t_uint	j;
-	t_node	*node[3];
-
-	node[0] = get_node_addr(lis_head, stack->size, i);
-	j = 0;
-	while (j < i)
-	{
-		node[1] = get_node_addr(lis_head, stack->size, j);
-		if (node[1]->value < node[0]->value)
-		{
-			if (node[0]->var_b >= 0)
-				node[2] = get_node_addr(stack->head, stack->size, \
-					node[0]->var_b);
-			if (node[0]->var_a < node[1]->var_a + 1 || \
-				(node[0]->var_a == node[1]->var_a + 1 && \
-				node[1]->value < node[2]->value))
-			{
-				node[0]->var_a = node[1]->var_a + 1;
-				node[0]->var_b = j + offset;
-				if ((t_uint)node[0]->var_b >= stack->size)
-					node[0]->var_b -= stack->size;
-			}
-		}
-		j++;
-	}
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
+t_uint	get_head_distance(t_node *lis_head, t_stack *stack)
 {
 	t_node	*node;
-	t_uint	i;
-	t_node	*lis_head;
 	t_uint	offset;
 
-	i = 1;
-	lis_head = get_lowst_val_addr(stack_a);
+	node = stack->head;
 	offset = 0;
-	node = stack_a->head;
 	while (node != lis_head)
 	{
 		node = node->next;
 		offset++;
 	}
-	while (i < stack_a->size)
-		lis_algo(stack_a, i++, lis_head, offset);
-	node = get_highst_lislen_addr(stack_a);
-	while (node->var_b >= 0)
-	{
-		node->var_c = 0;
-		node = get_node_addr(stack_a->head, stack_a->size, node->var_b);
-	}
-	push_non_lis_node_to_stackb(stack_a, stack_b);
-	return (0);
+	return (offset);
 }
 
 /* -------------------------------------------------------------------------- */

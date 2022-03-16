@@ -14,31 +14,31 @@
 
 /* -------------------------------------------------------------------------- */
 
-// static void	print_instruction(int op_mask)
-// {
-// 	if (op_mask & SA)
-// 		ft_printf("sa\n");
-// 	else if (op_mask & SB)
-// 		ft_printf("sb\n");
-// 	else if (op_mask & SS)
-// 		ft_printf("ss\n");
-// 	else if (op_mask & PA)
-// 		ft_printf("pa\n");
-// 	else if (op_mask & PB)
-// 		ft_printf("pb\n");
-// 	else if (op_mask & RA)
-// 		ft_printf("ra\n");
-// 	else if (op_mask & RB)
-// 		ft_printf("rb\n");
-// 	else if (op_mask & RR)
-// 		ft_printf("rr\n");
-// 	else if (op_mask & RRA)
-// 		ft_printf("rra\n");
-// 	else if (op_mask & RRB)
-// 		ft_printf("rrb\n");
-// 	else if (op_mask & RRR)
-// 		ft_printf("rrr\n");
-// }
+static void	print_instruction(int op_mask)
+{
+	if (op_mask & SA)
+		ft_printf("sa\n");
+	else if (op_mask & SB)
+		ft_printf("sb\n");
+	else if (op_mask & SS)
+		ft_printf("ss\n");
+	else if (op_mask & PA)
+		ft_printf("pa\n");
+	else if (op_mask & PB)
+		ft_printf("pb\n");
+	else if (op_mask & RA)
+		ft_printf("ra\n");
+	else if (op_mask & RB)
+		ft_printf("rb\n");
+	else if (op_mask & RR)
+		ft_printf("rr\n");
+	else if (op_mask & RRA)
+		ft_printf("rra\n");
+	else if (op_mask & RRB)
+		ft_printf("rrb\n");
+	else if (op_mask & RRR)
+		ft_printf("rrr\n");
+}
 
 /* -------------------------------------------------------------------------- */
 
@@ -90,8 +90,7 @@ int	check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b)
 		err = rotate_stack(stack_a);
 	else
 		err = check_exec_op_ii(op_mask, stack_a, stack_b);
-	// print_instruction(op_mask);
-	print_stack(stack_a, stack_b);
+	print_instruction(op_mask);
 	return (err);
 }
 

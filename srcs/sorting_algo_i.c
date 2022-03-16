@@ -110,7 +110,7 @@ void	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 		update_sorting_moves(stack_a, stack_b);
 		node = get_lowest_var_c_node(stack_b);
 		exec_condit_push(node, stack_a, stack_b);
-		print_stack(stack_a, stack_b);
+		//print_stack(stack_a, stack_b);
 	}
 	push_lowest_to_head(stack_a, stack_b);
 }

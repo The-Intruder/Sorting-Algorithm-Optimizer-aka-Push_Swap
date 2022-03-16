@@ -49,17 +49,20 @@ var_c:
 # define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
 
 // ~~~~ Sorting Operations' Masks ~~~~~~ //
-# define SA		0b0000000000001
-# define SB		0b0000000000010
-# define SS		0b0000000000100
-# define PA		0b0000000001000
-# define PB		0b0000000010000
-# define RA		0b0000000100000
-# define RB		0b0000001000000
-# define RR		0b0000010000000
-# define RRA	0b0000100000000
-# define RRB	0b0001000000000
-# define RRR	0b0010000000000
+# define SA		0b00000000001
+# define SB		0b00000000010
+# define SS		0b00000000100
+# define PA		0b00000001000
+# define PB		0b00000010000
+# define RA		0b00000100000
+# define RB		0b00001000000
+# define RR		0b00010000000
+# define RRA	0b00100000000
+# define RRB	0b01000000000
+# define RRR	0b10000000000
+# define VA		0b00100000000000
+# define VB		0b01000000000000
+# define VC		0b10000000000000
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
@@ -70,6 +73,7 @@ typedef struct s_node {
 	int				var_a;
 	int				var_b;
 	int				var_c;
+	void			*ptr;
 	struct s_node	*next;
 }	t_node;
 
@@ -80,6 +84,7 @@ typedef struct s_stack {
 }	t_stack;
 
 // -------------------------------- Prototypes ------------------------------ */
+void	print_stack_min(t_stack *stack_a);
 // init_stack.c
 int		init_stack(t_stack	*stack, int argc, char **argv);
 
@@ -94,6 +99,12 @@ int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
+//  lis_misc.c
+t_node	*get_lowest_value_node(t_stack *stack);
+t_node	*get_highst_lis_len_node(t_stack *stack);
+t_node	*get_highst_total_lis_len_node(t_stack *stack);
+t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index);
+t_uint	get_head_distance(t_node *lis_head, t_stack *stack);
 //  long_incr_sub.c
 t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack_a, t_stack *stack_b);
@@ -120,6 +131,7 @@ void	patch_stack(t_stack *stack);
 void	p_err(char *err_msg);
 int		is_positive(int nbr);
 int		are_same_sign(int nbr1, int nbr2);
+int		stack_is_sorted(t_stack *stack);
 //  misc_utils_ii.c
 
 

@@ -24,18 +24,12 @@ void	calcul_optimized_moves(t_node *node, t_stack *stack_a, t_stack *stack_b)
 	if (var_a_index > (int)stack_a->size / 2 && var_a_index > var_b_index)
 	{
 		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
-		{
 			node->var_a = var_a_index;
-			ft_printf("Here 1!!!");
-		}
 	}
 	else if (var_b_index > (int)stack_b->size / 2 && var_b_index > var_a_index)
 	{
 		if (calcul_total_moves(var_a_index, var_b_index) < calcul_total_moves(node->var_a, node->var_b))
-		{
 			node->var_b = var_b_index;
-			ft_printf("Here 2!!!");
-		}
 	}
 }
 
@@ -47,7 +41,7 @@ void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
 	int		index;
 	int		op;
 
-	node = get_lowst_val_addr(stack_a);
+	node = get_lowest_value_node(stack_a);
 	index = get_node_index(node, stack_a);
 	if ((t_uint)index > (stack_a->size / 2))
 		op = RRA;
