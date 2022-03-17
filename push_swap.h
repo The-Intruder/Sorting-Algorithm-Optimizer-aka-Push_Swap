@@ -73,7 +73,8 @@ typedef struct s_node {
 	int				var_a;
 	int				var_b;
 	int				var_c;
-	void			*ptr;
+	struct s_node	*prev_lis;
+	struct s_node	*next_lis;
 	struct s_node	*next;
 }	t_node;
 

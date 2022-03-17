@@ -49,28 +49,28 @@ static int	calcul_moves_to_stackb(t_stack *stack)
 
 static int	get_lowst_moves_node(t_node **node, t_stack *stack)
 {
-	t_node	*tracer;
+	t_node	*ptr;
 	t_uint	true_index;
 	t_uint	i;
 
 	if (!stack || stack->size == 0)
 		return (-1);
 	*node = NULL;
-	tracer = stack->head;
+	ptr = stack->head;
 	i = 0;
 	while (i < stack->size)
 	{
-		if (!(*node) && tracer->var_c)
+		if (!(*node) && ptr->var_c)
 		{
-			*node = tracer;
+			*node = ptr;
 			true_index = i;
 		}
-		if (tracer->var_c && tracer->var_a >= 0 && tracer->var_a < (*node)->var_a)
+		if (ptr->var_c && ptr->var_a >= 0 && ptr->var_a < (*node)->var_a)
 		{
-			*node = tracer;
+			*node = ptr;
 			true_index = i;
 		}
-		tracer = tracer->next;
+		ptr = ptr->next;
 		i++;
 	}
 	return (true_index);
@@ -78,7 +78,7 @@ static int	get_lowst_moves_node(t_node **node, t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-static int non_lis_count(t_stack *stack)
+static int	non_lis_count(t_stack *stack)
 {
 	t_node	*node;
 	t_uint	i;
@@ -90,7 +90,16 @@ static int non_lis_count(t_stack *stack)
 	while (i < stack->size)
 	{
 		if (node->var_c)
+		{
+			if (node->prev_lis)
+				node->prev_lis->next_lis = node;
 			++count;
+		}
+		else
+		{
+			node->next_lis = 0;
+			node->prev_lis = 0;
+		}
 		node = node->next;
 		i++;
 	}
@@ -99,28 +108,67 @@ static int non_lis_count(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
+int	sort_while_on_stack_a(t_stack *stack_a, t_stack *stack_b)
+{
+	int		op;
+	t_node	*next;
+
+	op = 0;
+	next = stack_a->head->next;
+	
+	if (stack_a->head->var_c == 0 && next->var_c == 1 && \
+		next->value < stack_a->head->value && \
+		next->value > stack_a->head->prev_lis->value)
+	{
+		op |= SA;
+		next->var_c = 0;
+	}
+	else if (next->var_c == 0 && stack_a->head->var_c == 1 && \
+		stack_a->head->value > next->value  && \
+		stack_a->head->value < next->next_lis->value)
+	{
+		op |= SA;
+		stack_a->head->var_c = 0;
+		stack_a->head->next_lis = next->next_lis;
+		stack_a->head->next_lis->prev_lis = stack_a->head;
+	}
+	if (op)
+	{
+		check_exec_op(op, stack_a, stack_b);
+		return (1);
+	}
+	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
 int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
 	int		index;
-	int		count;
 	int		op;
-	
+	int		recheck;
+
 	node = NULL;
-	count = non_lis_count(stack_a);
-	calcul_moves_to_stackb(stack_a);
-	while (count--)
+	while (non_lis_count(stack_a))
 	{
+		calcul_moves_to_stackb(stack_a);
 		index = get_lowst_moves_node(&node, stack_a);
 		if ((t_uint)index <= (stack_a->size / 2))
 			op = RA;
 		else if ((t_uint)index > (stack_a->size / 2))
 			op = RRA;
-		while (stack_a->head != node)
+		if (sort_while_on_stack_a(stack_a, stack_b))
+				continue ;
+		while (stack_a->head != node && stack_a->size)
+		{
+			recheck = sort_while_on_stack_a(stack_a, stack_b);
+			if (recheck)
+				break ;
 			check_exec_op(op, stack_a, stack_b);
-		if (stack_a->head == node)
+		}
+		if (stack_a->head == node && stack_a->size)
 			check_exec_op(PB, stack_a, stack_b);
-		calcul_moves_to_stackb(stack_a);
 	}
 	return (0);
 }

@@ -43,13 +43,15 @@ int	push_stack(t_stack *stack_src, t_stack *stack_dst)
 	if (!stack_src || stack_src->size == 0 || !stack_src->head)
 		return (-1);
 	tmp_node = stack_src->head;
-	if (stack_src->size > 1)
+	if (stack_src->size >= 1)
+	{
 		stack_src->head = stack_src->head->next;
+		stack_src->tail->next = stack_src->head;
+		stack_src->head->prev = stack_src->tail;
+		stack_src->size--;
+	}
 	else
 		reset_stack(stack_src);
-	if (stack_src->size)
-		stack_src->size--;
-	patch_stack(stack_src);
 	push_node(tmp_node, stack_dst);
 	return (0);
 }
@@ -65,6 +67,7 @@ int	swap_stack(t_stack *stack)
 	node = stack->head;
 	stack->head = stack->head->next;
 	node->next = stack->head->next;
+	node->next->prev = node;
 	stack->head->next = node;
 	node->prev = stack->head;
 	stack->head->prev = stack->tail;

@@ -44,10 +44,11 @@ export TITLE
 
 # ---------------------------------------------------------------------------- #
 CC := gcc
-CC_FLAGS := -Wall -Wextra -Werror -Ofast -march=native -fno-signed-zeros -fno-trapping-math
+CC_FLAGS := -Wall -Wextra -Werror
+#	-Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
-NB_LIST := -1994707194 1449154439 803890299 1200622823 210858298
+NB_LIST := 2391 -2192 4747 2480 82 4119 -2313 4628 26 -2452 3517 -464 -721 1506 -4527 -1674 -4236 3028 3305 -4284 996 -540 -1517 -3638 -3658 1773 -3394 -1434 1259 -306 -4799 613 -1848 4823 -4474 -647 4383 -711 2726 -3421 4031 2826 -2851 -936 4814 4696 2782 -4411 2436 3380
 
 #NB_LIST := 1861976769 -343798644 -1634469158 -1407278190 -1763699739
 
