@@ -32,7 +32,7 @@ void	check_lis(t_node *node_i, t_node *node_j, int offset, t_stack *stack_a)
 /* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
 /*   node[0] == node_i     node[2] == node_j     node[2] == lis_prev_node     */
 
-static void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
+void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
 {
 	t_uint	i;
 	t_uint	j;
@@ -108,7 +108,7 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 		node->var_c = 0;
 		node = node->prev_lis;
 	}
-	push_non_lis_node_to_stackb(stack_a, stack_b);
+	push_non_lis_node_to_stackb(stack_a, stack_b, lis_head);
 	return (0);
 }
 

@@ -100,6 +100,8 @@ int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
+//  lis_algo.c
+void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset);
 //  lis_misc.c
 t_node	*get_lowest_value_node(t_stack *stack);
 t_node	*get_highst_lis_len_node(t_stack *stack);
@@ -110,7 +112,8 @@ t_uint	get_head_distance(t_node *lis_head, t_stack *stack);
 t_node	*get_lowst_val_addr(t_stack *stack);
 int		apply_lis_algo(t_stack *stack_a, t_stack *stack_b);
 //  lis_filtering
-int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
+int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b, \
+	t_node *lis_head);
 
 //  sorting_algo_i.c
 void	sort_numbers(t_stack *stack_a, t_stack *stack_b);

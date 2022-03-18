@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "./push_swap.h"
+#define typecheck(T) _Generic( (T), char: 1, int: 2, long: 3, float: 4, default: 0)
 
 /* -------------------------------------------------------------------------- */
 
@@ -28,8 +29,6 @@ void	print_stack_min(t_stack *stack_a)
 	node = stack_a->head;
 	while (i++ < stack_a->size)
 	{
-		//ft_printf("value: %5d\t| var_a: %3d | var_b: %3d | var_c: %3d |\n", \
-		//	node->value, node->var_a, node->var_b, node->var_c);
 		ft_printf("value: %d\n", node->value);
 		node = node->next;
 	}
@@ -52,7 +51,6 @@ int	main(int argc, char **argv)
 		return (0);
 	apply_lis_algo(&stack_a, &stack_b);
 	sort_numbers(&stack_a, &stack_b);
-	// print_stack_min(&stack_a);
 	return (0);
 }
 

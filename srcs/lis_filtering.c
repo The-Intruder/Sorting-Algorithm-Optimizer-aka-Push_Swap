@@ -108,7 +108,7 @@ static int	non_lis_count(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-int	sort_while_on_stack_a(t_stack *stack_a, t_stack *stack_b)
+int	sort_while_on_stack_a(t_stack *stack_a, t_stack *stack_b, t_node *lis_head)
 {
 	int		op;
 	t_node	*next;
@@ -135,6 +135,7 @@ int	sort_while_on_stack_a(t_stack *stack_a, t_stack *stack_b)
 	if (op)
 	{
 		check_exec_op(op, stack_a, stack_b);
+		lis_algo(stack_a, lis_head, get_head_distance(lis_head, stack_a));
 		return (1);
 	}
 	return (0);
@@ -142,7 +143,8 @@ int	sort_while_on_stack_a(t_stack *stack_a, t_stack *stack_b)
 
 /* -------------------------------------------------------------------------- */
 
-int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
+int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b, \
+	t_node *lis_head)
 {
 	t_node	*node;
 	int		index;
@@ -158,11 +160,11 @@ int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
 			op = RA;
 		else if ((t_uint)index > (stack_a->size / 2))
 			op = RRA;
-		if (sort_while_on_stack_a(stack_a, stack_b))
+		if (sort_while_on_stack_a(stack_a, stack_b, lis_head))
 				continue ;
 		while (stack_a->head != node && stack_a->size)
 		{
-			recheck = sort_while_on_stack_a(stack_a, stack_b);
+			recheck = sort_while_on_stack_a(stack_a, stack_b, lis_head);
 			if (recheck)
 				break ;
 			check_exec_op(op, stack_a, stack_b);
