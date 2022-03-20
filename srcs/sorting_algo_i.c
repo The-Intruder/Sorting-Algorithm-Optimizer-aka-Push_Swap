@@ -63,10 +63,10 @@ static int	get_best_moves_head_a(t_stack *stack_a, int value)
 
 	update_stacka_number_diff(stack_a, value);
 	lowst_varc_node = get_lowest_var_c_node(stack_a);
+	if (lowst_varc_node && lowst_varc_node->value < value)
+		lowst_varc_node = lowst_varc_node->next;
 	index = get_node_index(lowst_varc_node, stack_a);
 	moves = count_head_distance(index, stack_a);
-	if (lowst_varc_node && lowst_varc_node->value < value)
-		moves += 1;
 	return (moves);
 }
 

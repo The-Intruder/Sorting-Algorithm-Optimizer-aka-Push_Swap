@@ -48,7 +48,7 @@ CC_FLAGS := -Wall -Wextra -Werror
 #	-Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
-NB_LIST := 615382396 2120813508 2114238543
+NB_LIST := 1283128697 -1888928943 1004829373 1624180130 325052310
 
 #NB_LIST := 1861976769 -343798644 -1634469158 -1407278190 -1763699739
 

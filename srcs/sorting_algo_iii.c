@@ -16,7 +16,14 @@
 
 int	calcul_number_diff(int nb1, int nb2)
 {
-	if (are_same_sign(nb1, nb2))
+	if (nb1 >= 0 && nb2 >= 0)
+	{
+		if (nb1 > nb2)
+			return (nb1 - nb2);
+		else
+			return (nb2 - nb1);
+	}
+	else if (nb1 < 0 && nb2 < 0)
 	{
 		if (abs(nb1) > abs(nb2))
 			return (abs(nb1) - abs(nb2));
