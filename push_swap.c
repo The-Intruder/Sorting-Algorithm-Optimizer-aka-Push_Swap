@@ -18,6 +18,30 @@
 
 /* -------------------------------------------------------------------------- */
 
+void	sort_with_index(t_stack *stack)
+{
+	t_node	*node_i;
+	t_node	*node_j;
+	t_uint	i;
+	t_uint	j;
+
+	i = 0;
+	node_i = stack->head;
+	while (i++ < stack->size)
+	{
+		node_i->index = 0;
+		node_j = node_i->next;
+		j = 0;
+		while (j++ < stack->size)
+		{
+			if (node_i->value > node_j->value)
+				node_i->index += 1;
+			node_j = node_j->next;
+		}
+		node_i = node_i->next;
+	}
+}
+
 /* -------------------------------------------------------------------------- */
 
 void	print_stack_min(t_stack *stack_a)
@@ -44,13 +68,15 @@ int	main(int argc, char **argv)
 	reset_stack(&stack_a);
 	reset_stack(&stack_b);
 	err = init_stack(&stack_a, argc, argv);
-	if (err)
-		return (-1);
+	if (err < 0)
+		return (err);
+	else if (err == 3)
+		return (0);
 	if (!stack_b.size && stack_is_sorted(&stack_a))
 		return (0);
+	sort_with_index(&stack_a);
 	apply_lis_algo(&stack_a, &stack_b);
 	sort_numbers(&stack_a, &stack_b);
-	//print_stack_min(&stack_a);
 	return (0);
 }
 

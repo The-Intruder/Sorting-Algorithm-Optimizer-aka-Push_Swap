@@ -70,9 +70,10 @@ typedef unsigned int	t_uint;
 typedef struct s_node {
 	struct s_node	*prev;
 	int				value;
-	int				var_a;
-	int				var_b;
-	int				var_c;
+	long long		var_a;
+	long long		var_b;
+	long long		var_c;
+	long			index;
 	struct s_node	*prev_lis;
 	struct s_node	*next_lis;
 	struct s_node	*next;
@@ -88,6 +89,7 @@ typedef struct s_stack {
 void	print_stack_min(t_stack *stack_a);
 // init_stack.c
 int		init_stack(t_stack	*stack, int argc, char **argv);
+int		stack_is_sorted_from_node(t_node *node, t_uint stack_size);
 
 // error_handling.c
 int		handle_err(int argc, char **argv);
@@ -122,7 +124,7 @@ void	calcul_optimized_moves(t_node *node, t_stack *stack_a, t_stack *stack_b);
 void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b);
 void	exec_condit_push(t_node *node, t_stack *stack_a, t_stack *stack_b);
 //  sorting_algo_iii.c
-int		calcul_number_diff(int nb1, int nb2);
+long long	calcul_number_diff(int nb1, int nb2);
 int		calcul_total_moves(int var_a, int var_b);
 int		get_index_from_head_moves(int moves, int stack_size);
 int		get_node_index(t_node *node, t_stack *stack);

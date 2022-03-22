@@ -39,15 +39,17 @@ void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
 	int		index;
+	int		i;
 	int		op;
 
+	i = 0;
 	node = get_lowest_value_node(stack_a);
 	index = get_node_index(node, stack_a);
 	if ((t_uint)index > (stack_a->size / 2))
 		op = RRA;
 	else
 		op = RA;
-	while (stack_a->head != node)
+	while (node != stack_a->head && i++ <= abs(index))
 		check_exec_op(op, stack_a, stack_b);
 }
 

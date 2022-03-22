@@ -85,9 +85,10 @@ static void	reset_stack_vars(t_stack *stack, int mask)
 
 int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 {
-	t_node	*node;
-	t_uint	k;
-	t_node	*lis_head;
+	t_node		*node;
+	t_uint		k;
+	t_node		*lis_head;
+	long long	i;
 
 	k = 0;
 	lis_head = stack_a->head;
@@ -103,7 +104,8 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 	lis_algo(stack_a, lis_head, get_head_distance(lis_head, stack_a));
 	lis_head = get_highst_lis_len_node(stack_a);
 	node = lis_head;
-	while (lis_head->var_a--)
+	i = 0;
+	while (i++ <= lis_head->var_a)
 	{
 		node->var_c = 0;
 		node = node->prev_lis;

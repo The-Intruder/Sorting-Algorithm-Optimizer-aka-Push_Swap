@@ -128,7 +128,16 @@ void	print_stack(t_stack *stack_a, t_stack *stack_b)
 		else
 			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
 		if (i < stack_b->size)
-			ft_printf("| %sn_is:% 14p\t%s|\n", CYN, node_b->next_lis, BLU);
+			ft_printf("| %snlis:% 14p\t%s|\n", CYN, node_b->next_lis, BLU);
+		else
+			ft_putchar_fd('\n', 1);
+		/*--------------------------------------------------------------------*/
+		if (i < stack_a->size)
+			ft_printf("| %sindx: %14d\t%s|\t\t||\t\t", MGN, node_a->index, BLU);
+		else
+			ft_printf("%s\t\t\t\t\t||\t\t", BLU);
+		if (i < stack_b->size)
+			ft_printf("| %sindx:% 14d\t%s|\n", MGN, node_b->index, BLU);
 		else
 			ft_putchar_fd('\n', 1);
 		/*--------------------------------------------------------------------*/

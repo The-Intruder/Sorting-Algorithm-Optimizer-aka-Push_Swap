@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-static void	update_stacka_number_diff(t_stack *stack_a, int ref_value)
+static void	update_stacka_number_diff(t_stack *stack_a, t_uint index)
 {
 	t_node	*node;
 	t_uint	i;
@@ -23,7 +23,12 @@ static void	update_stacka_number_diff(t_stack *stack_a, int ref_value)
 	node = stack_a->head;
 	while (i++ < stack_a->size)
 	{
-		node->var_c = calcul_number_diff(node->value, ref_value);
+		if (node->index > index)
+			node->var_c = node->index - index;
+		else if (node->index < index)
+			node->var_c = index - node->index;
+		else
+			node->var_c = stack_a->size;
 		node = node->next;
 	}
 }
@@ -55,15 +60,15 @@ static t_node	*get_lowest_var_c_node(t_stack *stack_a)
 
 /* -------------------------------------------------------------------------- */
 
-static int	get_best_moves_head_a(t_stack *stack_a, int value)
+static int	get_best_moves_head_a(t_stack *stack_a, t_uint sort_index)
 {
 	t_node	*lowst_varc_node;
 	t_uint	index;
 	int		moves;
 
-	update_stacka_number_diff(stack_a, value);
+	update_stacka_number_diff(stack_a, sort_index);
 	lowst_varc_node = get_lowest_var_c_node(stack_a);
-	if (lowst_varc_node && lowst_varc_node->value < value)
+	if (lowst_varc_node && lowst_varc_node->index < sort_index)
 		lowst_varc_node = lowst_varc_node->next;
 	index = get_node_index(lowst_varc_node, stack_a);
 	moves = count_head_distance(index, stack_a);
@@ -83,7 +88,7 @@ static void update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 	node = stack_b->head;
 	while (i < stack_b->size)
 	{
-		node->var_a = get_best_moves_head_a(stack_a, node->value);
+		node->var_a = get_best_moves_head_a(stack_a, node->index);
 		node->var_b = count_head_distance(i, stack_b);
 		node->var_c = calcul_total_moves(node->var_a, node->var_b);
 		if (!are_same_sign(node->var_a, node->var_b))

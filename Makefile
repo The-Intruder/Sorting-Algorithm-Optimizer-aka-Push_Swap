@@ -48,7 +48,7 @@ CC_FLAGS := -Wall -Wextra -Werror
 #	-Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
-NB_LIST := 1283128697 -1888928943 1004829373 1624180130 325052310
+NB_LIST := 1299749835 -2123657034 1143701706 1341364441 612786098
 
 #NB_LIST := 1861976769 -343798644 -1634469158 -1407278190 -1763699739
 
@@ -78,7 +78,7 @@ OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
 # ---------------------------------------------------------------------------- #
 .PHONY: all clean fclean re title libs exclean intro compile
 
-all: title ${NAME}
+all: title compile
 
 libs:
 	@make -C libs/libft/
@@ -102,21 +102,6 @@ clean:
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
-recompile: re ${HEADER} ${MAIN}
-	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
-
-compile: all ${HEADER} ${MAIN}
-	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
-
-execute: ${EXEC}
-	@./${EXEC} ${NB_LIST}
-# @./${EXEC} ${NB_LIST} | ./checker_Mac ${NB_LIST}
-# @./${EXEC} ${NB_LIST2}
-# @./${EXEC} ${NB_LIST3}
-# @./${EXEC} ${NB_LIST4}
-# @./${EXEC} ${NB_LIST5}
-#@./${EXEC} ${NB_LIST} | wc -l
-
 fclean: clean
 	@make -C libs/ft_printf/ fclean
 	@make -C libs/libft/ fclean
@@ -128,7 +113,19 @@ exclean: fclean
 	@rm -f ${EXEC}
 	@echo "${GRA}${EXEC}${RED}\texecutable file has been deleted\n${NC}"
 
-re: fclean all
+re: exclean all
+
+
+compile: ${NAME} ${HEADER} ${MAIN}
+	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}
+
+recompile: exclean all
+
+execute: ${EXEC}
+	@./${EXEC} ${NB_LIST}
+	@./${EXEC} ${NB_LIST} | ./checker_Mac ${NB_LIST}
+	@./${EXEC} ${NB_LIST} | wc -l
+
 
 intro:
 	@echo "\n${YEL}Entering ${GRA}${PROJECT}${YEL}'s makefile"
