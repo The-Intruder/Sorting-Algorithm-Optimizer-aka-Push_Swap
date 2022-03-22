@@ -69,7 +69,7 @@ static int	check_min_max_int(char **argv)
 	while (argv[i])
 	{
 		j = 0;
-		while (argv[i][j] == '-' || argv[i][j] == '0'  || argv[i][j] == '+' )
+		while (argv[i][j] == '-' || argv[i][j] == '0' || argv[i][j] == '+' )
 			++j;
 		if (ft_strlen(&argv[i][j]) > 10)
 			return (-1);

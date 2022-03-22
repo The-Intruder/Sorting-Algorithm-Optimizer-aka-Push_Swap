@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   misc_utils_ii.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,55 +10,54 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./push_swap.h"
+#include "../push_swap.h"
 
 /* -------------------------------------------------------------------------- */
 
-void	sort_with_index(t_stack *stack)
+int	is_negative(int nbr)
 {
-	t_node	*node_i;
-	t_node	*node_j;
-	t_uint	i;
-	t_uint	j;
-
-	i = 0;
-	node_i = stack->head;
-	while (i++ < stack->size)
-	{
-		node_i->index = 0;
-		node_j = node_i->next;
-		j = 0;
-		while (j++ < stack->size)
-		{
-			if (node_i->value > node_j->value)
-				node_i->index += 1;
-			node_j = node_j->next;
-		}
-		node_i = node_i->next;
-	}
+	if (nbr < 0)
+		return (1);
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
 
-int	main(int argc, char **argv)
+int	is_positive(int nbr)
 {
-	t_stack	stack_a;
-	t_stack	stack_b;
-	int		err;
-
-	reset_stack(&stack_a);
-	reset_stack(&stack_b);
-	err = init_stack(&stack_a, argc, argv);
-	if (err < 0)
-		return (err);
-	else if (err == 3)
-		return (0);
-	if (!stack_b.size && stack_is_sorted(&stack_a))
-		return (0);
-	sort_with_index(&stack_a);
-	apply_lis_algo(&stack_a, &stack_b);
-	sort_numbers(&stack_a, &stack_b);
+	if (nbr >= 0)
+		return (1);
 	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	are_same_sign(int nbr1, int nbr2)
+{
+	if ((is_positive(nbr1) && is_positive(nbr2)) ||
+		(is_negative(nbr1) && is_negative(nbr2)))
+		return (1);
+	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	stack_is_sorted(t_stack *stack)
+{
+	t_uint	i;
+	t_node	*node;
+
+	if (stack->size < 2)
+		return (1);
+	i = 0;
+	node = stack->head;
+	while ((i++) + 1 < stack->size)
+	{
+		if (node->next->value < node->value)
+			return (0);
+		node = node->next;
+	}
+	return (1);
 }
 
 /* -------------------------------------------------------------------------- */

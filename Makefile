@@ -44,19 +44,11 @@ export TITLE
 
 # ---------------------------------------------------------------------------- #
 CC := gcc
-CC_FLAGS := -Wall -Wextra -Werror
-#	-Ofast -march=native -fno-signed-zeros -fno-trapping-math
+CC_FLAGS := -Wall -Wextra -Werror \
+	-Ofast -march=native -fno-signed-zeros -fno-trapping-math
 CC_OPTS := -Llibs/libft -lft -Llibs/ft_printf -lftprintf -L. -lps
 
 NB_LIST := 1299749835 -2123657034 1143701706 1341364441 612786098
-
-#NB_LIST := 1861976769 -343798644 -1634469158 -1407278190 -1763699739
-
-# NB_LIST := -3543 -1228 1843 -3066 -3473 -1428 310 -4933 2 -3957
-# NB_LIST2 := 3181 -1978 -3211 -2547 -1733 1194 2634 528 -2601 1518
-# NB_LIST3 := 4348 -3031 -2522 -3244 1950 -505 1256 4890 4299 4036
-# NB_LIST4 := 142 -4987 4475 -100 2197 137 -1808 3463 -4465 -4905
-# NB_LIST5 := -3577 -1711 2432 -206 491 -714 760 -2705 40 -894
 
 PROJECT := push_swap
 MAIN := push_swap.c
@@ -67,8 +59,8 @@ EXEC := push_swap
 # ---------------------------------------------------------------------------- #
 SRCS_DIR := srcs/
 SRCS_LST := init_stack.c error_handling.c stack_ops_utils.c stack_ops_main.c \
-			misc_utils.c lis_algo.c lis_misc.c lis_filtering.c testing_functions.c \
-			sorting_algo_i.c sorting_algo_ii.c sorting_algo_iii.c 
+	misc_utils_i.c misc_utils_ii.c lis_algo.c lis_misc.c lis_filtering.c \
+	testing_functions.c sorting_algo_i.c sorting_algo_ii.c sorting_algo_iii.c 
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
@@ -102,19 +94,18 @@ clean:
 	@echo "${GRA}${PROJECT}${RED}\tobject files have been deleted${NC}"
 	@echo "\n"
 
-fclean: clean
+exclean:
+	@rm -f ${EXEC}
+	@echo "${GRA}${EXEC}${RED}\texecutable file has been deleted\n${NC}"
+
+fclean: clean exclean
 	@make -C libs/ft_printf/ fclean
 	@make -C libs/libft/ fclean
 	@rm -rf ${NAME}
 	@echo "${GRA}${PROJECT}${RED}\tarchive file ${GRA}${NAME}${RED}\t\thas been deleted${NC}"
 	@echo "\n"
 
-exclean: fclean
-	@rm -f ${EXEC}
-	@echo "${GRA}${EXEC}${RED}\texecutable file has been deleted\n${NC}"
-
-re: exclean all
-
+re: fclean all
 
 compile: ${NAME} ${HEADER} ${MAIN}
 	@${CC} ${CC_FLAGS} ${CC_OPTS} ${MAIN} -o ${EXEC}

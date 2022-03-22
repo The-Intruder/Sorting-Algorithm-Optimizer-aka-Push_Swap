@@ -14,6 +14,21 @@
 
 /* -------------------------------------------------------------------------- */
 
+
+void	print_stack_min(t_stack *stack_a)
+{
+	t_uint	i;
+	t_node	*node;
+	i = 0;
+	node = stack_a->head;
+	while (i++ < stack_a->size)
+	{
+		ft_printf("value: %d\n", node->value);
+		node = node->next;
+	}
+}
+
+
 void	print_stack(t_stack *stack_a, t_stack *stack_b)
 {
 	t_uint	i;

@@ -108,15 +108,14 @@ static int	non_lis_count(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b, \
-	t_node *lis_head)
+int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
 	int		index;
 	int		op;
 
 	node = NULL;
-	while (non_lis_count(stack_a) )
+	while (non_lis_count(stack_a))
 	{
 		calcul_moves_to_stackb(stack_a);
 		index = get_lowst_moves_node(&node, stack_a);
@@ -126,9 +125,7 @@ int	push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b, \
 			op = RRA;
 		while (stack_a->head != node && stack_a->size)
 			check_exec_op(op, stack_a, stack_b);
-		if (stack_is_sorted_from_node(lis_head, stack_a->size))
-			exit (0);
-		if (stack_a->head == node && stack_a->size)
+		if (stack_a->head->var_c != 0 && stack_a->head == node && stack_a->size)
 			check_exec_op(PB, stack_a, stack_b);
 	}
 	return (0);

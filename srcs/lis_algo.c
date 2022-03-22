@@ -88,6 +88,7 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 	t_node		*node;
 	t_uint		k;
 	t_node		*lis_head;
+	t_node		*lis_tail;
 	long long	i;
 
 	k = 0;
@@ -100,8 +101,8 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 		reset_stack_vars(stack_a, (VA | VB));
 		lis_head = lis_head->next;
 	}
-	lis_head = get_highst_total_lis_len_node(stack_a);
-	lis_algo(stack_a, lis_head, get_head_distance(lis_head, stack_a));
+	lis_tail = get_highst_total_lis_len_node(stack_a);
+	lis_algo(stack_a, lis_tail, get_head_distance(lis_tail, stack_a));
 	lis_head = get_highst_lis_len_node(stack_a);
 	node = lis_head;
 	i = 0;
@@ -110,7 +111,7 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 		node->var_c = 0;
 		node = node->prev_lis;
 	}
-	push_non_lis_node_to_stackb(stack_a, stack_b, lis_head);
+	push_non_lis_node_to_stackb(stack_a, stack_b);
 	return (0);
 }
 

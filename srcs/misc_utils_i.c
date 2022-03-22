@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc_utils.c                                       :+:      :+:    :+:   */
+/*   misc_utils_i.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -61,54 +61,6 @@ void	reset_stack_nodes_vars(t_stack *stack)
 		node->var_c = 0;
 		node = node->next;
 	}
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	is_negative(int nbr)
-{
-	if (nbr < 0)
-		return (1);
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	is_positive(int nbr)
-{
-	if (nbr >= 0)
-		return (1);
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	are_same_sign(int nbr1, int nbr2)
-{
-	if ((is_positive(nbr1) && is_positive(nbr2)) ||
-		(is_negative(nbr1) && is_negative(nbr2)))
-		return (1);
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	stack_is_sorted(t_stack *stack)
-{
-	t_uint	i;
-	t_node	*node;
-
-	if (stack->size < 2)
-		return (1);
-	i = 0;
-	node = stack->head;
-	while ((i++) + 1 < stack->size)
-	{
-		if (node->next->value < node->value)
-			return (0);
-		node = node->next;
-	}
-	return (1);
 }
 
 /* -------------------------------------------------------------------------- */
