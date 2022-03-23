@@ -90,12 +90,9 @@ static void update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 	{
 		node->var_a = get_best_moves_head_a(stack_a, node->index);
 		node->var_b = count_head_distance(i, stack_b);
-		node->var_c = calcul_total_moves(node->var_a, node->var_b);
 		if (!are_same_sign(node->var_a, node->var_b))
-		{
 			calcul_optimized_moves(node, stack_a, stack_b);
-			node->var_c = calcul_total_moves(node->var_a, node->var_b);
-		}
+		node->var_c = calcul_total_moves(node->var_a, node->var_b);
 		node = node->next;
 		++i;
 	}

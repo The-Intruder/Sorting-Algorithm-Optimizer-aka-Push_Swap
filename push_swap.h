@@ -74,8 +74,8 @@ typedef struct s_stack {
 
 // -------------------------------- Prototypes ------------------------------ */
 // error_handling.c
-int		handle_err(int argc, char **argv);
-int	is_all_valid_digits(char **argv);
+int		handle_err(int argc, char **new_argv);
+int		is_all_valid_digits(char **argv);
 
 // init_stack.c
 int		init_stack(t_stack	*stack, int argc, char **argv);
@@ -113,10 +113,10 @@ void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b);
 void	exec_condit_push(t_node *node, t_stack *stack_a, t_stack *stack_b);
 //  sorting_algo_iii.c
 long long	calcul_number_diff(int nb1, int nb2);
-int		calcul_total_moves(int var_a, int var_b);
-int		get_index_from_head_moves(int moves, int stack_size);
-int		get_node_index(t_node *node, t_stack *stack);
-int		count_head_distance(int index, t_stack *stack);
+int			calcul_total_moves(int var_a, int var_b);
+int			get_index_from_head_moves(int moves, int stack_size);
+int			get_node_index(t_node *node, t_stack *stack);
+int			count_head_distance(int index, t_stack *stack);
 
 //  stack_ops_main.c
 int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
@@ -127,9 +127,9 @@ int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
 long long	my_abs(int nbr);
-t_node	*get_lowst_val_addr(t_stack *stack);
-t_node	*apply_lis_algo(t_stack *stack_a);
-void	mark_lis_nodes(t_stack *stack_a);
+t_node		*get_lowst_val_addr(t_stack *stack);
+t_node		*apply_lis_algo(t_stack *stack_a);
+void		mark_lis_nodes(t_stack *stack_a);
 
 void	reset_stack_vars(t_stack *stack, int mask);
 int		swap_to_sort(t_stack *stack_a, t_stack *stack_b, t_node *lis_tail);

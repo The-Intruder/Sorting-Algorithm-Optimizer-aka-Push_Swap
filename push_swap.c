@@ -47,6 +47,8 @@ int	main(int argc, char **argv)
 	t_node	*lis_tail;
 	int		err;
 
+	if (argc <= 2)
+		return (0);
 	reset_stack(&stack_a);
 	reset_stack(&stack_b);
 	err = init_stack(&stack_a, argc, argv);

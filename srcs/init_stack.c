@@ -52,19 +52,21 @@ int	arg_is_valid(char *argv)
 	int	i;
 
 	i = 0;
-	while (argv[i] == ' ')
-		i++;
-	if ((argv[i] == '-' || argv[i] == '+') && ft_isdigit(argv[i + 1]))
-		i++;
-	if (!argv[i])
-		return (-1);
-	while(argv[i])
+	while (argv[i])
 	{
+		while (argv[i] == ' ')
+			i++;
+		if ((argv[i] == '-' || argv[i] == '+') && ft_isdigit(argv[i + 1]))
+			i++;
 		if (!ft_isdigit(argv[i]))
-			return (0);
-		i++;
+			return (-1);
+		while(ft_isdigit(argv[i]))
+			i++;
+		if (argv[i] != '-' && argv[i] != '+' && argv[i] != ' ' && \
+			!ft_isdigit(argv[i]) && argv[i] != '\0' )
+			return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -80,7 +82,7 @@ static char	**get_patched_argv(int argc, char **argv)
 	argv_concat = (char *)ft_calloc(1, sizeof(char));
 	while (i < argc)
 	{
-		if (!argv[i][0] || !arg_is_valid(argv[i]))
+		if (!argv[i][0] || arg_is_valid(argv[i]))
 			return (p_err("(Input Error, found an Invalid Argument)"), \
 			exit(-1), NULL);
 		dummy_ptr = argv_concat;
