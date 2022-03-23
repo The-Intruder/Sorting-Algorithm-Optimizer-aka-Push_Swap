@@ -10,19 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/* 
-Notes:
-LIS Algo
-var_a: lis_length
-var_b: lis_index
-var_c: lis_boolean
 
-Sorting Algo
-var_a: moves_to_head_count
-var_b: 
-var_c: 
+// Notes:
+// LIS Algo
+// var_a: lis_length
+// var_b: lis_index
+// var_c: lis_boolean
 
-*/
+// Sorting Algo
+// var_a: moves_to_head_count: stack_a
+// var_b: moves_to_head_count: stack_b
+// var_c: var_a + var_b
+
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -30,9 +29,6 @@ var_c:
 /* -------------------------------- Libraries ------------------------------- */
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <math.h>
 # include "libs/libft/libft.h"
 # include "libs/ft_printf/ft_printf.h"
 
@@ -86,26 +82,19 @@ typedef struct s_stack {
 }	t_stack;
 
 // -------------------------------- Prototypes ------------------------------ */
-void	print_stack_min(t_stack *stack_a);
-// init_stack.c
-int		init_stack(t_stack	*stack, int argc, char **argv);
-int		stack_is_sorted_from_node(t_node *node, t_uint stack_size);
-
 // error_handling.c
 int		handle_err(int argc, char **argv);
 
-//  stack_ops_main.c
-int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
-//  stack_ops_utils.c
-int		push_stack(t_stack *stack_src, t_stack *stack_dst);
-int		swap_stack(t_stack *stack);
-int		rotate_stack(t_stack *stack);
-int		rev_rotate_stack(t_stack *stack);
+// init_stack.c
+int		init_stack(t_stack	*stack, int argc, char **argv);
+int		stack_is_sorted_from_node(t_node *node, t_uint stack_size);
 
 //  lis_algo.c
 void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset);
 
 //  lis_filtering.c
+
+
 //  lis_misc.c
 t_node	*get_lowest_value_node(t_stack *stack);
 t_node	*get_highst_lis_len_node(t_stack *stack);
@@ -113,11 +102,16 @@ t_node	*get_highst_total_lis_len_node(t_stack *stack);
 t_node	*get_node_addr(t_node *start_node, t_uint stack_size, t_uint index);
 t_uint	get_head_distance(t_node *lis_head, t_stack *stack);
 
-t_node	*get_lowst_val_addr(t_stack *stack);
-int		apply_lis_algo(t_stack *stack_a, t_stack *stack_b);
+//  misc_utils_i.c
+void	reset_stack(t_stack *stack);
+void	reset_stack_nodes_vars(t_stack *stack);
+void	patch_stack(t_stack *stack);
+void	p_err(char *err_msg);
+int		is_positive(int nbr);
+int		are_same_sign(int nbr1, int nbr2);
+int		stack_is_sorted(t_stack *stack);
+//  misc_utils_ii.c
 
-int		swap_to_sort(t_stack *stack_a, t_stack *stack_b);
-int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 
 //  sorting_algo_i.c
 void	sort_numbers(t_stack *stack_a, t_stack *stack_b);
@@ -132,20 +126,27 @@ int		get_index_from_head_moves(int moves, int stack_size);
 int		get_node_index(t_node *node, t_stack *stack);
 int		count_head_distance(int index, t_stack *stack);
 
-//  misc_utils_i.c
-void	reset_stack(t_stack *stack);
-void	reset_stack_nodes_vars(t_stack *stack);
-void	patch_stack(t_stack *stack);
-void	p_err(char *err_msg);
-int		is_positive(int nbr);
-int		are_same_sign(int nbr1, int nbr2);
-int		stack_is_sorted(t_stack *stack);
-//  misc_utils_ii.c
+//  stack_ops_main.c
+int		check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b);
+//  stack_ops_utils.c
+int		push_stack(t_stack *stack_src, t_stack *stack_dst);
+int		swap_stack(t_stack *stack);
+int		rotate_stack(t_stack *stack);
+int		rev_rotate_stack(t_stack *stack);
 
+long long	abs(int nbr);
+t_node	*get_lowst_val_addr(t_stack *stack);
+t_node	*apply_lis_algo(t_stack *stack_a);
+void	mark_lis_nodes(t_stack *stack_a);
+
+void	reset_stack_vars(t_stack *stack, int mask);
+int		swap_to_sort(t_stack *stack_a, t_stack *stack_b, t_node *lis_tail);
+int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 
 /* ========================================================================== */
 //  testing_functions.c
 void	print_stack(t_stack *stack_a, t_stack *stack_b);
+void	print_stack_min(t_stack *stack_a);
 /* ========================================================================== */
 
 #endif

@@ -44,6 +44,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
 	t_stack	stack_b;
+	t_node	*lis_tail;
 	int		err;
 
 	reset_stack(&stack_a);
@@ -56,7 +57,9 @@ int	main(int argc, char **argv)
 	if (!stack_b.size && stack_is_sorted(&stack_a))
 		return (0);
 	sort_with_index(&stack_a);
-	apply_lis_algo(&stack_a, &stack_b);
+	lis_tail = apply_lis_algo(&stack_a);
+	mark_lis_nodes(&stack_a);
+	push_non_lis_node_to_stackb(&stack_a, &stack_b);
 	sort_numbers(&stack_a, &stack_b);
 	return (0);
 }

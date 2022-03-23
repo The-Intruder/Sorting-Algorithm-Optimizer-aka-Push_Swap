@@ -90,16 +90,7 @@ static int	non_lis_count(t_stack *stack)
 	while (i < stack->size)
 	{
 		if (node->var_c)
-		{
-			if (node->prev_lis)
-				node->prev_lis->next_lis = node;
 			++count;
-		}
-		else
-		{
-			node->next_lis = 0;
-			node->prev_lis = 0;
-		}
 		node = node->next;
 		i++;
 	}

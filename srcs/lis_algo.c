@@ -60,7 +60,7 @@ void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
 
 /* -------------------------------------------------------------------------- */
 
-static void	reset_stack_vars(t_stack *stack, int mask)
+void	reset_stack_vars(t_stack *stack, int mask)
 {
 	t_node	*node;
 	t_uint	i;
@@ -74,35 +74,19 @@ static void	reset_stack_vars(t_stack *stack, int mask)
 		if (mask & VB)
 			node->var_b = 0;
 		if (mask & VC)
-			node->var_b = 0;
+			node->var_c = 1;
 		node = node->next;
 	}
 }
 
 /* -------------------------------------------------------------------------- */
-/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
-/* var_a= lis_length |  var_b= lis_index |  var_c= max_lis_len_based_on_node  */
 
-int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
+void	mark_lis_nodes(t_stack *stack_a)
 {
-	t_node		*node;
-	t_uint		k;
-	t_node		*lis_head;
-	t_node		*lis_tail;
-	long long	i;
+	t_node	*lis_head;
+	t_node	*node;
+	int		i;
 
-	k = 0;
-	lis_head = stack_a->head;
-	while (k++ < stack_a->size)
-	{
-		lis_algo(stack_a, lis_head, k);
-		node = get_highst_lis_len_node(stack_a);
-		lis_head->var_c = node->var_a;
-		reset_stack_vars(stack_a, (VA | VB));
-		lis_head = lis_head->next;
-	}
-	lis_tail = get_highst_total_lis_len_node(stack_a);
-	lis_algo(stack_a, lis_tail, get_head_distance(lis_tail, stack_a));
 	lis_head = get_highst_lis_len_node(stack_a);
 	node = lis_head;
 	i = 0;
@@ -111,8 +95,33 @@ int	apply_lis_algo(t_stack *stack_a, t_stack *stack_b)
 		node->var_c = 0;
 		node = node->prev_lis;
 	}
-	push_non_lis_node_to_stackb(stack_a, stack_b);
-	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
+/* var_a= lis_length |  var_b= lis_index |  var_c= max_lis_len_based_on_node  */
+
+t_node	*apply_lis_algo(t_stack *stack_a)
+{
+	t_node		*node;
+	t_uint		k;
+	t_node		*lis_tail;
+
+	k = 0;
+	lis_tail = stack_a->head;
+	while (k++ < stack_a->size)
+	{
+		lis_algo(stack_a, lis_tail, k);
+		node = get_highst_lis_len_node(stack_a);
+		lis_tail->var_c = node->var_a;
+		reset_stack_vars(stack_a, (VA | VB));
+		lis_tail = lis_tail->next;
+	}
+	lis_tail = get_highst_total_lis_len_node(stack_a);
+	lis_algo(stack_a, lis_tail, get_head_distance(lis_tail, stack_a));
+	reset_stack_vars(stack_a, (VB | VC));
+	mark_lis_nodes(stack_a);
+	return (lis_tail);
 }
 
 /* -------------------------------------------------------------------------- */
