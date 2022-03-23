@@ -10,19 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-// Notes:
-// LIS Algo
-// var_a: lis_length
-// var_b: lis_index
-// var_c: lis_boolean
-
-// Sorting Algo
-// var_a: moves_to_head_count: stack_a
-// var_b: moves_to_head_count: stack_b
-// var_c: var_a + var_b
-
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -44,7 +31,7 @@
 # define MGN	"\033[31;0m\033[0;35;1m"	// Len: 16
 # define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
 
-// ~~~~ Sorting Operations' Masks ~~~~~~ //
+// ~~~~~~~~~~~~ Masks ~~~~~~~~~~~~ //
 # define SA		0b00000000001
 # define SB		0b00000000010
 # define SS		0b00000000100
@@ -56,9 +43,13 @@
 # define RRA	0b00100000000
 # define RRB	0b01000000000
 # define RRR	0b10000000000
+
 # define VA		0b00100000000000
 # define VB		0b01000000000000
 # define VC		0b10000000000000
+
+# define INT_MAX	2147483647
+# define INT_MIN	-2147483648
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef unsigned int	t_uint;
@@ -84,6 +75,7 @@ typedef struct s_stack {
 // -------------------------------- Prototypes ------------------------------ */
 // error_handling.c
 int		handle_err(int argc, char **argv);
+int	is_all_valid_digits(char **argv);
 
 // init_stack.c
 int		init_stack(t_stack	*stack, int argc, char **argv);
@@ -134,7 +126,7 @@ int		swap_stack(t_stack *stack);
 int		rotate_stack(t_stack *stack);
 int		rev_rotate_stack(t_stack *stack);
 
-long long	abs(int nbr);
+long long	my_abs(int nbr);
 t_node	*get_lowst_val_addr(t_stack *stack);
 t_node	*apply_lis_algo(t_stack *stack_a);
 void	mark_lis_nodes(t_stack *stack_a);
@@ -148,5 +140,16 @@ int		push_non_lis_node_to_stackb(t_stack *stack_a, t_stack *stack_b);
 void	print_stack(t_stack *stack_a, t_stack *stack_b);
 void	print_stack_min(t_stack *stack_a);
 /* ========================================================================== */
+
+// Notes:
+// LIS Algo
+// var_a: lis_length
+// var_b: lis_index
+// var_c: lis_boolean
+
+// Sorting Algo
+// var_a: moves_to_head_count: stack_a
+// var_b: moves_to_head_count: stack_b
+// var_c: var_a + var_b
 
 #endif

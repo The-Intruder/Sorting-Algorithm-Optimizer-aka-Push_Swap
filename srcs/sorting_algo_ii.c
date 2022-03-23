@@ -49,7 +49,7 @@ void	push_lowest_to_head(t_stack *stack_a, t_stack *stack_b)
 		op = RRA;
 	else
 		op = RA;
-	while (node != stack_a->head && i++ <= abs(index))
+	while (node != stack_a->head && i++ <= my_abs(index))
 		check_exec_op(op, stack_a, stack_b);
 }
 

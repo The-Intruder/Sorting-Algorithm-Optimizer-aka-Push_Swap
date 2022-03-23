@@ -62,7 +62,7 @@ int	stack_is_sorted(t_stack *stack)
 
 /* -------------------------------------------------------------------------- */
 
-long long	abs(int nbr)
+long long	my_abs(int nbr)
 {
 	if (nbr < 0)
 		nbr *= -1;

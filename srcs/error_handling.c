@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-static int	is_all_valid_digits(char **argv)
+int	is_all_valid_digits(char **argv)
 {
 	int	i;
 	int	j;
@@ -26,8 +26,12 @@ static int	is_all_valid_digits(char **argv)
 		while (argv[i][++j])
 		{
 			if (j == 0 && (argv[i][j] == '-' || argv[i][j] == '+'))
+			{
+				if (!ft_isdigit(argv[i][j + 1]))
+					return (-1);
 				continue ;
-			else if (!ft_isdigit(argv[i][j]))
+			}
+			else if (ft_isdigit(argv[i][j]) == 0)
 				return (-1);
 		}
 	}
@@ -69,7 +73,9 @@ static int	check_min_max_int(char **argv)
 	while (argv[i])
 	{
 		j = 0;
-		while (argv[i][j] == '-' || argv[i][j] == '0' || argv[i][j] == '+' )
+		if (argv[i][j] == '-' || argv[i][j] == '+')
+			++j;
+		while (argv[i][j] == '0')
 			++j;
 		if (ft_strlen(&argv[i][j]) > 10)
 			return (-1);

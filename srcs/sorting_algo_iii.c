@@ -18,13 +18,13 @@ long long	calcul_number_diff(int nb1, int nb2)
 {
 	if ((nb1 >= 0 && nb2 >= 0) || (nb1 < 0 && nb2 < 0))
 	{
-		if (abs(nb1) > abs(nb2))
-			return (abs(nb1) - abs(nb2));
+		if (my_abs(nb1) > my_abs(nb2))
+			return (my_abs(nb1) - my_abs(nb2));
 		else
-			return (abs(nb2) - abs(nb1));
+			return (my_abs(nb2) - my_abs(nb1));
 	}
 	else
-		return (abs(nb1) + abs(nb2));
+		return (my_abs(nb1) + my_abs(nb2));
 }
 
 /* -------------------------------------------------------------------------- */
@@ -33,13 +33,13 @@ int	calcul_total_moves(int var_a, int var_b)
 {
 	if (are_same_sign(var_a, var_b))
 	{
-		if (abs(var_a) > abs(var_b))
-			return (abs(var_a));
+		if (my_abs(var_a) > my_abs(var_b))
+			return (my_abs(var_a));
 		else
-			return (abs(var_b));
+			return (my_abs(var_b));
 	}
 	else
-		return (abs(var_a) + abs(var_b));
+		return (my_abs(var_a) + my_abs(var_b));
 }
 
 /* -------------------------------------------------------------------------- */
