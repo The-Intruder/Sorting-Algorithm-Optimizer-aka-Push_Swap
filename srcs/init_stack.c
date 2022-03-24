@@ -14,63 +14,6 @@
 
 /* -------------------------------------------------------------------------- */
 
-int	trim_unwanted_chars(char **new_argv)
-{
-	int		i;
-	char	*dummy_ptr;
-
-	i = 0;
-	while (new_argv[i])
-	{
-		dummy_ptr = new_argv[i];
-		new_argv[i] = ft_strtrim(new_argv[i], "\t\n\v\f\r");
-		if (!new_argv[i++])
-			return (-1);
-		free(dummy_ptr);
-	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static void	free_newly_created_argv(char **new_argv)
-{
-	int	i;
-
-	if (!new_argv)
-		return ;
-	i = 0;
-	while (new_argv[i])
-		free(new_argv[i++]);
-	free(new_argv);
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	arg_is_valid(char *argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i])
-	{
-		while (argv[i] == ' ')
-			i++;
-		if ((argv[i] == '-' || argv[i] == '+') && ft_isdigit(argv[i + 1]))
-			i++;
-		if (!ft_isdigit(argv[i]))
-			return (-1);
-		while(ft_isdigit(argv[i]))
-			i++;
-		if (argv[i] != '-' && argv[i] != '+' && argv[i] != ' ' && \
-			!ft_isdigit(argv[i]) && argv[i] != '\0' )
-			return (-1);
-	}
-	return (0);
-}
-
-/* -------------------------------------------------------------------------- */
-
 static char	**get_patched_argv(int argc, char **argv)
 {
 	int		i;
@@ -83,8 +26,7 @@ static char	**get_patched_argv(int argc, char **argv)
 	while (i < argc)
 	{
 		if (!argv[i][0] || arg_is_valid(argv[i]))
-			return (p_err("(Input Error, found an Invalid Argument)"), \
-			exit(-1), NULL);
+			return (p_err(" "), free(argv_concat), exit(-1), NULL);
 		dummy_ptr = argv_concat;
 		argv_concat = ft_strjoin(argv_concat, argv[i++]);
 		free(dummy_ptr);
@@ -128,7 +70,6 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 	while (argv[i])
 	{
 		node = init_stack_node(argv[i]);
-		/* Add protection for all allocated nodes */
 		if (stack->tail)
 		{
 			stack->tail->next = node;
@@ -146,25 +87,7 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 
 /* -------------------------------------------------------------------------- */
 
-int	stack_is_sorted_from_node(t_node *node, t_uint stack_size)
-{
-	t_uint	i;
-
-	if (stack_size < 2)
-		return (1);
-	i = 0;
-	while ((i++) + 1 < stack_size)
-	{
-		if (node->next->value < node->value)
-			return (0);
-		node = node->next;
-	}
-	return (1);
-}
-
-/* -------------------------------------------------------------------------- */
-
-static int	handle_exeptions(t_stack *stack)
+int	handle_exeptions(t_stack *stack)
 {
 	t_node	*node;
 	int		i;
@@ -176,9 +99,9 @@ static int	handle_exeptions(t_stack *stack)
 		if (stack_is_sorted_from_node(node, stack->size))
 			push_lowest_to_head(stack, NULL);
 		else
-			check_exec_op(SA, stack, NULL);
+			check_exec_op(SA, stack, NULL, 1);
 	}
-	return (3);
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -196,8 +119,6 @@ int	init_stack(t_stack	*stack, int argc, char **argv)
 	if (err)
 		return (-1);
 	patch_stack(stack);
-	if (stack->size == 3)
-		return (handle_exeptions(stack));
 	free_newly_created_argv(new_argv);
 	return (0);
 }

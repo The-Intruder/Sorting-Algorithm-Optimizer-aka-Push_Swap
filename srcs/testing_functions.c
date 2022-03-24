@@ -14,7 +14,6 @@
 
 /* -------------------------------------------------------------------------- */
 
-
 void	print_stack_min(t_stack *stack_a)
 {
 	t_uint	i;
@@ -28,6 +27,7 @@ void	print_stack_min(t_stack *stack_a)
 	}
 }
 
+/* -------------------------------------------------------------------------- */
 
 void	print_stack(t_stack *stack_a, t_stack *stack_b)
 {

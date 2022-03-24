@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-int	is_all_valid_digits(char **argv)
+static int	is_all_valid_digits(char **argv)
 {
 	int	i;
 	int	j;
@@ -89,8 +89,6 @@ static int	check_min_max_int(char **argv)
 
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
 int	handle_err(int argc, char **new_argv)
 {
 	int	new_argc;
@@ -99,13 +97,13 @@ int	handle_err(int argc, char **new_argv)
 	while (new_argv[new_argc])
 		++new_argc;
 	if (argc < 2 || new_argc < 2)
-		return (p_err("(Input Error, not enough Arguments)"), -1);
+		return (p_err(" "), -1);
 	else if (is_all_valid_digits(new_argv))
-		return (p_err("(Input Error, found an Invalid Argument)"), -1);
+		return (p_err(" "), -1);
 	else if (check_min_max_int(new_argv))
-		return (p_err("(Input Error, found an Out-Of-Scope Argument)"), -1);
+		return (p_err(" "), -1);
 	else if (check_duplicate(new_argv))
-		return (p_err("(Input Error, found a Duplicated Argument)"), -1);
+		return (p_err(" "), -1);
 	return (0);
 }
 

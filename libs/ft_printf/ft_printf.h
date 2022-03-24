@@ -60,7 +60,6 @@ void	ft_putstr_len(char *s, size_t len, int *outpt_len);
 void	ft_puthex_adrs(unsigned long n, int *outpt_len);
 void	ft_putchar(char c, int *outpt_len);
 
-
 /* MISC_II ------------------------------------------------------------------ */
 void	get_hex_adrs_size(unsigned long n, size_t *hex_size);
 void	ft_puthex(unsigned int n, int *outpt_len, int the_case);

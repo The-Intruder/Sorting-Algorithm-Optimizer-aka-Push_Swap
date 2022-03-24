@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   misc_utils_i.c                                     :+:      :+:    :+:   */
+/*   misc_utils_iii.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,71 +14,68 @@
 
 /* -------------------------------------------------------------------------- */
 
-void	reset_stack(t_stack *stack)
+int	trim_unwanted_chars(char **new_argv)
 {
-	if (!stack)
-		return ;
-	stack->head = NULL;
-	stack->size = 0;
-	stack->tail = NULL;
-}
-
-/* -------------------------------------------------------------------------- */
-
-int	stack_is_sorted_from_node(t_node *node, t_uint stack_size)
-{
-	t_uint	i;
-
-	if (stack_size < 2)
-		return (1);
-	i = 0;
-	while ((i++) + 1 < stack_size)
-	{
-		if (node->next->value < node->value)
-			return (0);
-		node = node->next;
-	}
-	return (1);
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	patch_stack(t_stack *stack)
-{
-	if (!stack || stack->size == 0)
-		return ;
-	if (stack->head && stack->tail)
-	{
-		stack->head->prev = stack->tail;
-		stack->tail->next = stack->head;
-	}
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	p_err(char *err_msg)
-{
-	write(2, RED"ERROR\t"BLD, 36);
-	write(2, err_msg, ft_strlen(err_msg));
-	write(2, NC"\n", 9);
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	reset_stack_nodes_vars(t_stack *stack)
-{
-	t_uint	i;
-	t_node	*node;
+	int		i;
+	char	*dummy_ptr;
 
 	i = 0;
-	node = stack->head;
-	while (i++ < stack->size)
+	while (new_argv[i])
 	{
-		node->var_a = 0;
-		node->var_b = 0;
-		node->var_c = 0;
-		node = node->next;
+		dummy_ptr = new_argv[i];
+		new_argv[i] = ft_strtrim(new_argv[i], " ");
+		if (!new_argv[i] || !new_argv[i][0])
+			return (p_err(" "), exit(-1), -1);
+		free(dummy_ptr);
+		i++;
 	}
+	return (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
+void	free_newly_created_argv(char **new_argv)
+{
+	int	i;
+
+	if (!new_argv)
+		return ;
+	i = 0;
+	while (new_argv[i])
+		free(new_argv[i++]);
+	free(new_argv);
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	arg_is_valid(char *argv)
+{
+	int	i;
+	int	sign;
+	int	digit;
+
+	i = -1;
+	sign = 0;
+	digit = 0;
+	while (argv[++i])
+	{
+		if (argv[i] == '-' || argv[i] == '+')
+		{
+			sign += 1;
+			continue ;
+		}
+		if (ft_isdigit(argv[i]))
+		{
+			digit += 1;
+			continue ;
+		}
+		if (argv[i] != '-' && argv[i] != '+' && argv[i] != ' ' && \
+			!ft_isdigit(argv[i]))
+			return (-1);
+	}
+	if (digit == 0 || sign > 1)
+		return (-1);
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */

@@ -34,8 +34,8 @@ int	is_positive(int nbr)
 
 int	are_same_sign(int nbr1, int nbr2)
 {
-	if ((is_positive(nbr1) && is_positive(nbr2)) ||
-		(is_negative(nbr1) && is_negative(nbr2)))
+	if ((is_positive(nbr1) && is_positive(nbr2)) \
+		|| (is_negative(nbr1) && is_negative(nbr2)))
 		return (1);
 	return (0);
 }

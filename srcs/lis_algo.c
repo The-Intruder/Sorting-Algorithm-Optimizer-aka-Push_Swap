@@ -14,7 +14,8 @@
 
 /* -------------------------------------------------------------------------- */
 
-void	check_lis(t_node *node_i, t_node *node_j, int offset, t_stack *stack_a)
+static void	check_lis(t_node *node_i, t_node *node_j, int offset, \
+	t_stack *stack_a)
 {
 	if (node_i->var_a < node_j->var_a + 1 || \
 		(node_i->var_a == node_j->var_a + 1 && \
@@ -29,10 +30,9 @@ void	check_lis(t_node *node_i, t_node *node_j, int offset, t_stack *stack_a)
 }
 
 /* -------------------------------------------------------------------------- */
-/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
 /*   node[0] == node_i     node[2] == node_j     node[2] == lis_prev_node     */
 
-void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
+static void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
 {
 	t_uint	i;
 	t_uint	j;
@@ -60,7 +60,7 @@ void	lis_algo(t_stack *stack_a, t_node *lis_head, int offset)
 
 /* -------------------------------------------------------------------------- */
 
-void	reset_stack_vars(t_stack *stack, int mask)
+static void	reset_stack_vars(t_stack *stack, int mask)
 {
 	t_node	*node;
 	t_uint	i;
@@ -81,7 +81,7 @@ void	reset_stack_vars(t_stack *stack, int mask)
 
 /* -------------------------------------------------------------------------- */
 
-void	mark_lis_nodes(t_stack *stack_a)
+static void	mark_lis_nodes(t_stack *stack_a)
 {
 	t_node	*lis_head;
 	t_node	*node;
@@ -98,7 +98,6 @@ void	mark_lis_nodes(t_stack *stack_a)
 }
 
 /* -------------------------------------------------------------------------- */
-/* - - - - - - - - - - NOT AN ERROR, JUST A VARIABLES GUIDE - - - - - - - - - */
 /* var_a= lis_length |  var_b= lis_index |  var_c= max_lis_len_based_on_node  */
 
 t_node	*apply_lis_algo(t_stack *stack_a)

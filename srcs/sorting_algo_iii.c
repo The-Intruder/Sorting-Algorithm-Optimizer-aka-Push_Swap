@@ -14,21 +14,6 @@
 
 /* -------------------------------------------------------------------------- */
 
-long long	calcul_number_diff(int nb1, int nb2)
-{
-	if ((nb1 >= 0 && nb2 >= 0) || (nb1 < 0 && nb2 < 0))
-	{
-		if (my_abs(nb1) > my_abs(nb2))
-			return (my_abs(nb1) - my_abs(nb2));
-		else
-			return (my_abs(nb2) - my_abs(nb1));
-	}
-	else
-		return (my_abs(nb1) + my_abs(nb2));
-}
-
-/* -------------------------------------------------------------------------- */
-
 int	calcul_total_moves(int var_a, int var_b)
 {
 	if (are_same_sign(var_a, var_b))
@@ -49,7 +34,7 @@ int	get_index_from_head_moves(int moves, int stack_size)
 	int	index;
 
 	index = moves;
-	if (moves < 0 )
+	if (moves < 0)
 		index = stack_size + moves;
 	return (index);
 }

@@ -48,7 +48,7 @@ static t_node	*get_lowest_var_c_node(t_stack *stack_a)
 	i = 0;
 	while (i < stack_a->size)
 	{
-		if (!node && tracer->var_c >= 0 )
+		if (!node && tracer->var_c >= 0)
 			node = tracer;
 		else if (tracer->var_c >= 0 && tracer->var_c < node->var_c)
 			node = tracer;
@@ -77,7 +77,7 @@ static int	get_best_moves_head_a(t_stack *stack_a, t_uint sort_index)
 
 /* -------------------------------------------------------------------------- */
 
-static void update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
+static void	update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 {
 	t_uint	i;
 	t_node	*node;
@@ -104,7 +104,7 @@ static void update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 void	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 {
 	t_node	*node;
-	int i;
+	int		i;
 
 	i = 0;
 	while (stack_b->size)
@@ -112,7 +112,6 @@ void	sort_numbers(t_stack *stack_a, t_stack *stack_b)
 		update_sorting_moves(stack_a, stack_b);
 		node = get_lowest_var_c_node(stack_b);
 		exec_condit_push(node, stack_a, stack_b);
-		//print_stack(stack_a, stack_b);
 	}
 	push_lowest_to_head(stack_a, stack_b);
 }
