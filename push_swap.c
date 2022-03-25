@@ -14,26 +14,6 @@
 
 /* -------------------------------------------------------------------------- */
 
-void	free_stack(t_stack	*stack)
-{
-	int		i;
-	t_node	*ptr;
-	t_node	*node;
-
-	if (stack->size == 0)
-		return ;
-	i = 0;
-	node = stack->head;
-	while (i++ < stack->size)
-	{
-		ptr = node;
-		node = node->next;
-		free(ptr);
-	}
-}
-
-/* -------------------------------------------------------------------------- */
-
 void	sort_with_index(t_stack *stack)
 {
 	t_node	*node_i;
@@ -67,7 +47,7 @@ int	main(int argc, char **argv)
 	t_node	*lis_tail;
 	int		err;
 
-	if (argc <= 2)
+	if (argc == 1)
 		return (0);
 	reset_stack(&stack_a);
 	reset_stack(&stack_b);
@@ -84,6 +64,7 @@ int	main(int argc, char **argv)
 	lis_tail = apply_lis_algo(&stack_a);
 	push_non_lis_node_to_stackb(&stack_a, &stack_b);
 	sort_numbers(&stack_a, &stack_b);
+	free_exit(&stack_a, &stack_b);
 	return (0);
 }
 

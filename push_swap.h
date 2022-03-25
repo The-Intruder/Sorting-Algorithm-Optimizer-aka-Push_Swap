@@ -111,6 +111,7 @@ long long	my_abs(int nbr);
 int			trim_unwanted_chars(char **new_argv);
 void		free_newly_created_argv(char **new_argv);
 int			arg_is_valid(char *argv);
+void		free_exit(t_stack *stack_a, t_stack *stack_b);
 
 /*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  sorting_algo_i.c */
 void		sort_numbers(t_stack *stack_a, t_stack *stack_b);

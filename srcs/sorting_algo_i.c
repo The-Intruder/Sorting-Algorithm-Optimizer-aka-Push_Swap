@@ -83,7 +83,7 @@ static void	update_sorting_moves(t_stack *stack_a, t_stack *stack_b)
 	t_node	*node;
 
 	if (!stack_a || !stack_b)
-		return (exit(-1));
+		return (free_exit(stack_a, stack_b));
 	i = 0;
 	node = stack_b->head;
 	while (i < stack_b->size)

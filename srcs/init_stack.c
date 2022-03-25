@@ -70,6 +70,8 @@ static int	link_stack_nodes(t_stack *stack, char **argv)
 	while (argv[i])
 	{
 		node = init_stack_node(argv[i]);
+		if (!node)
+			return (free_exit(stack, NULL), 0);
 		if (stack->tail)
 		{
 			stack->tail->next = node;
