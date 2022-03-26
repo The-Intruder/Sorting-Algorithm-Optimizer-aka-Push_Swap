@@ -97,6 +97,7 @@ int	main(int argc, char **argv)
 	err = execute_operations(&stack_a, &stack_b);
 	if (err)
 		return (-1);
+	free_exit(&stack_a, &stack_b);
 	return (0);
 }
 

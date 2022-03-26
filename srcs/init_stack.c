@@ -25,8 +25,8 @@ static char	**get_patched_argv(int argc, char **argv)
 	argv_concat = (char *)ft_calloc(1, sizeof(char));
 	while (i < argc)
 	{
-		if (!argv[i][0] || arg_is_valid(argv[i]))
-			return (p_err(" "), free(argv_concat), exit(-1), NULL);
+		if (!argv[i][0] || !arg_is_valid(argv[i]))
+			return (p_err(""), free(argv_concat), exit(-1), NULL);
 		dummy_ptr = argv_concat;
 		argv_concat = ft_strjoin(argv_concat, argv[i++]);
 		free(dummy_ptr);

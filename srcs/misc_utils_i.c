@@ -58,9 +58,9 @@ void	patch_stack(t_stack *stack)
 
 void	p_err(char *err_msg)
 {
-	write(2, RED"ERROR\t"BLD, 36);
+	write(2, RED"ERROR\t"BLD, 33);
 	write(2, err_msg, ft_strlen(err_msg));
-	write(2, NC"\n", 9);
+	write(2, NC"\n", 8);
 }
 
 /* -------------------------------------------------------------------------- */

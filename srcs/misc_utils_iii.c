@@ -39,7 +39,7 @@ int	trim_unwanted_chars(char **new_argv)
 		dummy_ptr = new_argv[i];
 		new_argv[i] = ft_strtrim(new_argv[i], " ");
 		if (!new_argv[i] || !new_argv[i][0])
-			return (p_err(" "), free_newly_created_argv(new_argv), \
+			return (p_err("5 "), free_newly_created_argv(new_argv), \
 				exit(-1), 0);
 		free(dummy_ptr);
 		i++;
@@ -52,25 +52,24 @@ int	trim_unwanted_chars(char **new_argv)
 int	arg_is_valid(char *argv)
 {
 	int	i;
-	int	sign;
 	int	digit;
+	int	sign;
 
 	i = -1;
-	sign = 0;
 	digit = 0;
+	sign = 0;
 	while (argv[++i])
 	{
-		if (argv[i] == '-' || argv[i] == '+')
-			sign += 1;
-		else if (ft_isdigit(argv[i]))
-			digit += 1;
-		else if (argv[i] != '-' && argv[i] != '+' && argv[i] != ' ' && \
-			!ft_isdigit(argv[i]))
-			return (-1);
+		if (ft_isdigit(argv[i]))
+			++digit;
+		else if (argv[i] == '-' || argv[i] == '+')
+			++sign;
+		else if (argv[i] != ' ')
+			return (0);
 	}
-	if (digit == 0 || sign > 1)
-		return (-1);
-	return (0);
+	if (!digit)
+		return (0);
+	return (1);
 }
 
 /* -------------------------------------------------------------------------- */

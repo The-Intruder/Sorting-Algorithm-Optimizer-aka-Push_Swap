@@ -18,22 +18,26 @@ static int	is_all_valid_digits(char **argv)
 {
 	int	i;
 	int	j;
+	int	sign;
+	int	digit;
 
-	i = 0;
+	i = -1;
 	while (argv[++i])
 	{
+		sign = 0;
+		digit = 0;
 		j = -1;
 		while (argv[i][++j])
 		{
-			if (j == 0 && (argv[i][j] == '-' || argv[i][j] == '+'))
-			{
-				if (!ft_isdigit(argv[i][j + 1]))
-					return (-1);
-				continue ;
-			}
-			else if (ft_isdigit(argv[i][j]) == 0)
+			if (j == 0 && (argv[i][j] == '+' || argv[i][j] == '-'))
+				++sign;
+			else if (ft_isdigit(argv[i][j]))
+				++digit;
+			else
 				return (-1);
 		}
+		if (sign && !digit)
+			return (-1);
 	}
 	return (0);
 }
@@ -94,16 +98,17 @@ int	handle_err(int argc, char **new_argv)
 	int	new_argc;
 
 	new_argc = 0;
+	argc = 0;
 	while (new_argv[new_argc])
 		++new_argc;
-	if (argc < 2 || new_argc < 2)
-		return (p_err(" "), -1);
-	else if (is_all_valid_digits(new_argv))
-		return (p_err(" "), -1);
+	if (is_all_valid_digits(new_argv))
+		return (p_err(""), -1);
 	else if (check_min_max_int(new_argv))
-		return (p_err(" "), -1);
+		return (p_err(""), -1);
 	else if (check_duplicate(new_argv))
-		return (p_err(" "), -1);
+		return (p_err(""), -1);
+	else if (new_argc <= 1)
+		return (-1);
 	return (0);
 }
 

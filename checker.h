@@ -87,6 +87,9 @@ void		patch_stack(t_stack *stack);
 void		p_err(char *err_msg);
 void		reset_stack_nodes_vars(t_stack *stack);
 
+/*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  misc_utils_iii.c */
+void		free_exit(t_stack *stack_a, t_stack *stack_b);
+
 /*  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  stack_ops_main.c */
 int			check_exec_op(int op_mask, t_stack *stack_a, t_stack *stack_b, \
 	int print);
