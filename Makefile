@@ -79,7 +79,7 @@ OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
 # ---------------------------------------------------------------------------- #
 .PHONY: all clean fclean re title libs exclean intro
 
-all: title ${NAME} ${EXEC_CK} ${EXEC_PS}
+all: title ${NAME} ${EXEC_PS}
 
 libs:
 	@make -C libs/libft/
@@ -124,7 +124,7 @@ fclean: clean
 
 bonus: all ${EXEC_CK}
 
-re: fclean all
+re: fclean all ${EXEC_CK}
 
 execute: ${EXEC_PS}
 	@./${EXEC_PS} ${NB_LIST}
