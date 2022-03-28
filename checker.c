@@ -66,7 +66,7 @@ static int	execute_operations(t_stack *stack_a, t_stack *stack_b)
 		free(dummy_ptr);
 		int_op = str_to_int_op_i(str_op);
 		if (int_op == -1)
-			return (ft_printf("%sERROR%s\n", RED, NC), -1);
+			return (write(2, RED"ERROR\n"NC, 29), -1);
 		check_exec_op(int_op, stack_a, stack_b, 0);
 		dummy_ptr = str_op;
 		str_op = get_next_line(0, 1);

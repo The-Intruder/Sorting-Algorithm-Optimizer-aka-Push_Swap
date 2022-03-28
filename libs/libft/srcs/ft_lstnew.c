@@ -17,7 +17,7 @@ t_list	*ft_lstnew(void *content)
 
 	ptr = (t_list *)malloc(sizeof(t_list));
 	if (!ptr)
-		return (NULL);
+		return (write(2, RED"ERROR\n"NC, 29), exit(-1), NULL);
 	ptr -> content = content;
 	ptr -> next = NULL;
 	return (ptr);

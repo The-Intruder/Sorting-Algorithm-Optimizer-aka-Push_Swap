@@ -16,6 +16,17 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+
+# define NC		"\033[31;0m"				// Len: 7
+# define BLD	"\033[31;0m\033[1m"			// Len: 11
+# define RED	"\033[31;0m\033[0;31;1m"	// Len: 16
+# define YEL	"\033[31;0m\033[0;33;1m"	// Len: 16
+# define GRA	"\033[31;0m\033[0;37;1m"	// Len: 16
+# define CYN	"\033[31;0m\033[0;36;1m"	// Len: 16
+# define GRN	"\033[31;0m\033[0;32;1m"	// Len: 16
+# define MGN	"\033[31;0m\033[0;35;1m"	// Len: 16
+# define BLU	"\033[31;0m\033[0;34;1m"	// Len: 16
+
 /* Macros, Variables, Structs, ..., etc */
 typedef struct s_list
 {
