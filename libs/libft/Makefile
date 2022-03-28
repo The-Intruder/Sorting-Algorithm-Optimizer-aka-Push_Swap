@@ -20,7 +20,7 @@ MGN := \033[0;35;1m
 BLU := \033[0;34;1m
 
 CC := gcc
-FLAGS := -Wall -Wextra -Werror -Ofast -march=native -fno-signed-zeros -fno-trapping-math
+FLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := srcs/
 SRCS_LST := ft_atoi.c ft_atol.c ft_bzero.c ft_calloc.c ft_isalnum.c \

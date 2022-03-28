@@ -20,8 +20,7 @@ MGN := \033[0;35;1m
 BLU := \033[0;34;1m
 
 CC := gcc
-FLAGS := -Wall -Wextra -Werror -Ofast -march=native -fno-signed-zeros \
-	-fno-trapping-math
+FLAGS := -Wall -Wextra -Werror
 
 SRCS_DIR := ./
 SRCS_LST := get_next_line.c
