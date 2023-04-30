@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-
+/* Color Codes */
 # define NC		"\033[31;0m"				// Len: 7
 # define BLD	"\033[31;0m\033[1m"			// Len: 11
 # define RED	"\033[31;0m\033[0;31;1m"	// Len: 16

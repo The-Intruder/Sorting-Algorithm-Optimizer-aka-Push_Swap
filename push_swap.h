@@ -138,8 +138,4 @@ int			swap_stack(t_stack *stack);
 int			rotate_stack(t_stack *stack);
 int			rev_rotate_stack(t_stack *stack);
 
-/*														  testing_functions.c */
-void		print_stack(t_stack *stack_a, t_stack *stack_b);
-void		print_stack_min(t_stack *stack_a);
-
 #endif

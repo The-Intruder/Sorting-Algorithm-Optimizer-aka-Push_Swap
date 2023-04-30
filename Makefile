@@ -67,8 +67,7 @@ EXEC_CK := checker
 SRCS_DIR := srcs/
 SRCS_LST := init_stack.c error_handling.c stack_ops_utils.c stack_ops_main.c \
 	misc_utils_i.c misc_utils_ii.c misc_utils_iii.c lis_algo.c lis_misc.c \
-	lis_filtering.c testing_functions.c sorting_algo_i.c sorting_algo_ii.c \
-	sorting_algo_iii.c 
+	lis_filtering.c sorting_algo_i.c sorting_algo_ii.c sorting_algo_iii.c 
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
