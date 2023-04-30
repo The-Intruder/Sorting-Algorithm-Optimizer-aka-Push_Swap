@@ -13,7 +13,14 @@
   </p>
 </p>
 
-![License](https://img.shields.io/github/license/The-Intruder/Sorting-Algorithm-Optimizer-aka-Push_Swap) 
+<div  style="display: flex; justify-content: center;">
+<a  href="https://twitter.com/i_am_amine" target="_blank">
+  <img  alt="Twitter Follow"  src="https://img.shields.io/twitter/follow/i_am_amine?style=social">
+</a>
+<img  src="https://img.shields.io/github/repo-size/The-Intruder/Sorting-Algorithm-Optimizer-aka-Push_Swap"  alt="Repo Size">
+<img  src="https://img.shields.io/github/last-commit/The-Intruder/Sorting-Algorithm-Optimizer-aka-Push_Swap"  alt="Last Commit">
+<img alt="GitHub" src="https://img.shields.io/github/license/The-Intruder/Sorting-Algorithm-Optimizer-aka-Push_Swap">
+</div>
 
 ## Table Of Contents
 
