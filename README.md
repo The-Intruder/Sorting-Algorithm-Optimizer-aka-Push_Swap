@@ -31,7 +31,6 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-      - [Example](#example)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
   - [Creating A Pull Request](#creating-a-pull-request)
@@ -40,8 +39,6 @@
 - [Acknowledgements](#acknowledgements)
 
 ## About The Project
-
-![Screen Shot](images/screenshot.png)
 
 The Push_swap project is a sorting algorithm implementation that aims to sort a stack of integers using a limited set of predefined operations. The project focuses on finding an optimal solution to sort the stack with the fewest possible operations.
 
@@ -127,7 +124,7 @@ Once you have built the project, you can use the Push_swap program as follows:
 
 Replace `[list_of_integers]` with the list of integers that you want to sort. The program will output a series of operations that will sort the given list using the fewest possible operations.
 
-##### Example
+**Example:**
 Here's an example usage of the Push_swap program:
 
 ```shell
